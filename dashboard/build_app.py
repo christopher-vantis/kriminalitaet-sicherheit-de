@@ -23,7 +23,7 @@ import re
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from flaggen_util import flaggen_laden
+from wappen_util import wappen_laden
 import plotly.io as pio
 from plotly.offline import get_plotlyjs
 
@@ -258,6 +258,18 @@ def diagramme(laender, basis):
                        name="2024", marker_color=TEAL_H1,
                        hovertemplate="%{y}: %{x:.1f} %<extra>2024</extra>"))
     f.update_xaxes(ticksuffix=" %")
+    _pmk = diagramm_pmk()
+    if _pmk is not None:
+        figs.append(("pmk", "Politisch motivierte Kriminalität",
+                     "Zwei Zahlen, die weit auseinanderlaufen: Das Gesamtaufkommen hat "
+                     "sich seit 2016 mehr als verdoppelt, die Gewalttaten blieben "
+                     "praktisch unverändert. Ein großer Teil der Fälle sind "
+                     "Propagandadelikte. Beide Felder haben eine eigene Skala "
+                     "(links bis rund 86.000, rechts bis rund 4.200 Fälle) — die "
+                     "Linienhöhen sind nur innerhalb eines Feldes vergleichbar.",
+                     _pmk,
+                     "BKA, Bundesweite Fallzahlen zur politisch motivierten "
+                     "Kriminalität 2025 (Fact Sheet); eigene Aufbereitung."))
     figs.append(("delikte", "Wovor Deutschland sich fürchtet",
                  "Anteil „beunruhigt“ je Delikt, SKiD 2020 und 2024.",
                  f, "BKA, SKiD 2024/2020"))
@@ -389,6 +401,81 @@ def diagramme(laender, basis):
 
 
 # ---------------------------------------------------------------- Zusammenhänge
+def diagramm_pmk():
+    """Politisch motivierte Kriminalität: Gesamtaufkommen und Gewalttaten.
+
+    Zwei Felder nebeneinander, weil der Unterschied die eigentliche Aussage ist:
+    Das Gesamtaufkommen hat sich seit 2016 mehr als verdoppelt, die Zahl der
+    Gewalttaten blieb im selben Zeitraum praktisch unverändert.
+
+    Returns:
+        plotly.graph_objects.Figure: Figur mit zwei Feldern.
+    """
+    pfad = OUT / "pmk_zeitreihe.csv"
+    if not pfad.exists():
+        return None
+    daten = lies(pfad, delim=";")
+    namen = {
+        "rechts": "rechts",
+        "links": "links",
+        "sonstige_zuordnung": "sonstige Zuordnung",
+        "auslaendische_ideologie": "ausländische Ideologie",
+        "religioese_ideologie": "religiöse Ideologie",
+    }
+    farben = {
+        "rechts": "#0b4f49",
+        "links": "#3d9a92",
+        "sonstige_zuordnung": "#9fd3ce",
+        "auslaendische_ideologie": "#c9a86a",
+        "religioese_ideologie": "#e0cdab",
+    }
+
+    f = make_subplots(
+        rows=1, cols=2, horizontal_spacing=0.1,
+        subplot_titles=("Alle politisch motivierten Straftaten",
+                        "Davon Gewalttaten"),
+    )
+    for spalte, art in ((1, "gesamt"), (2, "gewalt")):
+        for feld in ("rechts", "links", "sonstige_zuordnung",
+                     "auslaendische_ideologie", "religioese_ideologie"):
+            klein = feld in ("auslaendische_ideologie", "religioese_ideologie")
+            reihe = sorted(
+                (int(float(r["jahr"])), z(r["faelle"]))
+                for r in daten
+                if r["art"] == art and r["bereich"] == feld and r["faelle"])
+            if not reihe:
+                continue
+            f.add_trace(go.Scatter(
+                x=[j for j, _ in reihe], y=[w for _, w in reihe],
+                mode="lines+markers", name=namen[feld],
+                line=dict(color=farben[feld], width=1.8 if klein else 2.6,
+                          dash="dot" if klein else "solid"),
+                marker=dict(size=4 if klein else 5.5, color=farben[feld]),
+                legendgroup=feld, showlegend=(spalte == 1),
+                hovertemplate="%{y:,.0f} Fälle im Jahr %{x}<extra>"
+                              + namen[feld] + "</extra>",
+            ), row=1, col=spalte)
+
+    # Beide Felder haben eine eigene Skala (links bis rund 86.000, rechts bis
+    # rund 4.200 Fälle). Das steht im Untertitel, damit die Höhen nicht
+    # fälschlich miteinander verglichen werden.
+    f.update_yaxes(rangemode="tozero", automargin=True, title="", row=1, col=1)
+    f.update_yaxes(rangemode="tozero", automargin=True, title="", row=1, col=2)
+    f.update_xaxes(automargin=True, dtick=2)
+    # Grundlayout übernehmen und die abweichenden Werte einzeln ersetzen —
+    # sonst kollidieren Schlüssel wie "margin" aus BASE mit den eigenen.
+    layout = dict(BASE)
+    layout.update(
+        height=420,
+        margin=dict(l=10, r=20, t=64, b=50),
+        legend=dict(orientation="h", yanchor="bottom", y=1.15, x=0,
+                    xanchor="left", font=dict(size=12)),
+        hovermode="x unified",
+    )
+    f.update_layout(**layout)
+    return f
+
+
 def diagramme_zusammenhaenge():
     """Diagramme aus den Analyseergebnissen (Skripte 18-20)."""
     figs = []
@@ -678,8 +765,8 @@ def karte_html(laender, viewbox):
             x, y = lab[0] + dx, lab[1] + dy
             if name in ZWEIZEILIG:
                 oben, unten = ZWEIZEILIG[name]
-                inhalt = (f'<tspan x="{x}" dy="-8">{oben}</tspan>'
-                          f'<tspan x="{x}" dy="17">{unten}</tspan>')
+                inhalt = (f'<tspan x="{x}" dy="-15">{oben}</tspan>'
+                          f'<tspan x="{x}" dy="31">{unten}</tspan>')
             else:
                 inhalt = name
             labels.append(
@@ -742,7 +829,7 @@ def main():
         "laender": laender,
         "texte_start": TEXTE_START,
         "modellguete": modellguete,
-        "flaggen": flaggen_laden(),
+        "wappen": wappen_laden(),
     }
 
     # Diagramme als JSON (Lazy-Rendering)
@@ -829,6 +916,10 @@ def baue_html(karte, daten, fig_json, fig_meta):
     kein Nachweis einer Straftat und keine Verurteilung. Länderwerte zur Furcht stammen aus
     gepoolten Befragungswellen mit kleinen Fallzahlen je Land; belastbare und unsichere Werte
     sind getrennt gekennzeichnet. Gruppenvergleiche sind bivariat und unadjustiert.</p>
+    <p class="credit">Erstellt von <strong>Christopher Vantis</strong> mit <strong>Hermes</strong>
+    (KI-Assistent). Auswahl der Fragen, Deutung und Prüfung der Ergebnisse liegen beim Autor;
+    Recherche, Auswertung und Umsetzung entstanden im Dialog mit dem Assistenten. Fehler wären
+    ärgerlich — Hinweise sind willkommen.</p>
   </footer>
 </div>
 
@@ -927,8 +1018,7 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .fl{stroke:#12100e;stroke-width:1.2;stroke-dasharray:4 3;pointer-events:none}
 .mk{stroke:#12100e;stroke-width:1.4;cursor:pointer;transition:fill .3s ease}
 .mk-g{pointer-events:all}
-.lbl text{font-size:23px;font-weight:600;fill:#12100e;pointer-events:none;
- paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round}
+.lbl text{font-size:23px;font-weight:600;fill:#12100e;pointer-events:none}
 .legende{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
 .legende .stufen{display:flex;gap:3px}
 .legende .stufen i{width:26px;height:11px;border-radius:3px;display:block}
@@ -948,9 +1038,9 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
  font-size:.87rem;color:var(--text);cursor:pointer;transition:background .18s ease,transform .18s ease}
 .rank-zeile:hover{background:#ece7e1;transform:translateX(2px)}
 .rank-punkt{width:11px;height:11px;border-radius:3px;flex:0 0 auto;border:1px solid rgba(18,16,14,.35)}
-.flagge{width:24px;height:16px;flex:0 0 auto;display:inline-block;vertical-align:-3px;
- border-radius:2px;box-shadow:0 0 0 1px rgba(18,16,14,.16);margin-right:7px}
-.lkopf h2 .flagge{width:34px;height:23px;vertical-align:-2px;margin-right:12px}
+.wappen{height:27px;width:auto;flex:0 0 auto;display:inline-block;vertical-align:-4px;
+ margin-right:8px}
+.lkopf h2 .wappen{height:40px;vertical-align:-6px;margin-right:12px}
 .rank-name{flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rank-wert{font-variant-numeric:tabular-nums;font-weight:650;color:var(--ink);white-space:nowrap}
 @media (min-width:1040px){
@@ -1024,6 +1114,8 @@ details li{margin:6px 0;font-size:.89rem}
 .fuss{max-width:var(--rail);margin-inline:auto;padding:30px var(--gutter) 56px;
  color:var(--muted);font-size:.86rem}
 .fuss p{margin:10px 0}
+.fuss .credit{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+ font-size:.83rem;color:var(--muted)}
 @media (max-width:640px){
  .kopf{padding:16px 14px}
  .kpi-leiste{width:100%}
@@ -1070,7 +1162,9 @@ const KENNZAHLEN = {
   dichte:  {label:'Bevölkerungsdichte', kurz:'Dichte', einheit:0,
             wert:l => l.dichte},
 };
-const STUFEN = ['#e8f3f1','#c3e2dd','#96cbc4','#5fada4','#2d8c82','#0f5f58'];
+const // Fünf Stufen, alle hell genug für schwarze Schrift ohne Rand.
+// Die dunkelste Stufe hat gegen Schwarz noch 5,1:1 Kontrast.
+STUFEN = ['#f2f8f6', '#d3e9e4', '#a8d5ce', '#74b8af', '#3d9187'];
 
 /* Farbstufen nach Rang (Quantile), nicht linear: sonst ziehen die Stadtstaaten
    das Maximum so hoch, dass alle Flächenländer in den hellsten Stufen landen. */
@@ -1125,7 +1219,7 @@ function rankingZeigen(k, grenzen){
     return '<div class="rank-gruppe"><h4>' + t + '</h4>' + eintraege.map(x =>
       '<button class="rank-zeile" data-nuts="' + x.nuts + '">'
       + '<span class="rank-punkt" style="background:' + klasseRang(x.wert, grenzen) + '"></span>'
-      + (DATEN.flaggen[x.nuts] || '')
+      + (DATEN.wappen[x.nuts] || '')
       + '<span class="rank-name">' + x.name + '</span>'
       + '<span class="rank-wert">' + nf(x.wert, k.einheit) + '</span></button>').join('') + '</div>';
   }
@@ -1235,7 +1329,7 @@ function ansichtKarte(){
 /* ---------- Ansicht: Themen ---------- */
 const THEMEN = {
   inhalt:          {ids:[], text:null},
-  kriminalitaet:   {ids:['hz','aq','zeitreihe','eu'], text:'kriminalitaet'},
+  kriminalitaet:   {ids:['hz','aq','zeitreihe','eu','pmk'], text:'kriminalitaet'},
   furcht:          {ids:['furcht','furcht_zr','delikte'], text:'furcht'},
   justiz:          {ids:['trichter'], text:'justiz'},
   methodik:        {ids:[], text:null},
@@ -1411,7 +1505,7 @@ function ansichtLand(nuts){
   <div class="view">
     <button class="zurueck" id="zurueck">← Zurück zur Deutschlandkarte</button>
     <div class="lkopf">
-      <h2>${DATEN.flaggen[l.nuts] || ''}${l.name}</h2>
+      <h2>${DATEN.wappen[l.nuts] || ''}${l.name}</h2>
       <p>${nf(l.bevoelkerung)} Einwohner</p>
       ${kacheln([
         ['Straftaten 2025', nf(ges.faelle)],
