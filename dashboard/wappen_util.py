@@ -38,7 +38,33 @@ METADATEN_ATTR = re.compile(
     r'|\s+xmlns:(?:dc|cc|rdf|svg|inkscape|sodipodi)="[^"]*"')
 
 
-def bereinige(text):
+def praefixe_ids(svg, praefix):
+    """Hängt an jede interne ID eines SVGs den NUTS-Code an.
+
+    Nötig, weil die Wappen-Dateien kurze IDs wie `a` bis `g` verwenden. Werden
+    mehrere von ihnen in dasselbe Dokument eingebettet, kollidieren diese IDs:
+    `<use href="#a">` greift dann auf das Element des zuerst eingefügten Wappens
+    zu — Hessen zeigte so die Elemente Bayerns. Der Präfix macht jede ID
+    eindeutig.
+
+    Args:
+        svg: das SVG-Markup einer Datei.
+        praefix: eindeutiges Kürzel, hier der NUTS-Code.
+
+    Returns:
+        str: SVG mit eindeutigen IDs und angepassten Verweisen.
+    """
+    ids = sorted(set(re.findall(r'id="([^"]+)"', svg)), key=len, reverse=True)
+    for kennung in ids:
+        neu = f"{praefix}-{kennung}"
+        svg = svg.replace(f'id="{kennung}"', f'id="{neu}"')
+        svg = svg.replace(f'href="#{kennung}"', f'href="#{neu}"')
+        svg = svg.replace(f'url(#{kennung})', f'url(#{neu})')
+        svg = svg.replace(f"url('#{kennung}')", f"url('#{neu}')")
+    return svg
+
+
+def bereinige(text, praefix=""):
     """Setzt eine Wappen-Datei für die Einbettung instand.
 
     Returns:
@@ -63,6 +89,8 @@ def bereinige(text):
         viewbox = f"0 0 {b} {h}"
 
     rumpf = METADATEN_ATTR.sub("", rumpf)
+    if praefix:
+        rumpf = praefixe_ids(rumpf, praefix)
     rumpf = re.sub(r"\s+", " ", rumpf).strip()
     return (f'<svg class="wappen" viewBox="{viewbox}" '
             f'preserveAspectRatio="xMidYMid meet" aria-hidden="true" '
@@ -76,7 +104,7 @@ def wappen_laden():
         return ergebnis
     for datei in sorted(WAPPEN_PFAD.glob("*.svg")):
         roh = datei.read_text(encoding="utf-8", errors="replace")
-        aufbereitet = bereinige(roh)
+        aufbereitet = bereinige(roh, praefix=datei.stem)
         if aufbereitet:
             ergebnis[datei.stem] = aufbereitet
     return ergebnis
