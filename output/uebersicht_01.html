@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Projekt 47 — Erste Übersichten: Kriminalität &amp; Wahrnehmung</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 1000px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { border-bottom: 3px solid #1f4e79; padding-bottom: .4rem; }
+  h2 { color: #1f4e79; margin-top: 2.5rem; }
+  .fig { margin: 1.5rem 0; }
+  .fig img { width: 100%; border: 1px solid #ddd; border-radius: 4px; }
+  .meta { color: #555; font-size: .9rem; }
+  .kasten { background: #f4f6f8; border-left: 4px solid #1f4e79; padding: .8rem 1rem; margin: 1rem 0; }
+  .warn { background: #fdf3f3; border-left-color: #b22222; }
+  table { border-collapse: collapse; margin: 1rem 0; }
+  th, td { border: 1px solid #ccc; padding: .4rem .7rem; text-align: right; }
+  th { background: #eef1f4; }
+  code { background: #f0f0f0; padding: 0 .25rem; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>Projekt 47 — Kriminalitätsdiskrepanz DE</h1>
+<p class="meta">Erste Übersichten: Entwicklung der registrierten Kriminalität (PKS-Hellfeld) und
+der Kriminalitätswahrnehmung (DVS/SKiD). Erstellt am 09.09.2026 · Reproduzierbar via
+<code>scripts/01_erste_uebersichten.R</code>.</p>
+
+<div class="kasten">
+<b>Was hier machbar ist (und was nicht):</b>
+Das Hellfeld (PKS) liegt als durchgehende Zeitreihe 1987–2025 vor — dafür sind
+durchgezogene Liniencharts korrekt. Die Wahrnehmungsseite existiert nur als vier
+Messpunkte (DVS 2012/2017, SKiD 2020/2024) mit Instrumentenwechsel DVS&nbsp;→&nbsp;SKiD.
+Zwischen diesen Punkten ist <i>keine</i> Linie messbar; die gestrichelten Verbindungen
+sind nur Lesehilfe. Eine durchgehende Furcht-Zeitreihe 2002–2025 ist mit diesen Daten
+nicht konstruierbar.
+</div>
+
+<h2>1. Gesamtkriminalität 1987–2025</h2>
+<div class="fig"><img src="fig01_gesamtkriminalitaet_1987-2025.png" alt="Gesamtkriminalität Fälle"></div>
+<div class="fig"><img src="fig01b_hz_1987-2025.png" alt="Gesamtkriminalität HZ"></div>
+<p class="meta">Höchststand 1993 mit 6,75 Mio. Fällen (HZ 8.337), 2025: 5,51 Mio. (HZ 6.591).
+Gestrichelt: Katalogänderungen 2011/2016 — Reihen nicht nahtlos vergleichbar. HZ-Basis ab 2024:
+Zensus 2022.</p>
+
+<h2>2. Diebstahlsdelikte, indexiert (2002 = 100)</h2>
+<div class="fig"><img src="fig02_diebstahlsdelikte_index_2002-2025.png" alt="Diebstahlsdelikte indexiert"></div>
+<p class="meta">Diebstahl insgesamt −41 % seit 2002; Wohnungseinbruch stieg bis 2015 um +29 %
+(167.136 Fälle, HZ 205,8), dann −50 % bis 2025 (82.920, HZ 99,2). Katalogbruch 2011 betrifft
+v.&nbsp;a. einfachen Diebstahl.</p>
+
+<h2>3. Wohnungseinbruch: Hellfeld vs. Furcht (Kernstück)</h2>
+<div class="fig"><img src="fig03_wed_diskrepanz.png" alt="WED Diskrepanz"></div>
+<div class="kasten warn">
+<b>Kernbefund der Diskrepanz:</b> Die registrierten Wohnungseinbrüche fallen nach 2015 auf die
+Hälfte (HZ 205,8 → 99,2), während der Anteil der Bevölkerung, der sich „ziemlich/sehr" vor
+Einbruch beunruhigt zeigt, von 2012 (18,8 %) bis 2024 (28,6 %) <i>steigt</i> und auf hohem
+Niveau bleibt. Hellfeld und Furcht driften also seit ~2017 auseinander. Achtung: Hellfeld ≠
+tatsächliche Kriminalität (Dunkelfeld, Anzeigequote WED ≈ 87 % bei vollendeten Taten).
+</div>
+
+<h2>4. Diebstahl: Hellfeld vs. Furcht</h2>
+<div class="fig"><img src="fig04_diebstahl_diskrepanz.png" alt="Diebstahl Diskrepanz"></div>
+<p class="meta">Diebstahl-Furcht nur in SKiD 2020/2024 messbar (DVS hatte kein Diebstahl-Item):
+22,1 % → 27,5 % (+5,4 PP, signifikant), bei gleichzeitig −41 % registrierter Diebstähle seit
+2002. Nur 2 Messpunkte — Aussagekraft begrenzt.</p>
+
+<h2>5. Deliktshauptgruppen 2002–2025 (fig05)</h2>
+<div class="fig"><img src="fig05_hauptgruppen_hz_2002-2025.png" alt="Hauptgruppen HZ"></div>
+<p class="meta">7 Hauptgruppen als HZ-Verläufe (freie Skalen). Eckjahre (Fälle): Sexualdelikte
+53.860 → 131.335 (+144 %, Zählbereich durch Reformen 2017/2022 erweitert!); Rohheitsdelikte
+657.426 → 963.108 (+46 %, inkl. Bedrohung ab 2021); Diebstahl 3,09 Mio → 1,81 Mio (−41 %);
+Vermögensdelikte −8 %; Sonstige StGB ±0 %; Nebengesetze −4 %; Leben −12 %.</p>
+
+<h2>6. Aufklärungsquoten 2025 (fig06)</h2>
+<div class="fig"><img src="fig06_aufklaerungsquoten_2025.png" alt="Aufklärungsquoten"></div>
+<p class="meta">Aufklärung = Tatverdächtiger ermittelt, <b>nicht</b> Verurteilung. Gesamt: 3,19 von
+5,51 Mio Fällen (58 %). Nebengesetze 92 %, Tötungsdelikte 91 %, Wohnungseinbruch nur 14 % —
+d.&nbsp;h. 86 % der registrierten Einbrüche bleiben ohne ermittelten Tatverdächtigen und damit ohne
+jede justizielle Folge.</p>
+
+<h2>7. ESS-DE: Unsicherheitsgefühl &amp; Viktimisierung 2002–2023 (fig07)</h2>
+<div class="fig"><img src="fig07_ess_unsicherheit_zeitreihe.png" alt="ESS Zeitreihe"></div>
+<div class="kasten">
+<b>Erste durchgehende Wahrnehmungs-Zeitreihe aus Mikrodaten:</b> Anteil „unsicher/sehr unsicher"
+beim abendlichen Alleingehen: 2002: 26,2 % → Minimum 2014: 22,0 % → Anstieg 2016: 27,2 % →
+2023: 25,0 %. Haushalts-Viktimisierung (5-Jahres-Fenster): 2002: 8,7 % → Spitze 2016: 12,7 % →
+2023: 8,5 %. Deutschland fehlt in ESS-Runde 10 (2020). Gewichtet mit pspwght, n je Runde ≈ 2.400–3.000.
+</div>
+
+<h2>8. ESS-DE: Unsicherheitsgefühl nach sozialen Gruppen (fig08)</h2>
+<div class="fig"><img src="fig08_ess_unsicherheit_subgruppen.png" alt="ESS Subgruppen"></div>
+<p class="meta">Migrationshintergrund (selbst oder Eltern im Ausland geboren), Bildung (ISCED),
+Haushalts-Nettoeinkommen (Terzile, ab 2008). Interpretation mit Vorsicht: Zell-n in den
+2010er-Jahren teils klein; Gruppenunterschiede konfundieren sich gegenseitig (nicht adjustiert).</p>
+
+<h2>Verwendete Quellen</h2>
+<table>
+<tr><th>Quelle</th><th>Inhalt</th><th>Fallzahl</th></tr>
+<tr><td>BKA PKS, T01-ZR „Fälle ab 1987", V1.1 (08.04.2026)</td><td>Hellfeld: Fälle &amp; HZ je Delikt, 1987–2025</td><td>—</td></tr>
+<tr><td>DVS 2012 (2014er-Bericht, BKA)</td><td>Einbruch-Furcht 18,8 %</td><td>n = 11.643</td></tr>
+<tr><td>DVS 2017 (Ergebnisbericht, Abb. 23)</td><td>Einbruch-Furcht 24,0 %</td><td>n = 6.079</td></tr>
+<tr><td>SKiD 2020 (Ergebnisbericht V1.4)</td><td>Einbruch 27,1 % · Diebstahl 22,1 %</td><td>n = 45.351</td></tr>
+<tr><td>SKiD 2024 (Ergebnisbericht, Abb. 26)</td><td>Einbruch 28,6 % · Diebstahl 27,5 %</td><td>n = 54.392</td></tr>
+</table>
+<p class="meta">Furcht-Definition einheitlich: „ziemlich oder sehr beunruhigt", Opfer des Delikts zu werden.
+Signifikanz laut Quellen: WED 2012→2017 +5,2 PP signifikant; WED 2020→2024 +1,5 PP nicht
+signifikant; Diebstahl 2020→2024 +5,4 PP signifikant.</p>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/crim_off_cat?format=TSV",
+    "rel_dir": "data/raw/eurostat",
+    "filename": "crim_off_cat.tsv",
+    "berichtsjahr": "2008-2024",
+    "quelle_institution": "Eurostat",
+    "version": "abruf aktuell",
+    "lizenz": "Eurostat, freie Nutzung mit Quellenangabe (CC BY 4.0)",
+    "format": "tsv",
+    "bemerkung": "Recorded offences by offence category - police data (2008-2024); alle Laender/Jahre; SDMX-API"
+  },
+  {
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/crim_gen?format=TSV",
+    "rel_dir": "data/raw/eurostat",
+    "filename": "crim_gen.tsv",
+    "berichtsjahr": "1993-2007",
+    "quelle_institution": "Eurostat",
+    "version": "abruf aktuell",
+    "lizenz": "Eurostat, freie Nutzung mit Quellenangabe (CC BY 4.0)",
+    "format": "tsv",
+    "bemerkung": "Crimes recorded by the police by offence category (historisch 1993-2007); SDMX-API"
+  }
+]

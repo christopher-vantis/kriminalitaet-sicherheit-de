@@ -1,0 +1,38 @@
+modell;variable;label;art;beta_lpm;beta_logit;b_logit;sd_x;n
+M1;geschlecht_f;Frau (statt Mann);binär;0.2565;0.3795;0.6883;1.0;16623
+M1;agea_c;Alter;stetig;0.0468;0.0585;0.1062;1.0;16623
+M1;eisced_c;Bildung (ISCED);stetig;-0.1286;-0.2022;-0.3668;1.0;16623
+M1;hinc;Haushaltseinkommen;stetig;-0.0534;-0.0867;-0.1573;1.0;16623
+M1;hincfel_c;Einkommenslage (schwierig hoch);stetig;0.0746;0.1002;0.1817;1.0;16623
+M1;mh;Migrationshintergrund;binär;0.0129;0.0197;0.0357;1.0;16623
+M1;stadt_land_num;Wohnort (Stadt bis Land);stetig;-0.0849;-0.1256;-0.2278;1.0;16623
+M2;geschlecht_f;Frau (statt Mann);binär;0.2568;0.3866;0.7012;1.0;16577
+M2;agea_c;Alter;stetig;0.0238;0.0274;0.0496;1.0;16577
+M2;eisced_c;Bildung (ISCED);stetig;-0.1225;-0.1962;-0.3558;1.0;16577
+M2;hinc;Haushaltseinkommen;stetig;-0.0487;-0.081;-0.147;1.0;16577
+M2;hincfel_c;Einkommenslage (schwierig hoch);stetig;0.0496;0.0645;0.117;1.0;16577
+M2;mh;Migrationshintergrund;binär;0.0103;0.0157;0.0285;1.0;16577
+M2;stadt_land_num;Wohnort (Stadt bis Land);stetig;-0.078;-0.1173;-0.2127;1.0;16577
+M2;health_c;Gesundheit (schlechter hoch);stetig;0.0996;0.1442;0.2616;1.0;16577
+M2;uempla_c;Arbeitslosigkeit (12 Monate);binär;-0.0003;-0.0009;-0.0016;1.0;16577
+M2;diskriminiert;Diskriminierungserfahrung;binär;0.0242;0.0325;0.059;1.0;16577
+M2;viktim;Viktimisierung (Haushalt);binär;0.0552;0.0787;0.1427;1.0;16577
+M3;geschlecht_f;Frau (statt Mann);binär;0.2541;0.4019;0.7289;1.0;15440
+M3;agea_c;Alter;stetig;0.01;0.0066;0.012;1.0;15440
+M3;eisced_c;Bildung (ISCED);stetig;-0.0716;-0.1259;-0.2284;1.0;15440
+M3;hinc;Haushaltseinkommen;stetig;-0.0394;-0.0698;-0.1265;1.0;15440
+M3;hincfel_c;Einkommenslage (schwierig hoch);stetig;0.0104;0.0074;0.0135;1.0;15440
+M3;mh;Migrationshintergrund;binär;0.0236;0.0391;0.071;1.0;15440
+M3;stadt_land_num;Wohnort (Stadt bis Land);stetig;-0.0927;-0.1471;-0.2669;1.0;15440
+M3;health_c;Gesundheit (schlechter hoch);stetig;0.0703;0.1076;0.1952;1.0;15440
+M3;uempla_c;Arbeitslosigkeit (12 Monate);binär;-0.0029;-0.0096;-0.0175;1.0;15440
+M3;diskriminiert;Diskriminierungserfahrung;binär;0.0145;0.0188;0.034;1.0;15440
+M3;viktim;Viktimisierung (Haushalt);binär;0.0487;0.0702;0.1273;1.0;15440
+M3;ppltrst_c;Sozialvertrauen;stetig;-0.1276;-0.1889;-0.3427;1.0;15440
+M3;trstplc_c;Vertrauen in die Polizei;stetig;0.0174;0.0247;0.0448;1.0;15440
+M3;trstlgl_c;Vertrauen in die Justiz;stetig;-0.0418;-0.0714;-0.1295;1.0;15440
+M3;trstprl_c;Vertrauen in das Parlament;stetig;0.0251;0.0314;0.057;1.0;15440
+M3;stfdem_c;Zufriedenheit mit der Demokratie;stetig;-0.0418;-0.0583;-0.1058;1.0;15440
+M3;imwbcnt_c;Zuwanderung: gut für das Land;stetig;-0.0928;-0.144;-0.2611;1.0;15440
+M3;imsmetn_c;Zuwanderung: kulturell bereichernd;stetig;0.0387;0.0508;0.0921;1.0;15440
+M3;lrscale_c;politische Orientierung (rechts hoch);stetig;0.0158;0.0268;0.0486;1.0;15440

@@ -1,0 +1,21 @@
+"pfad";"parameter";"schaetzer";"se";"z";"p_wert";"ki_lo";"ki_hi";"n"
+"Diskriminierung -> Sozialvertrauen -> Furcht";"a";-0,20344;0,03318;-6,132;8,699e-10;-0,26847;-0,13841;16237
+"Diskriminierung -> Sozialvertrauen -> Furcht";"b";-0,07274;0,00321;-22,672;0;-0,07903;-0,06645;16237
+"Diskriminierung -> Sozialvertrauen -> Furcht";"cp";0,03357;0,01358;2,472;0,01343;0,00696;0,06019;16237
+"Diskriminierung -> Sozialvertrauen -> Furcht";"indirekt";0,0148;0,0025;5,919;3,239e-09;0,0099;0,0197;16237
+"Diskriminierung -> Sozialvertrauen -> Furcht";"total";0,04837;0,01378;3,511;0,0004465;0,02137;0,07538;16237
+"Bildung -> Sozialvertrauen -> Furcht";"a";0,158;0,00797;19,814;0;0,14237;0,17363;16237
+"Bildung -> Sozialvertrauen -> Furcht";"b";-0,07312;0,00321;-22,813;0;-0,07941;-0,06684;16237
+"Bildung -> Sozialvertrauen -> Furcht";"cp";-0,03803;0,0033;-11,537;0;-0,04449;-0,03157;16237
+"Bildung -> Sozialvertrauen -> Furcht";"indirekt";-0,01155;0,00077;-14,959;0;-0,01307;-0,01004;16237
+"Bildung -> Sozialvertrauen -> Furcht";"total";-0,04958;0,00331;-14,984;0;-0,05607;-0,0431;16237
+"Viktimisierung -> Vertrauen Justiz -> Furcht";"a";-0,13594;0,02418;-5,623;1,879e-08;-0,18332;-0,08855;16237
+"Viktimisierung -> Vertrauen Justiz -> Furcht";"b";-0,04202;0,00317;-13,265;0;-0,04823;-0,03582;16237
+"Viktimisierung -> Vertrauen Justiz -> Furcht";"cp";0,06688;0,00977;6,846;7,596e-12;0,04773;0,08603;16237
+"Viktimisierung -> Vertrauen Justiz -> Furcht";"indirekt";0,00571;0,0011;5,177;2,256e-07;0,00355;0,00788;16237
+"Viktimisierung -> Vertrauen Justiz -> Furcht";"total";0,07259;0,00981;7,398;1,383e-13;0,05336;0,09182;16237
+"Zuwanderungseinstellung -> Sozialvertrauen -> Furcht";"a";0,24669;0,00749;32,923;0;0,232;0,26138;16237
+"Zuwanderungseinstellung -> Sozialvertrauen -> Furcht";"b";-0,05967;0,00328;-18,172;0;-0,0661;-0,05323;16237
+"Zuwanderungseinstellung -> Sozialvertrauen -> Furcht";"cp";-0,05305;0,00324;-16,383;0;-0,05939;-0,0467;16237
+"Zuwanderungseinstellung -> Sozialvertrauen -> Furcht";"indirekt";-0,01472;0,00093;-15,909;0;-0,01653;-0,01291;16237
+"Zuwanderungseinstellung -> Sozialvertrauen -> Furcht";"total";-0,06777;0,00317;-21,399;0;-0,07397;-0,06156;16237

@@ -1,0 +1,231 @@
+schluessel,delikt,jahr,faelle,hz
+****00,Diebstahl insgesamt,1987,2790849,4564.7
+****00,Diebstahl insgesamt,1988,2655156,4335.8
+****00,Diebstahl insgesamt,1989,2571248,4166.3
+****00,Diebstahl insgesamt,1990,2692246,4295.3
+****00,Diebstahl insgesamt,1991,2874612,4422.4
+****00,Diebstahl insgesamt,1992,3196235,4860
+****00,Diebstahl insgesamt,1993,4151087,5126.4
+****00,Diebstahl insgesamt,1994,3866336,4753.4
+****00,Diebstahl insgesamt,1995,3848308,4719.6
+****00,Diebstahl insgesamt,1996,3672655,4488.8
+****00,Diebstahl insgesamt,1997,3537610,4313.5
+****00,Diebstahl insgesamt,1998,3323989,4050.8
+****00,Diebstahl insgesamt,1999,3133418,3819.5
+****00,Diebstahl insgesamt,2000,2983269,3630.9
+****00,Diebstahl insgesamt,2001,2971727,3612.6
+****00,Diebstahl insgesamt,2002,3090154,3748.4
+****00,Diebstahl insgesamt,2003,3029390,3670.4
+****00,Diebstahl insgesamt,2004,2961030,3587.7
+****00,Diebstahl insgesamt,2005,2727048,3305.5
+****00,Diebstahl insgesamt,2006,2601902,3156.2
+****00,Diebstahl insgesamt,2007,2561691,3112.1
+****00,Diebstahl insgesamt,2008,2443280,2971.7
+****00,Diebstahl insgesamt,2009,2344646,2859.2
+****00,Diebstahl insgesamt,2010,2301786,2813.8
+****00,Diebstahl insgesamt,2011,2403781,2940.3
+****00,Diebstahl insgesamt,2012,2379725,2907.6
+****00,Diebstahl insgesamt,2013,2382743,2959.1
+****00,Diebstahl insgesamt,2014,2440060,3021.1
+****00,Diebstahl insgesamt,2015,2483694,3058.8
+****00,Diebstahl insgesamt,2016,2373774,2888.7
+****00,Diebstahl insgesamt,2017,2092994,2536.3
+****00,Diebstahl insgesamt,2018,1936315,2338.76073889966
+****00,Diebstahl insgesamt,2019,1822212,2194.92803196137
+****00,Diebstahl insgesamt,2020,1682610,2023.17727822614
+****00,Diebstahl insgesamt,2021,1483566,1784.09650283216
+****00,Diebstahl insgesamt,2022,1780783,2139.40957402613
+****00,Diebstahl insgesamt,2023,1971435,2336.9630060724517
+****00,Diebstahl insgesamt,2024,1940033,2324.6165092055344
+****00,Diebstahl insgesamt,2025,1813141,2169.4221649604187
+------,Straftaten insgesamt,1987,4444108,7268.7
+------,Straftaten insgesamt,1988,4356726,7114.4
+------,Straftaten insgesamt,1989,4358573,7062.4
+------,Straftaten insgesamt,1990,4455333,7108.2
+------,Straftaten insgesamt,1991,4752175,7310.9
+------,Straftaten insgesamt,1992,5209060,7920.6
+------,Straftaten insgesamt,1993,6750613,8336.7
+------,Straftaten insgesamt,1994,6537748,8037.7
+------,Straftaten insgesamt,1995,6668717,8178.6
+------,Straftaten insgesamt,1996,6647598,8124.9
+------,Straftaten insgesamt,1997,6586165,8030.7
+------,Straftaten insgesamt,1998,6456996,7868.9
+------,Straftaten insgesamt,1999,6302316,7682.3
+------,Straftaten insgesamt,2000,6264723,7624.7
+------,Straftaten insgesamt,2001,6363865,7736.3
+------,Straftaten insgesamt,2002,6507394,7893.5
+------,Straftaten insgesamt,2003,6572135,7962.7
+------,Straftaten insgesamt,2004,6633156,8037.1
+------,Straftaten insgesamt,2005,6391715,7747.5
+------,Straftaten insgesamt,2006,6304223,7647.2
+------,Straftaten insgesamt,2007,6284661,7634.9
+------,Straftaten insgesamt,2008,6114128,7436.5
+------,Straftaten insgesamt,2009,6054330,7383.1
+------,Straftaten insgesamt,2010,5933278,7253.2
+------,Straftaten insgesamt,2011,5990679,7327.9
+------,Straftaten insgesamt,2012,5997040,7327.4
+------,Straftaten insgesamt,2013,5961662,7403.6
+------,Straftaten insgesamt,2014,6082064,7530.3
+------,Straftaten insgesamt,2015,6330649,7796.6
+------,Straftaten insgesamt,2016,6372526,7754.8
+------,Straftaten insgesamt,2017,5761984,6982.4
+------,Straftaten insgesamt,2018,5555520,6710.185099104143
+------,Straftaten insgesamt,2019,5436401,6548.36481588467
+------,Straftaten insgesamt,2020,5310621,6385.5128285643
+------,Straftaten insgesamt,2021,5047860,6070.42044154851
+------,Straftaten insgesamt,2022,5628584,6762.1077345248
+------,Straftaten insgesamt,2023,5940667,7042.138853370977
+------,Straftaten insgesamt,2024,5837445,6994.634121470769
+------,Straftaten insgesamt,2025,5508559,6590.987679166815
+3***00,Einfacher Diebstahl,1987,1060957,1735.3
+3***00,Einfacher Diebstahl,1988,1042710,1702.7
+3***00,Einfacher Diebstahl,1989,1052319,1705.1
+3***00,Einfacher Diebstahl,1990,1147314,1830.5
+3***00,Einfacher Diebstahl,1991,1201444,1848.3
+3***00,Einfacher Diebstahl,1992,1290940,1962.9
+3***00,Einfacher Diebstahl,1993,1605495,1982.7
+3***00,Einfacher Diebstahl,1994,1489037,1830.7
+3***00,Einfacher Diebstahl,1995,1530796,1877.4
+3***00,Einfacher Diebstahl,1996,1560779,1907.6
+3***00,Einfacher Diebstahl,1997,1572558,1917.5
+3***00,Einfacher Diebstahl,1998,1525869,1859.5
+3***00,Einfacher Diebstahl,1999,1480659,1804.9
+3***00,Einfacher Diebstahl,2000,1463794,1781.6
+3***00,Einfacher Diebstahl,2001,1475375,1793.6
+3***00,Einfacher Diebstahl,2002,1535562,1862.6
+3***00,Einfacher Diebstahl,2003,1540932,1867
+3***00,Einfacher Diebstahl,2004,1516894,1838
+3***00,Einfacher Diebstahl,2005,1415530,1715.8
+3***00,Einfacher Diebstahl,2006,1362615,1652.9
+3***00,Einfacher Diebstahl,2007,1314277,1596.6
+3***00,Einfacher Diebstahl,2008,1277295,1553.5
+3***00,Einfacher Diebstahl,2009,1235880,1507.1
+3***00,Einfacher Diebstahl,2010,1233812,1508.3
+3***00,Einfacher Diebstahl,2011,1290502,1578.6
+3***00,Einfacher Diebstahl,2012,1281299,1565.5
+3***00,Einfacher Diebstahl,2013,1298545,1612.6
+3***00,Einfacher Diebstahl,2014,1322144,1637
+3***00,Einfacher Diebstahl,2015,1348955,1661.3
+3***00,Einfacher Diebstahl,2016,1290481,1570.4
+3***00,Einfacher Diebstahl,2017,1156422,1401.4
+3***00,Einfacher Diebstahl,2018,1082478,1307.4613619801664
+3***00,Einfacher Diebstahl,2019,1025321,1235.04060156484
+3***00,Einfacher Diebstahl,2020,931793,1120.39178752662
+3***00,Einfacher Diebstahl,2021,835368,1004.59105114157
+3***00,Einfacher Diebstahl,2022,1043887,1254.11228768548
+3***00,Einfacher Diebstahl,2023,1172337,1389.7025261547856
+3***00,Einfacher Diebstahl,2024,1148913,1376.6684007132137
+3***00,Einfacher Diebstahl,2025,1083126,1295.9596368097784
+4***00,Schwerer Diebstahl,1987,1729892,2829.4
+4***00,Schwerer Diebstahl,1988,1612447,2633.1
+4***00,Schwerer Diebstahl,1989,1518929,2461.2
+4***00,Schwerer Diebstahl,1990,1544932,2464.8
+4***00,Schwerer Diebstahl,1991,1673168,2574.1
+4***00,Schwerer Diebstahl,1992,1905295,2897.1
+4***00,Schwerer Diebstahl,1993,2545592,3143.7
+4***00,Schwerer Diebstahl,1994,2377299,2922.7
+4***00,Schwerer Diebstahl,1995,2317512,2842.2
+4***00,Schwerer Diebstahl,1996,2111876,2581.2
+4***00,Schwerer Diebstahl,1997,1965052,2396
+4***00,Schwerer Diebstahl,1998,1798120,2191.3
+4***00,Schwerer Diebstahl,1999,1652759,2014.7
+4***00,Schwerer Diebstahl,2000,1519475,1849.3
+4***00,Schwerer Diebstahl,2001,1496352,1819.1
+4***00,Schwerer Diebstahl,2002,1554592,1885.7
+4***00,Schwerer Diebstahl,2003,1488458,1803.4
+4***00,Schwerer Diebstahl,2004,1444136,1749.8
+4***00,Schwerer Diebstahl,2005,1311518,1589.7
+4***00,Schwerer Diebstahl,2006,1239287,1503.3
+4***00,Schwerer Diebstahl,2007,1247414,1515.4
+4***00,Schwerer Diebstahl,2008,1165985,1418.2
+4***00,Schwerer Diebstahl,2009,1108766,1352.1
+4***00,Schwerer Diebstahl,2010,1067974,1305.6
+4***00,Schwerer Diebstahl,2011,1113279,1361.8
+4***00,Schwerer Diebstahl,2012,1098426,1342.1
+4***00,Schwerer Diebstahl,2013,1084198,1346.4
+4***00,Schwerer Diebstahl,2014,1117916,1384.1
+4***00,Schwerer Diebstahl,2015,1134739,1397.5
+4***00,Schwerer Diebstahl,2016,1083293,1318.3
+4***00,Schwerer Diebstahl,2017,936572,1134.9
+4***00,Schwerer Diebstahl,2018,853837,1031.2993769194934
+4***00,Schwerer Diebstahl,2019,796891,959.887430396534
+4***00,Schwerer Diebstahl,2020,750817,902.785490699518
+4***00,Schwerer Diebstahl,2021,648198,779.50545169059
+4***00,Schwerer Diebstahl,2022,736896,885.297286340648
+4***00,Schwerer Diebstahl,2023,799098,947.260479917666
+4***00,Schwerer Diebstahl,2024,791120,947.9481084923207
+4***00,Schwerer Diebstahl,2025,730015,873.4625281506402
+435*00,Wohnungseinbruchdiebstahl,1987,164847,269.6
+435*00,Wohnungseinbruchdiebstahl,1988,169011,276
+435*00,Wohnungseinbruchdiebstahl,1989,156917,254.3
+435*00,Wohnungseinbruchdiebstahl,1990,151974,242.5
+435*00,Wohnungseinbruchdiebstahl,1991,151752,233.5
+435*00,Wohnungseinbruchdiebstahl,1992,173600,264
+435*00,Wohnungseinbruchdiebstahl,1993,227090,280.4
+435*00,Wohnungseinbruchdiebstahl,1994,210982,259.4
+435*00,Wohnungseinbruchdiebstahl,1995,211221,259
+435*00,Wohnungseinbruchdiebstahl,1996,195801,239.3
+435*00,Wohnungseinbruchdiebstahl,1997,182009,221.9
+435*00,Wohnungseinbruchdiebstahl,1998,166742,203.2
+435*00,Wohnungseinbruchdiebstahl,1999,149044,181.7
+435*00,Wohnungseinbruchdiebstahl,2000,140015,170.4
+435*00,Wohnungseinbruchdiebstahl,2001,133722,162.6
+435*00,Wohnungseinbruchdiebstahl,2002,130055,157.8
+435*00,Wohnungseinbruchdiebstahl,2003,123280,149.4
+435*00,Wohnungseinbruchdiebstahl,2004,124155,150.4
+435*00,Wohnungseinbruchdiebstahl,2005,109736,133
+435*00,Wohnungseinbruchdiebstahl,2006,106107,128.7
+435*00,Wohnungseinbruchdiebstahl,2007,109128,132.6
+435*00,Wohnungseinbruchdiebstahl,2008,108284,131.7
+435*00,Wohnungseinbruchdiebstahl,2009,113800,138.8
+435*00,Wohnungseinbruchdiebstahl,2010,121347,148.3
+435*00,Wohnungseinbruchdiebstahl,2011,132595,162.2
+435*00,Wohnungseinbruchdiebstahl,2012,144117,176.1
+435*00,Wohnungseinbruchdiebstahl,2013,149500,185.7
+435*00,Wohnungseinbruchdiebstahl,2014,152123,188.3
+435*00,Wohnungseinbruchdiebstahl,2015,167136,205.8
+435*00,Wohnungseinbruchdiebstahl,2016,151265,184.1
+435*00,Wohnungseinbruchdiebstahl,2017,116540,141.2
+435*00,Wohnungseinbruchdiebstahl,2018,97504,117.76933354628376
+435*00,Wohnungseinbruchdiebstahl,2019,87145,104.969676055955
+435*00,Wohnungseinbruchdiebstahl,2020,75023,90.2079679452516
+435*00,Wohnungseinbruchdiebstahl,2021,54236,65.2227524273306
+435*00,Wohnungseinbruchdiebstahl,2022,65908,79.181015432489
+435*00,Wohnungseinbruchdiebstahl,2023,77819,92.2475882641589
+435*00,Wohnungseinbruchdiebstahl,2024,78436,93.9848036172814
+435*00,Wohnungseinbruchdiebstahl,2025,82920,99.2137323674871
+436*00,Tageswohnungseinbruch (darunter),1991,48517,74.6
+436*00,Tageswohnungseinbruch (darunter),1992,59459,90.4
+436*00,Tageswohnungseinbruch (darunter),1993,71863,88.7
+436*00,Tageswohnungseinbruch (darunter),1994,66726,82
+436*00,Tageswohnungseinbruch (darunter),1995,73201,89.8
+436*00,Tageswohnungseinbruch (darunter),1996,69848,85.4
+436*00,Tageswohnungseinbruch (darunter),1997,66315,80.9
+436*00,Tageswohnungseinbruch (darunter),1998,61584,75
+436*00,Tageswohnungseinbruch (darunter),1999,54686,66.7
+436*00,Tageswohnungseinbruch (darunter),2000,51357,62.5
+436*00,Tageswohnungseinbruch (darunter),2001,48703,59.2
+436*00,Tageswohnungseinbruch (darunter),2002,45361,55
+436*00,Tageswohnungseinbruch (darunter),2003,43698,52.9
+436*00,Tageswohnungseinbruch (darunter),2004,42689,51.7
+436*00,Tageswohnungseinbruch (darunter),2005,38556,46.7
+436*00,Tageswohnungseinbruch (darunter),2006,38786,47
+436*00,Tageswohnungseinbruch (darunter),2007,39451,47.9
+436*00,Tageswohnungseinbruch (darunter),2008,42240,51.4
+436*00,Tageswohnungseinbruch (darunter),2009,48401,59
+436*00,Tageswohnungseinbruch (darunter),2010,51065,62.4
+436*00,Tageswohnungseinbruch (darunter),2011,55877,68.3
+436*00,Tageswohnungseinbruch (darunter),2012,61200,74.8
+436*00,Tageswohnungseinbruch (darunter),2013,64754,80.4
+436*00,Tageswohnungseinbruch (darunter),2014,63282,78.4
+436*00,Tageswohnungseinbruch (darunter),2015,70333,86.6
+436*00,Tageswohnungseinbruch (darunter),2016,63176,76.9
+436*00,Tageswohnungseinbruch (darunter),2017,47866,58
+436*00,Tageswohnungseinbruch (darunter),2018,38099,46.017536088569344
+436*00,Tageswohnungseinbruch (darunter),2019,33101,39.871492881154
+436*00,Tageswohnungseinbruch (darunter),2020,28873,34.7170155616711
+436*00,Tageswohnungseinbruch (darunter),2021,20029,24.0863357984919
+436*00,Tageswohnungseinbruch (darunter),2022,24171,29.0387255571204
+436*00,Tageswohnungseinbruch (darunter),2023,28865,34.21692177032533
+436*00,Tageswohnungseinbruch (darunter),2024,29373,35.1957728166965
+436*00,Tageswohnungseinbruch (darunter),2025,31332,37.48872000166553

@@ -1,0 +1,121 @@
+jahr;delikt;iccs;de_rate;eu_median;eu_laender_mit_wert
+2008;Vorsätzliche Tötung (vollendet);ICCS0101;0.8;1.5;39
+2009;Vorsätzliche Tötung (vollendet);ICCS0101;0.88;1.3;40
+2010;Vorsätzliche Tötung (vollendet);ICCS0101;0.85;1.4;38
+2011;Vorsätzliche Tötung (vollendet);ICCS0101;0.86;1.3;39
+2012;Vorsätzliche Tötung (vollendet);ICCS0101;0.77;1.2;37
+2013;Vorsätzliche Tötung (vollendet);ICCS0101;0.77;1.1;36
+2014;Vorsätzliche Tötung (vollendet);ICCS0101;0.8;1.1;37
+2015;Vorsätzliche Tötung (vollendet);ICCS0101;0.81;1.0;37
+2016;Vorsätzliche Tötung (vollendet);ICCS0101;0.91;1.0;38
+2017;Vorsätzliche Tötung (vollendet);ICCS0101;0.89;1.1;39
+2018;Vorsätzliche Tötung (vollendet);ICCS0101;0.76;1.1;38
+2019;Vorsätzliche Tötung (vollendet);ICCS0101;0.71;0.9;36
+2020;Vorsätzliche Tötung (vollendet);ICCS0101;0.86;1.0;36
+2021;Vorsätzliche Tötung (vollendet);ICCS0101;0.76;0.8;34
+2022;Vorsätzliche Tötung (vollendet);ICCS0101;0.74;0.9;35
+2023;Vorsätzliche Tötung (vollendet);ICCS0101;0.8;0.8;35
+2024;Vorsätzliche Tötung (vollendet);ICCS0101;0.83;0.9;34
+2008;Gefährliche Körperverletzung;ICCS020111;630.64;49.2;38
+2009;Gefährliche Körperverletzung;ICCS020111;182.07;45.0;38
+2010;Gefährliche Körperverletzung;ICCS020111;174.69;43.3;38
+2011;Gefährliche Körperverletzung;ICCS020111;173.38;39.4;39
+2012;Gefährliche Körperverletzung;ICCS020111;169.4;37.1;37
+2013;Gefährliche Körperverletzung;ICCS020111;158.8;34.8;36
+2014;Gefährliche Körperverletzung;ICCS020111;155.7;31.0;37
+2015;Gefährliche Körperverletzung;ICCS020111;156.9;28.6;37
+2016;Gefährliche Körperverletzung;ICCS020111;170.41;29.6;37
+2017;Gefährliche Körperverletzung;ICCS020111;166.09;29.8;37
+2018;Gefährliche Körperverletzung;ICCS020111;165.14;32.8;36
+2019;Gefährliche Körperverletzung;ICCS020111;160.31;28.0;34
+2020;Gefährliche Körperverletzung;ICCS020111;156.86;30.6;34
+2021;Gefährliche Körperverletzung;ICCS020111;147.12;26.1;33
+2022;Gefährliche Körperverletzung;ICCS020111;173.8;28.0;33
+2023;Gefährliche Körperverletzung;ICCS020111;185.93;26.8;33
+2024;Gefährliche Körperverletzung;ICCS020111;189.53;29.4;32
+2008;Raub;ICCS0401;60.71;44.9;39
+2009;Raub;ICCS0401;60.14;48.2;39
+2010;Raub;ICCS0401;58.88;49.1;38
+2011;Raub;ICCS0401;59.86;42.4;40
+2012;Raub;ICCS0401;60.64;44.6;38
+2013;Raub;ICCS0401;58.66;44.5;36
+2014;Raub;ICCS0401;56.3;34.8;37
+2015;Raub;ICCS0401;55.01;31.0;37
+2016;Raub;ICCS0401;52.34;26.6;39
+2017;Raub;ICCS0401;47.08;26.0;39
+2018;Raub;ICCS0401;44.4;22.8;37
+2019;Raub;ICCS0401;43.43;19.5;36
+2020;Raub;ICCS0401;40.73;18.9;36
+2021;Raub;ICCS0401;36.23;15.9;35
+2022;Raub;ICCS0401;45.89;17.5;35
+2023;Raub;ICCS0401;53.97;17.5;35
+2024;Raub;ICCS0401;51.76;19.6;33
+2008;Einbruch (insgesamt);ICCS0501;474.8;464.7;36
+2009;Einbruch (insgesamt);ICCS0501;471.51;466.9;37
+2010;Einbruch (insgesamt);ICCS0501;485.73;469.5;36
+2011;Einbruch (insgesamt);ICCS0501;525.1;469.8;36
+2012;Einbruch (insgesamt);ICCS0501;535.57;449.5;35
+2013;Einbruch (insgesamt);ICCS0501;543.34;426.1;34
+2014;Einbruch (insgesamt);ICCS0501;552.29;374.8;35
+2015;Einbruch (insgesamt);ICCS0501;571.36;342.9;33
+2016;Einbruch (insgesamt);ICCS0501;526.59;323.3;33
+2017;Einbruch (insgesamt);ICCS0501;442.53;290.0;33
+2018;Einbruch (insgesamt);ICCS0501;394.25;265.6;33
+2019;Einbruch (insgesamt);ICCS0501;374.89;244.4;30
+2020;Einbruch (insgesamt);ICCS0501;358.75;200.3;30
+2021;Einbruch (insgesamt);ICCS0501;292.43;165.7;31
+2022;Einbruch (insgesamt);ICCS0501;313.09;178.1;31
+2023;Einbruch (insgesamt);ICCS0501;357.84;175.5;31
+2024;Einbruch (insgesamt);ICCS0501;357.06;165.4;30
+2008;Wohnungseinbruch;ICCS05012;131.7;189.1;33
+2009;Wohnungseinbruch;ICCS05012;138.78;182.1;37
+2010;Wohnungseinbruch;ICCS05012;148.34;197.4;34
+2011;Wohnungseinbruch;ICCS05012;165.28;201.2;36
+2012;Wohnungseinbruch;ICCS05012;179.41;193.8;35
+2013;Wohnungseinbruch;ICCS05012;185.66;201.0;34
+2014;Wohnungseinbruch;ICCS05012;188.35;185.2;35
+2015;Wohnungseinbruch;ICCS05012;205.84;160.8;33
+2016;Wohnungseinbruch;ICCS05012;184.08;154.2;31
+2017;Wohnungseinbruch;ICCS05012;141.22;116.3;28
+2018;Wohnungseinbruch;ICCS05012;117.77;110.2;28
+2019;Wohnungseinbruch;ICCS05012;104.97;85.9;25
+2020;Wohnungseinbruch;ICCS05012;90.21;82.6;28
+2021;Wohnungseinbruch;ICCS05012;65.22;74.9;28
+2022;Wohnungseinbruch;ICCS05012;79.18;74.9;26
+2023;Wohnungseinbruch;ICCS05012;93.62;70.3;27
+2024;Wohnungseinbruch;ICCS05012;93.98;73.3;26
+2008;Diebstahl;ICCS0502;2496.92;1377.1;39
+2009;Diebstahl;ICCS0502;1595.91;1333.9;40
+2010;Diebstahl;ICCS0502;1491.38;1310.7;39
+2011;Diebstahl;ICCS0502;1590.67;1319.8;39
+2012;Diebstahl;ICCS0502;1578.0;1303.7;38
+2013;Diebstahl;ICCS0502;1600.86;1264.3;36
+2014;Diebstahl;ICCS0502;1636.98;1126.9;37
+2015;Diebstahl;ICCS0502;1661.33;1117.4;36
+2016;Diebstahl;ICCS0502;1570.39;952.1;37
+2017;Diebstahl;ICCS0502;1401.36;859.7;38
+2018;Diebstahl;ICCS0502;1307.46;799.5;38
+2019;Diebstahl;ICCS0502;1235.04;682.9;35
+2020;Diebstahl;ICCS0502;1120.39;568.6;35
+2021;Diebstahl;ICCS0502;1004.59;551.9;35
+2022;Diebstahl;ICCS0502;1254.11;617.2;35
+2023;Diebstahl;ICCS0502;1410.44;660.1;35
+2024;Diebstahl;ICCS0502;1376.67;686.0;34
+2016;Betrug;ICCS0701;1094.05;171.6;33
+2017;Betrug;ICCS0701;1103.17;152.9;32
+2018;Betrug;ICCS0701;1015.53;154.1;33
+2019;Betrug;ICCS0701;1003.34;166.6;33
+2020;Betrug;ICCS0701;971.63;158.2;33
+2021;Betrug;ICCS0701;957.46;214.4;33
+2022;Betrug;ICCS0701;966.5;200.9;33
+2023;Betrug;ICCS0701;911.54;266.6;30
+2024;Betrug;ICCS0701;894.36;350.2;32
+2016;Angriffe auf Computersysteme;ICCS0903;18.33;10.2;17
+2017;Angriffe auf Computersysteme;ICCS0903;15.7;9.7;26
+2018;Angriffe auf Computersysteme;ICCS0903;13.88;10.6;26
+2019;Angriffe auf Computersysteme;ICCS0903;15.69;13.7;26
+2020;Angriffe auf Computersysteme;ICCS0903;17.33;16.2;25
+2021;Angriffe auf Computersysteme;ICCS0903;23.7;16.3;25
+2022;Angriffe auf Computersysteme;ICCS0903;19.9;17.3;25
+2023;Angriffe auf Computersysteme;ICCS0903;15.72;18.9;25
+2024;Angriffe auf Computersysteme;ICCS0903;15.15;24.0;23

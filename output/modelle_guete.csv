@@ -1,0 +1,5 @@
+modell;n;ereignisse;pseudo_r2_mcfadden;auc;aic
+M1 Soziodemografie;16623;3701;0.1217;0.741;15498.4
+M2 + Vulnerabilität;16577;3685;0.1346;0.753;15224.6
+M3 + Einstellungen;15440;3343;0.1767;0.7863;13323.5
+M4 + Wellen;15440;3343;0.1805;0.7887;13273.8

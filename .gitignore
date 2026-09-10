@@ -1,0 +1,24 @@
+# Rohdaten und Zwischenstände bleiben lokal.
+# Begründung:
+#   data/raw/                — 785 MB Quell-Dateien (Excel, PDF); für das
+#                              Deployment nicht nötig, die App ist eigenständig.
+#   dashboard/data/          — enthält ESS-Befragungsdaten. Deren Nutzungs-
+#                              bedingungen schließen eine Weitergabe aus, auch
+#                              wenn sie hier nur abgeleitet vorliegen.
+#   dashboard/_verify/       — Prüf-Screenshots (118 MB), nur Arbeitsmittel.
+data/raw/
+dashboard/data/
+dashboard/_verify/
+dashboard/_static_tmp/
+data/ess/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Arbeitsdateien
+.DS_Store
+*.log
+*.tmp

@@ -1,0 +1,18 @@
+# Render-Konfiguration: statische Website, kein Server nötig.
+# Render liest diese Datei beim Verbinden des Repositorys automatisch.
+services:
+  - type: web
+    name: kriminalitaet-sicherheit-de
+    runtime: static
+    staticPublishPath: dashboard
+    buildCommand: ""
+    headers:
+      # Die Seiten sind eigenständige Einzeldateien; Caching schadet beim
+      # Aktualisieren, deshalb kurze Haltbarkeit.
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=300
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

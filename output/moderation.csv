@@ -1,0 +1,6 @@
+interaktion;n;lr_chi2;df;p_wert;koeffizient;se;signifikant
+Geschlecht × Viktimisierung;16577;0.302;1.0;0.5825254004016394;0.069;0.1258;nein
+Geschlecht × Alter;16577;46.567;1.0;8.853515256203025e-12;-0.299;0.044;ja
+Geschlecht × Sozialvertrauen;16565;475.894;2.0;4.580531997419395e-104;0.0242;0.0443;ja
+Bildung × Einkommen;16577;0.116;1.0;0.7336666193703815;0.0074;0.0217;nein
+Wohnort × Sozialvertrauen;16565;484.567;2.0;5.992821814063969e-106;0.0635;0.0213;ja
