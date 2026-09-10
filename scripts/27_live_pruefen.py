@@ -50,7 +50,9 @@ def main():
         "Reiter Inhalt zuerst": (r'data-ansicht="inhalt"', 1),
         "Karte vorhanden": (r'class="bl"', 16),
         "Schrift eingebettet": (r"data:font/woff2", 1),
-        "Flaggen eingebettet": (r"flagge", 16),
+        # Die Rangliste zeigt zunaechst nur die hoechsten und niedrigsten fuenf
+        # Bundeslaender (10 Eintraege); der Rest erscheint erst beim Aufklappen.
+        "Wappen eingebettet": (r"class=\"wappen\"", 10),
     }))
 
     dom = hole(f"{B}/#inhalt", "live_inhalt.html")
