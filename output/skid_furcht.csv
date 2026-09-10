@@ -1,0 +1,18 @@
+art;bezeichnung;wert_1;wert_2;frauen;maenner
+delikt;Betrug im Internet;52.0;40.9;51.9;52.4
+delikt;Sachbeschädigung;30.9;24.7;;
+delikt;Wohnungseinbruch;28.6;17.2;;
+delikt;Diebstahl;27.5;21.1;;
+delikt;Körperverletzung;26.8;13.1;26.6;26.8
+delikt;Sexuelle Belästigung;24.0;11.9;34.9;12.6
+delikt;Terroranschlag;23.0;13.4;;
+delikt;Vorurteilskriminalität;17.2;11.3;;
+ort;In der eigenen Wohngegend;97.4;74.0;66.1;82.7
+ort;Auf Straßen und Plätzen;88.7;40.1;26.9;54.1
+ort;Im öffentlichen Nahverkehr;86.8;44.8;33.2;57.2
+ort;In Parks und Grünanlagen;77.7;22.8;11.1;34.8
+ort;An Bahnhöfen;70.9;27.0;16.0;38.5
+vermeiden;Weicht nachts fremden Personen aus;41.7;;;
+vermeiden;Lässt Wohnung bewohnt wirken;38.9;;;
+vermeiden;Meidet den Nahverkehr bei Nacht;35.1;;;
+vermeiden;Meidet bestimmte Straßen, Plätze, Parks;30.3;;;

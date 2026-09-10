@@ -270,6 +270,25 @@ def diagramme(laender, basis):
                      _pmk,
                      "BKA, Bundesweite Fallzahlen zur politisch motivierten "
                      "Kriminalität 2025 (Fact Sheet); eigene Aufbereitung."))
+    _skid1 = diagramm_skid_delikte()
+    if _skid1 is not None:
+        figs.append(("skid_delikte", "Wovor sich Deutschland fürchtet",
+                     "Die Furcht vor einem Delikt (dunkel) und die Einschätzung, "
+                     "selbst Opfer zu werden (gold). Betrug im Internet führt "
+                     "deutlich, und bei jedem Delikt ist die Furcht größer als die "
+                     "angenommene Wahrscheinlichkeit.",
+                     _skid1,
+                     "BKA/Destatis, Sicherheit und Kriminalität in Deutschland "
+                     "(SKiD) 2024, Ergebnisbericht, Kapitel 6.3/6.4 — 60.837 "
+                     "auswertbare Interviews."))
+    _skid2 = diagramm_skid_orte()
+    if _skid2 is not None:
+        figs.append(("skid_orte", "Sicherheitsgefühl nach Situation",
+                     "Anteil der Menschen, die sich an einem Ort sicher fühlen — "
+                     "tagsüber und nachts. Nachts bricht das Sicherheitsgefühl "
+                     "überall ein, an Bahnhöfen und in Parks am stärksten.",
+                     _skid2,
+                     "BKA/Destatis, SKiD 2024, Ergebnisbericht, Kapitel 6.2."))
     figs.append(("delikte", "Wovor Deutschland sich fürchtet",
                  "Anteil „beunruhigt“ je Delikt, SKiD 2020 und 2024.",
                  f, "BKA, SKiD 2024/2020"))
@@ -401,6 +420,76 @@ def diagramme(laender, basis):
 
 
 # ---------------------------------------------------------------- Zusammenhänge
+def diagramm_skid_delikte():
+    """Wovor sich Deutschland fürchtet (SKiD 2024).
+
+    Gegenübergestellt: die Furcht vor einem Delikt und die Einschätzung, selbst
+    Opfer zu werden. Die Lücke zwischen beiden ist die eigentliche Aussage —
+    gefürchtet wird mehr, als für wahrscheinlich gehalten wird.
+
+    Returns:
+        plotly.graph_objects.Figure | None
+    """
+    pfad = OUT / "skid_furcht.csv"
+    if not pfad.exists():
+        return None
+    daten = [r for r in lies(pfad, delim=";") if r["art"] == "delikt"]
+    daten.sort(key=lambda r: float(r["wert_1"]))
+    namen = [r["bezeichnung"] for r in daten]
+    furcht = [float(r["wert_1"]) for r in daten]
+    risiko = [float(r["wert_2"]) for r in daten]
+
+    f = fig(430)
+    f.add_trace(go.Bar(y=namen, x=furcht, orientation="h", name="Furcht",
+                       marker_color="#0b4f49",
+                       hovertemplate="%{y}: %{x:.1f} %<extra>Furcht</extra>"))
+    f.add_trace(go.Bar(y=namen, x=risiko, orientation="h",
+                       name="Einschätzung, selbst Opfer zu werden",
+                       marker_color="#b8860b",
+                       hovertemplate="%{y}: %{x:.1f} %<extra>Risikoeinschätzung</extra>"))
+    f.update_layout(barmode="group", bargap=0.28, bargroupgap=0.08)
+    f.update_xaxes(title="Anteil der Befragten", ticksuffix=" %", range=[0, 60])
+    f.update_yaxes(automargin=True, tickfont=dict(size=13))
+    layout = dict(BASE)
+    layout.update(height=430, margin=dict(l=10, r=20, t=54, b=50),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
+                              xanchor="left", font=dict(size=14),
+                              itemsizing="constant"))
+    f.update_layout(**layout)
+    return f
+
+
+def diagramm_skid_orte():
+    """Sicherheitsgefühl nach Situation, tagsüber und nachts (SKiD 2024)."""
+    pfad = OUT / "skid_furcht.csv"
+    if not pfad.exists():
+        return None
+    daten = [r for r in lies(pfad, delim=";") if r["art"] == "ort"]
+    daten.sort(key=lambda r: float(r["wert_2"]))
+    namen = [r["bezeichnung"] for r in daten]
+    tag = [float(r["wert_1"]) for r in daten]
+    nacht = [float(r["wert_2"]) for r in daten]
+
+    f = fig(430)
+    f.add_trace(go.Bar(y=namen, x=tag, orientation="h", name="tagsüber",
+                       marker_color="#0b4f49",
+                       hovertemplate="%{y}: %{x:.1f} %<extra>tagsüber</extra>"))
+    f.add_trace(go.Bar(y=namen, x=nacht, orientation="h", name="nachts",
+                       marker_color="#b8860b",
+                       hovertemplate="%{y}: %{x:.1f} %<extra>nachts</extra>"))
+    f.update_layout(barmode="group", bargap=0.28, bargroupgap=0.08)
+    f.update_xaxes(title="Anteil, der sich sicher fühlt", ticksuffix=" %",
+                   range=[0, 105])
+    f.update_yaxes(automargin=True, tickfont=dict(size=13))
+    layout = dict(BASE)
+    layout.update(height=430, margin=dict(l=10, r=20, t=54, b=50),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
+                              xanchor="left", font=dict(size=14),
+                              itemsizing="constant"))
+    f.update_layout(**layout)
+    return f
+
+
 def diagramm_pmk():
     """Politisch motivierte Kriminalität: Gesamtaufkommen und Gewalttaten.
 
@@ -1337,7 +1426,7 @@ function ansichtKarte(){
 const THEMEN = {
   inhalt:          {ids:[], text:null},
   kriminalitaet:   {ids:['hz','aq','zeitreihe','eu','pmk'], text:'kriminalitaet'},
-  furcht:          {ids:['furcht','furcht_zr','delikte'], text:'furcht'},
+  furcht:          {ids:['furcht','furcht_zr','delikte','skid_delikte','skid_orte'], text:'furcht'},
   justiz:          {ids:['trichter'], text:'justiz'},
   methodik:        {ids:[], text:null},
 };
