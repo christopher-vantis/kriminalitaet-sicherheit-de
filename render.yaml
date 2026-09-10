@@ -1,5 +1,9 @@
 # Render-Konfiguration: statische Website, kein Server nötig.
 # Render liest diese Datei beim Verbinden des Repositorys automatisch.
+#
+# Wichtig: KEINE Umleitungsregel auf index.html. Die Seiten sind einzeln
+# verlinkt (index.html -> deutschland_app.html usw.); eine Regel "/* ->
+# /index.html" würde diese Dateien überschreiben.
 services:
   - type: web
     name: kriminalitaet-sicherheit-de
@@ -7,12 +11,8 @@ services:
     staticPublishPath: dashboard
     buildCommand: ""
     headers:
-      # Die Seiten sind eigenständige Einzeldateien; Caching schadet beim
-      # Aktualisieren, deshalb kurze Haltbarkeit.
+      # Die Seiten sind eigenständige Einzeldateien; kurze Haltbarkeit, damit
+      # Aktualisierungen sofort ankommen.
       - path: /*
         name: Cache-Control
         value: public, max-age=300
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
