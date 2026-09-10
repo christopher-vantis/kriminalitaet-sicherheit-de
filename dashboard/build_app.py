@@ -675,14 +675,6 @@ def karte_html(laender, viewbox):
             if nuts in ("DE6", "DE5"):
                 anker = "end"
             name = KUERZEL[nuts]
-            klein_flag = " kl-klein" if klein else ""
-            kurz_name = name.replace("-", " ")
-            if len(kurz_name) <= 8:
-                groesse = " kl-gross"
-            elif len(kurz_name) <= 12:
-                groesse = ""
-            else:
-                groesse = " kl-lang"
             x, y = lab[0] + dx, lab[1] + dy
             if name in ZWEIZEILIG:
                 oben, unten = ZWEIZEILIG[name]
@@ -691,7 +683,7 @@ def karte_html(laender, viewbox):
             else:
                 inhalt = name
             labels.append(
-                f'<text class="kl{klein_flag}{groesse}" x="{x}" y="{y}" '
+                f'<text class="kl" data-nuts="{nuts}" x="{x}" y="{y}" '
                 f'text-anchor="{anker}" dominant-baseline="middle" '
                 f'style="animation-delay:{verzug + 0.14:.3f}s">{inhalt}</text>')
     return (f'<svg class="karte" viewBox="{viewbox}" role="group" '
@@ -935,11 +927,8 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .fl{stroke:#12100e;stroke-width:1.2;stroke-dasharray:4 3;pointer-events:none}
 .mk{stroke:#12100e;stroke-width:1.4;cursor:pointer;transition:fill .3s ease}
 .mk-g{pointer-events:all}
-.lbl text{font-size:24px;font-weight:600;fill:#12100e;pointer-events:none;
+.lbl text{font-size:23px;font-weight:600;fill:#12100e;pointer-events:none;
  paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round}
-.lbl text.kl-gross{font-size:28px}
-.lbl text.kl-lang{font-size:22px}
-.lbl text.kl-klein{font-size:20px;font-weight:700}
 .legende{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
 .legende .stufen{display:flex;gap:3px}
 .legende .stufen i{width:26px;height:11px;border-radius:3px;display:block}
