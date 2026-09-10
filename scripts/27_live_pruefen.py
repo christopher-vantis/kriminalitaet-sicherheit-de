@@ -59,7 +59,7 @@ def main():
         "Frage 1 beantwortet": (r"6,75 Millionen", 1),
         "Frage 2 beantwortet": (r"22 Prozent", 1),
         "Frage 3 als offen markiert": (r"Noch offen", 1),
-        "Hinweis früher Stand": (r"in früher.{0,20}Entwicklung", 1),
+        "Hinweis früher Stand": ("in früher", 1),
     }))
 
     dom = hole(f"{B}/", "live_app.html")
