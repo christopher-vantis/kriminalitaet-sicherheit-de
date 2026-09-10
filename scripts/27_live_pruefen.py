@@ -42,15 +42,27 @@ def pruefe(name, dom, erwartet):
 def main():
     ergebnisse = []
 
+    # Die Seite ist die App selbst — es gibt keine Unterseiten mehr.
     dom = hole(f"{B}/", "live_index.html")
-    ergebnisse.append(pruefe("Startseite", dom, {
+    ergebnisse.append(pruefe("Startseite (= App)", dom, {
         "Seitentitel": (r"<title>Kriminalität und Sicherheit", 1),
-        "Links zur App": (r'href="deutschland_app(\w*)\.html"', 2),
-        "Links zur Zeitreihe": (r'href="zeitreihen_\w+\.html"', 2),
-        "Schrift eingebunden": (r"plex-latin-400\.woff2", 1),
+        "Reiterleiste": (r'data-ansicht="(\w+)"', 6),
+        "Reiter Inhalt zuerst": (r'data-ansicht="inhalt"', 1),
+        "Karte vorhanden": (r'class="bl"', 16),
+        "Schrift eingebettet": (r"data:font/woff2", 1),
+        "Flaggen eingebettet": (r"flagge", 16),
     }))
 
-    dom = hole(f"{B}/deutschland_app.html", "live_app.html")
+    dom = hole(f"{B}/#inhalt", "live_inhalt.html")
+    ergebnisse.append(pruefe("Reiter Inhalt", dom, {
+        "Anlass geschildert": (r"Warum diese Seite", 1),
+        "Frage 1 beantwortet": (r"6,75 Millionen", 1),
+        "Frage 2 beantwortet": (r"22 Prozent", 1),
+        "Frage 3 als offen markiert": (r"Noch offen", 1),
+        "Hinweis früher Stand": (r"in früher.{0,20}Entwicklung", 1),
+    }))
+
+    dom = hole(f"{B}/", "live_app.html")
     ergebnisse.append(pruefe("App, Kartenreiter", dom, {
         "Länderflächen (Karte)": (r'class="bl"', 16),
         "Kartenbeschriftungen": (r'class="kl', 16),
