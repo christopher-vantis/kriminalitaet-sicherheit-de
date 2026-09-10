@@ -4,21 +4,25 @@ Eine Web-App zur Frage, wie registrierte Kriminalität, Strafverfolgung und das
 Sicherheitsgefühl der Bevölkerung in Deutschland zusammenhängen — für die
 Republik insgesamt und für jedes Bundesland.
 
-**Zur App:** <https://kriminalitaet-sicherheit-de.onrender.com> *(nach dem ersten Deployment)*
+**Zur App:** <https://kriminalitaet-sicherheit-de.onrender.com>
+
+Das Repository enthält **eine** Seite. Sie öffnet direkt mit der Deutschlandkarte;
+alles Weitere liegt in Reitern darunter. Es gibt keine Unterseiten.
 
 ## Was die App zeigt
 
-- **Karte** — Deutschlandkarte als Einstieg. Einfärbbar nach Kriminalitätsbelastung,
+- **Karte** — Deutschlandkarte als Einstieg, einfärbbar nach Kriminalitätsbelastung,
   Unsicherheitsgefühl, Aufklärungsquote, Migrationsanteil, Ausländeranteil,
   Bevölkerungsdichte, Arbeitslosenquote, BIP je Einwohner und verfügbarem Einkommen.
-  Ein Klick öffnet das Profil des Bundeslandes.
-- **Kriminalität** — Häufigkeitszahl und Aufklärungsquote je Bundesland, die
-  Zeitreihe ab 1987, der Vergleich mit anderen europäischen Ländern.
+  Der Klick auf ein Bundesland öffnet sein Profil mit allen Kennzahlen.
+- **Kriminalität** — Häufigkeitszahl und Aufklärungsquote der Bundesländer, die
+  Zeitreihe ab 1987, der Vergleich mit anderen europäischen Ländern über sechs Delikte.
 - **Furcht** — Unsicherheitsgefühl im Zeitverlauf, welche Delikte die Menschen
   fürchten, und wie sich das nach Altersgruppen verschoben hat.
 - **Strafverfolgung** — wie viele registrierte Fälle aufgeklärt werden und wie
   viele davon zu einer Verurteilung führen.
-- **Daten und Methoden** — Quellen, Fallzahlen, Grenzen der Aussage.
+- **Daten und Methoden** — Quellen, Fallzahlen, Grenzen der Aussage, Rahmendaten
+  Deutschlands zum Vergleich.
 
 ## Der inhaltliche Kern
 
@@ -45,40 +49,39 @@ Rohdaten und Befragungsdaten liegen nicht in diesem Repository (siehe `.gitignor
 ## Aufbau
 
 ```
-dashboard/     Die fertigen Seiten (das ist das Deployment)
-  index.html                     Übersicht
-  deutschland_app.html           App, Diagramm-Bibliothek eingebettet (offline nutzbar)
-  deutschland_app_cdn.html       kleine Fassung für Mobilgeräte
-  deutschland_app_static.html    Tabellenfassung ohne JavaScript
-  zeitreihen_*.html              Auswertungen über die Zeit
-  build_app.py                   erzeugt die App aus den Auswertungsdateien
-  fonts/                         eingebettete Schrift
-scripts/       Analyse-Skripte (Python und R), numerisch durchnummeriert
-output/        Auswertungsergebnisse als CSV
-docs/          Datendokumentation und Methodenhinweise
+dashboard/
+  index.html      Die App — eine eigenständige Datei. Diagramm-Bibliothek und
+                  Schrift sind eingebettet, sie läuft also auch ohne Netz.
+  build_app.py    erzeugt index.html aus den Auswertungsdateien
+  fonts/          die eingebettete Schrift (IBM Plex Sans)
+scripts/          Analyse-Skripte (Python und R), numerisch durchnummeriert
+output/           Auswertungsergebnisse als CSV
+docs/             Datenquellen und Methodenhinweise
 ```
 
 ## Selbst bauen
 
 ```bash
 cd dashboard
-python3 build_app.py            # erzeugt deutschland_app.html und _cdn.html
-python3 build_app_static.py     # erzeugt die Fassung ohne JavaScript
+python3 build_app.py
 ```
 
-Voraussetzungen: Python 3 mit `plotly` und `numpy`; für die Analyse-Skripte
-zusätzlich `pandas`, `statsmodels`, `scipy` sowie R mit `lavaan`.
+Erzeugt `index.html` (rund 5 MB). Voraussetzungen: Python 3 mit `plotly` und
+`numpy`; für die Analyse-Skripte zusätzlich `pandas`, `statsmodels`, `scipy`
+sowie R mit `lavaan`.
 
 ## Deployment
 
-Als statische Website, kein Server nötig. Für Render ist `render.yaml` enthalten:
-Repository verbinden, Render liest die Konfiguration, veröffentlicht wird der
-Ordner `dashboard`.
+Statische Website, kein Server nötig. `render.yaml` ist enthalten: Repository bei
+Render verbinden, als **Static Site** anlegen (nicht Web Service), Publish
+Directory `dashboard`, Build Command leer. Render veröffentlicht bei jedem Push
+auf `main` automatisch neu.
 
 ## Grenzen
 
 Alle Angaben sind **registrierte** Kriminalität (Hellfeld) — was nicht angezeigt
 wird, erscheint nicht in der Statistik. Das Unsicherheitsgefühl stammt aus
-Befragungen mit teils kleinen Fallzahlen je Bundesland; Werte mit weniger als
-etwa 300 Befragten sind in der App gekennzeichnet. Alle Zusammenhangsaussagen
-beruhen auf Querschnittsdaten und belegen keine Ursachen.
+Befragungen mit teils kleinen Fallzahlen je Bundesland; Werte unter etwa 300
+Befragten sind in der App gekennzeichnet. Die Karte färbt nach Rangstufen, nicht
+nach gleichen Wertabständen. Alle Zusammenhangsaussagen beruhen auf
+Querschnittsdaten und belegen keine Ursachen.

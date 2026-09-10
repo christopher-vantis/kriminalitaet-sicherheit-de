@@ -10,8 +10,9 @@ Aufbau:
   Ansicht Deutschland   — Karte + republikweite Auswertungen
   Ansicht Bundesland    — erscheint beim Klick auf ein Land (sanfter Wechsel)
 
-ausgabe: dashboard/deutschland_app.html            (Plotly eingebettet)
-         dashboard/deutschland_app_cdn.html        (Plotly per CDN, klein)
+ausgabe: dashboard/index.html — die App selbst; die Karte ist der Einstieg.
+         Alle Diagramme und die Schrift sind eingebettet, die Datei ist also
+         eigenständig lauffähig.
 """
 import csv
 import math
@@ -21,6 +22,8 @@ import re
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+
+from flaggen_util import flaggen_laden
 import plotly.io as pio
 from plotly.offline import get_plotlyjs
 
@@ -604,15 +607,34 @@ def diagramme_zusammenhaenge_texte():
 # Versatz der Kürzel für die Stadtstaaten (Führungslinie vom Marker zum Text)
 FUEHRUNG = {"DE3": (74, -40), "DE6": (-80, -44), "DE5": (-84, 30)}
 
+# Beschriftung der Karte: ausgeschriebene Ländernamen. Für die drei Stadtstaaten
+# bleibt die Kurzform, weil ihr Gebiet zu klein für den vollen Namen ist — dort
+# zeigt das Länderprofil den Namen ohnehin ausgeschrieben.
 KUERZEL = {
-    "DE1": "BW", "DE2": "BY", "DE3": "BE", "DE4": "BB", "DE5": "HB", "DE6": "HH",
-    "DE7": "HE", "DE8": "MV", "DE9": "NI", "DEA": "NW", "DEB": "RP", "DEC": "SL",
-    "DED": "SN", "DEE": "ST", "DEF": "SH", "DEG": "TH",
+    "DE1": "Baden-Württemberg", "DE2": "Bayern", "DE3": "Berlin",
+    "DE4": "Brandenburg", "DE5": "Bremen", "DE6": "Hamburg",
+    "DE7": "Hessen", "DE8": "Mecklenburg-Vorpommern", "DE9": "Niedersachsen",
+    "DEA": "Nordrhein-Westfalen", "DEB": "Rheinland-Pfalz", "DEC": "Saarland",
+    "DED": "Sachsen", "DEE": "Sachsen-Anhalt", "DEF": "Schleswig-Holstein",
+    "DEG": "Thüringen",
+}
+
+
+# Namen, die für eine Zeile zu lang sind, werden getrennt. Getrennt wird am
+# Bindestrich oder am Leerzeichen, das der Mitte am nächsten liegt — so bleibt
+# jede Hälfte etwa gleich breit.
+ZWEIZEILIG = {
+    "Baden-Württemberg": ("Baden-", "Württemberg"),
+    "Mecklenburg-Vorpommern": ("Mecklenburg-", "Vorpommern"),
+    "Nordrhein-Westfalen": ("Nordrhein-", "Westfalen"),
+    "Rheinland-Pfalz": ("Rheinland-", "Pfalz"),
+    "Sachsen-Anhalt": ("Sachsen-", "Anhalt"),
+    "Schleswig-Holstein": ("Schleswig-", "Holstein"),
 }
 
 
 def karte_html(laender, viewbox):
-    """Karte mit klickbaren Flächen und Kürzel-Beschriftung."""
+    """Karte mit klickbaren Flächen und ausgeschriebener Beschriftung."""
     flaechen, labels, marken = [], [], []
     # Staffelung: von Norden nach Sueden aufbauen (y-Position der Beschriftung).
     # Die Verzoegerung steht in Sekunden im style-Attribut, die Animation selbst
@@ -640,7 +662,7 @@ def karte_html(laender, viewbox):
             # Stadtstaaten liegen dicht beieinander: kleine Kürzel, heller Halo
             # Labelpositionen: Brandenburg nach Osten (sonst liegt der Text in
             # Berlin), Stadtstaaten-Kürzel neben den Marker.
-            VERSATZ = {"DE4": (92, 30), "DE3": 76, "DE6": None, "DE5": None, "DEE": (0, 10)}
+            VERSATZ = {"DE4": (40, 34), "DE3": 76, "DE6": None, "DE5": None, "DEE": (0, 12)}
             klein = nuts in ("DE3", "DE5", "DE6", "DEC")
             v = VERSATZ.get(nuts, (0, 0))
             if v is None:                      # Stadtstaaten: Text am Ende der Führung
@@ -652,10 +674,26 @@ def karte_html(laender, viewbox):
             anker = "middle"
             if nuts in ("DE6", "DE5"):
                 anker = "end"
+            name = KUERZEL[nuts]
+            klein_flag = " kl-klein" if klein else ""
+            kurz_name = name.replace("-", " ")
+            if len(kurz_name) <= 8:
+                groesse = " kl-gross"
+            elif len(kurz_name) <= 12:
+                groesse = ""
+            else:
+                groesse = " kl-lang"
+            x, y = lab[0] + dx, lab[1] + dy
+            if name in ZWEIZEILIG:
+                oben, unten = ZWEIZEILIG[name]
+                inhalt = (f'<tspan x="{x}" dy="-8">{oben}</tspan>'
+                          f'<tspan x="{x}" dy="17">{unten}</tspan>')
+            else:
+                inhalt = name
             labels.append(
-                f'<text class="kl{"" if not klein else " kl-klein"}" x="{lab[0] + dx}" '
-                f'y="{lab[1] + dy}" text-anchor="{anker}" dominant-baseline="middle" '
-                f'style="animation-delay:{verzug + 0.14:.3f}s">{KUERZEL[nuts]}</text>')
+                f'<text class="kl{klein_flag}{groesse}" x="{x}" y="{y}" '
+                f'text-anchor="{anker}" dominant-baseline="middle" '
+                f'style="animation-delay:{verzug + 0.14:.3f}s">{inhalt}</text>')
     return (f'<svg class="karte" viewBox="{viewbox}" role="group" '
             f'aria-label="Deutschlandkarte nach Bundesländern">'
             f'<g>{"".join(flaechen)}</g><g class="mk-g">{"".join(marken)}</g>'
@@ -712,6 +750,7 @@ def main():
         "laender": laender,
         "texte_start": TEXTE_START,
         "modellguete": modellguete,
+        "flaggen": flaggen_laden(),
     }
 
     # Diagramme als JSON (Lazy-Rendering)
@@ -724,12 +763,13 @@ def main():
     karte = karte_html(laender, viewbox)
     html = baue_html(karte, daten, fig_json, fig_meta)
 
-    for name, tag in [("deutschland_app.html", "<script>" + get_plotlyjs() + "</script>"),
-                      ("deutschland_app_cdn.html",
-                       '<script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>')]:
-        ziel = ROOT / "dashboard" / name
-        ziel.write_text(html.replace("<!--PLOTLY-->", tag), encoding="utf-8")
-        print(f"{name}: {ziel.stat().st_size/1e6:.2f} MB")
+    # Eine einzige Datei: Sie ist die Startseite, und die Karte ist der Einstieg.
+    # Die Diagramm-Bibliothek wird eingebettet, damit die Seite ohne weitere
+    # Abrufe und ohne Internet-Bindung vollständig funktioniert.
+    ziel = ROOT / "dashboard" / "index.html"
+    ziel.write_text(html.replace("<!--PLOTLY-->", "<script>" + get_plotlyjs() + "</script>"),
+                    encoding="utf-8")
+    print(f"index.html: {ziel.stat().st_size/1e6:.2f} MB")
     return laender, basis
 
 
@@ -777,6 +817,7 @@ def baue_html(karte, daten, fig_json, fig_meta):
   </header>
 
   <nav class="tabs" id="tabs">
+    <button class="tab" data-ansicht="inhalt">Inhalt</button>
     <button class="tab active" data-ansicht="karte">Karte</button>
     <button class="tab" data-ansicht="kriminalitaet">Kriminalität</button>
     <button class="tab" data-ansicht="furcht">Furcht</button>
@@ -873,7 +914,7 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .karte-titel select:hover{border-color:var(--teal)}
 .karte-grid{display:grid;grid-template-columns:1fr;gap:16px;align-items:start;margin-top:6px}
 .karte-rechts h3{margin:2px 0 10px;font-size:.95rem;color:var(--ink)}
-.karte{width:100%;height:auto;display:block;margin:10px auto 0;max-height:min(74vh,820px)}
+.karte{width:100%;height:auto;display:block;margin:10px auto 0;max-height:min(84vh,1000px)}
 .bl{fill:#eee9e3;stroke:#ffffff;stroke-width:1.8;cursor:pointer;
  transition:fill .35s ease,filter .3s ease;
  transform-box:fill-box;transform-origin:center;
@@ -894,9 +935,11 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .fl{stroke:#12100e;stroke-width:1.2;stroke-dasharray:4 3;pointer-events:none}
 .mk{stroke:#12100e;stroke-width:1.4;cursor:pointer;transition:fill .3s ease}
 .mk-g{pointer-events:all}
-.lbl text{font-size:22px;font-weight:700;fill:#12100e;pointer-events:none;
+.lbl text{font-size:24px;font-weight:600;fill:#12100e;pointer-events:none;
  paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round}
-.lbl text.kl-klein{font-size:15px}
+.lbl text.kl-gross{font-size:28px}
+.lbl text.kl-lang{font-size:22px}
+.lbl text.kl-klein{font-size:20px;font-weight:700}
 .legende{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
 .legende .stufen{display:flex;gap:3px}
 .legende .stufen i{width:26px;height:11px;border-radius:3px;display:block}
@@ -916,6 +959,9 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
  font-size:.87rem;color:var(--text);cursor:pointer;transition:background .18s ease,transform .18s ease}
 .rank-zeile:hover{background:#ece7e1;transform:translateX(2px)}
 .rank-punkt{width:11px;height:11px;border-radius:3px;flex:0 0 auto;border:1px solid rgba(18,16,14,.35)}
+.flagge{width:24px;height:16px;flex:0 0 auto;display:inline-block;vertical-align:-3px;
+ border-radius:2px;box-shadow:0 0 0 1px rgba(18,16,14,.16);margin-right:7px}
+.lkopf h2 .flagge{width:34px;height:23px;vertical-align:-2px;margin-right:12px}
 .rank-name{flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rank-wert{font-variant-numeric:tabular-nums;font-weight:650;color:var(--ink);white-space:nowrap}
 @media (min-width:1040px){
@@ -1090,6 +1136,7 @@ function rankingZeigen(k, grenzen){
     return '<div class="rank-gruppe"><h4>' + t + '</h4>' + eintraege.map(x =>
       '<button class="rank-zeile" data-nuts="' + x.nuts + '">'
       + '<span class="rank-punkt" style="background:' + klasseRang(x.wert, grenzen) + '"></span>'
+      + (DATEN.flaggen[x.nuts] || '')
       + '<span class="rank-name">' + x.name + '</span>'
       + '<span class="rank-wert">' + nf(x.wert, k.einheit) + '</span></button>').join('') + '</div>';
   }
@@ -1198,6 +1245,7 @@ function ansichtKarte(){
 
 /* ---------- Ansicht: Themen ---------- */
 const THEMEN = {
+  inhalt:          {ids:[], text:null},
   kriminalitaet:   {ids:['hz','aq','zeitreihe','eu'], text:'kriminalitaet'},
   furcht:          {ids:['furcht','furcht_zr','delikte'], text:'furcht'},
   justiz:          {ids:['trichter'], text:'justiz'},
@@ -1206,6 +1254,53 @@ const THEMEN = {
 function ansichtThema(t){
   const cfg = THEMEN[t];
   let html = '<div class="view">';
+
+  if (t === 'inhalt'){
+    html += `<section class="card">
+      <h3>Warum diese Seite</h3>
+      <p class="unter">Der Anlass und die drei Fragen, um die es geht.</p>
+      <div class="einordnung">
+        <p>In Gesprächen höre ich immer wieder, die Kriminalität nehme zu. Das wollte ich
+        nicht einfach glauben und auch nicht einfach bestreiten — ich wollte nachsehen, was
+        die Zahlen dazu sagen. Daraus ist diese Auswertung entstanden.</p>
+        <p>Drei Fragen stehen am Anfang:</p>
+        <h4 class="schritt">1. Steigt die Kriminalität in Deutschland?</h4>
+        <p><strong>Langfristig nein, kurzfristig ja — und beides wird oft verwechselt.</strong>
+        1993 wurden <strong>6,75 Millionen</strong> Straftaten registriert, im Jahr 2025 sind es
+        <strong>5,51 Millionen</strong>: ein Rückgang um <strong>18 Prozent</strong>. Umgerechnet
+        auf die Einwohnerzahl — damit man die Jahre überhaupt vergleichen kann — fiel die Zahl
+        von 8.337 auf 6.591 je 100.000 Einwohner, also um <strong>21 Prozent</strong>. Seit dem
+        Tiefststand 2021 (5,05 Millionen) ist die Zahl allerdings wieder gestiegen, 2025 aber
+        erneut gesunken (5,6 Prozent weniger als 2024). Der langjährige Trend zeigt nach unten.
+        Die Wahrnehmung „es wird immer mehr" trifft diese Entwicklung nicht.</p>
+        <h4 class="schritt">2. Steigt die Angst vor Kriminalität?</h4>
+        <p><strong>Ja, und zwar unabhängig von der Kriminalität.</strong> Der Anteil der
+        Menschen, die sich nachts unsicher fühlen, lag 2014 bei <strong>22 Prozent</strong>,
+        stieg bis 2016 auf <strong>27 Prozent</strong> und liegt 2023 bei
+        <strong>25 Prozent</strong>. Dieser Anstieg fiel in eine Zeit, in der die registrierte
+        Kriminalität weiter zurückging. Angst und Kriminalität verlaufen also nicht im
+        Gleichschritt — das ist der eigentliche Befund dieser Arbeit.</p>
+        <h4 class="schritt">3. Wodurch wird die Angst beeinflusst?</h4>
+        <p><strong>Noch offen.</strong> Diese Frage lässt sich mit den hier versammelten Daten
+        nicht abschließen beantworten — vermutlich überhaupt nicht, weil Angst von vielen
+        Dingen abhängt, die keine Statistik erfasst. Ein erster Hinweis: Frauen fürchten sich
+        deutlich häufiger als Männer, ohne häufiger betroffen zu sein. Wie diese Frage genauer
+        zu beantworten wäre, ist noch in Arbeit.</p>
+      </div>
+      <div class="hinweis"><strong>Zum Stand dieser Arbeit.</strong> Die Seite ist in früher
+      Entwicklung. Zahlen und Darstellungen können sich noch ändern, und nicht jede Auswertung
+      ist fertig. Wo etwas unsicher ist, steht es dabeit — Quellen, Fallzahlen und die Grenzen
+      der Aussage finden sich unter „Daten &amp; Methoden".</div>
+      <div class="note"><h4>Und die Gegenrichtung</h4><p>Die Frage lässt sich auch umdrehen:
+      Wenn die Kriminalität langfristig sinkt und die Angst trotzdem steigt, sagt das weniger
+      über die Kriminalität als über die Art, wie wir über sie sprechen. Genau dort setzt der
+      zweite Teil der Auswertung an.</p></div>
+      <p class="quelle">Zahlen: BKA, Polizeiliche Kriminalstatistik (registrierte Fälle
+      insgesamt, ab 1987) und European Social Survey (Anteil der Befragten, die sich nachts
+      unsicher fühlen; Deutschland, Erhebung 2014/2016/2023).</p>
+    </section>`;
+  }
+
   if (cfg.text){
     const [h, p] = DATEN.texte_start[cfg.text];
     html += '<section class="card"><h3>' + h + '</h3><p class="unter">' + p + '</p></section>';
@@ -1327,7 +1422,7 @@ function ansichtLand(nuts){
   <div class="view">
     <button class="zurueck" id="zurueck">← Zurück zur Deutschlandkarte</button>
     <div class="lkopf">
-      <h2>${l.name}</h2>
+      <h2>${DATEN.flaggen[l.nuts] || ''}${l.name}</h2>
       <p>${nf(l.bevoelkerung)} Einwohner</p>
       ${kacheln([
         ['Straftaten 2025', nf(ges.faelle)],
