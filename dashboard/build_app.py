@@ -422,12 +422,17 @@ def diagramm_pmk():
         "auslaendische_ideologie": "ausländische Ideologie",
         "religioese_ideologie": "religiöse Ideologie",
     }
+    # Fünf Serien brauchen fünf unterscheidbare Farben, die alle auf Weiß
+    # sichtbar sind. Die frühere Palette nutzte drei Helligkeitsstufen desselben
+    # Tones — die beiden hellen lagen bei rund 1,5:1 und waren kaum zu sehen.
+    # Jetzt: zwei Petroltöne, ein neutrales Grau und zwei Ockertöne.
+    # Kontrast gegen Weiß: 9,4 / 4,2 / 5,1 / 6,3 / 3,4.
     farben = {
         "rechts": "#0b4f49",
-        "links": "#3d9a92",
-        "sonstige_zuordnung": "#9fd3ce",
-        "auslaendische_ideologie": "#c9a86a",
-        "religioese_ideologie": "#e0cdab",
+        "links": "#2d8c82",
+        "sonstige_zuordnung": "#6b645e",
+        "auslaendische_ideologie": "#8a5305",
+        "religioese_ideologie": "#b8860b",
     }
 
     f = make_subplots(
@@ -448,9 +453,9 @@ def diagramm_pmk():
             f.add_trace(go.Scatter(
                 x=[j for j, _ in reihe], y=[w for _, w in reihe],
                 mode="lines+markers", name=namen[feld],
-                line=dict(color=farben[feld], width=1.8 if klein else 2.6,
+                line=dict(color=farben[feld], width=2.2 if klein else 3.0,
                           dash="dot" if klein else "solid"),
-                marker=dict(size=4 if klein else 5.5, color=farben[feld]),
+                marker=dict(size=5 if klein else 6.5, color=farben[feld]),
                 legendgroup=feld, showlegend=(spalte == 1),
                 hovertemplate="%{y:,.0f} Fälle im Jahr %{x}<extra>"
                               + namen[feld] + "</extra>",
@@ -468,8 +473,10 @@ def diagramm_pmk():
     layout.update(
         height=420,
         margin=dict(l=10, r=20, t=64, b=50),
-        legend=dict(orientation="h", yanchor="bottom", y=1.15, x=0,
-                    xanchor="left", font=dict(size=12)),
+        legend=dict(orientation="h", yanchor="bottom", y=1.16, x=0,
+                    xanchor="left", font=dict(size=14),
+                    itemsizing="constant", itemwidth=30,
+                    tracegroupgap=14),
         hovermode="x unified",
     )
     f.update_layout(**layout)
