@@ -15,7 +15,6 @@ ausgabe: dashboard/index.html — die App selbst; die Karte ist der Einstieg.
          eigenständig lauffähig.
 """
 import csv
-import math
 import json
 import pathlib
 import re
@@ -50,13 +49,20 @@ FARBEN_KARTE = ["#e8f3f1", "#c3e2dd", "#96cbc4", "#5fada4", "#2d8c82", "#0f5f58"
 
 # Politisch motivierte Kriminalität: eine Farbe je Phänomenbereich. Petrol =
 # rechts, Ocker = links, Violett = Ideologie, warmes Grau = Fälle ohne
-# Zuordnung. Alle vier erreichen gegen den Hintergrund mindestens 3:1 Kontrast
-# (#a8a29e läge mit 2,4:1 darunter und ist deshalb zu #8b8378 abgedunkelt).
-PMK_FARBEN = {"rechts": "#0f766e", "links": "#a16207",
-              "ideologie": "#6d28d9", "sonstige_zuordnung": "#8b8378"}
+# Zuordnung. Die Töne sind bewusst dunkel gewählt: Alle vier erreichen gegen
+# den hellen Hintergrund mindestens 5,8:1 (vorher bis hinunter 3,5:1, was auf
+# dem Handy kaum zu lesen war) und liegen zugleich weit genug in der Helligkeit
+# auseinander, um sich an Kreuzungspunkten zu trennen.
+PMK_FARBEN = {"rechts": "#0b4f49", "links": "#7c4a03",
+              "ideologie": "#5b21b6", "sonstige_zuordnung": "#6b645c"}
 PMK_NAMEN = {"rechts": "rechts", "links": "links",
              "ideologie": "ausländische und religiöse Ideologie",
              "sonstige_zuordnung": "sonstige Zuordnung"}
+# Die Gewalttaten sind kein eigener Bereich, sondern eine Teilmenge. Sie laufen
+# deshalb gestrichelt in der Textfarbe — dunkler und dünner als die vier
+# Flächenlinien, damit sie als Markierung zu erkennen sind und nicht als
+# fünfte Kategorie.
+PMK_GEWALT_FARBE = "#12100e"
 # Zeichenreihenfolge = Reihenfolge in der Legende.
 PMK_REIHENFOLGE = ("rechts", "links", "ideologie", "sonstige_zuordnung")
 
@@ -338,64 +344,115 @@ def diagramme(laender, basis):
                  "Anteil „beunruhigt“ je Delikt, SKiD 2020 und 2024.",
                  f, "BKA, SKiD 2024/2020"))
 
-    # 8) Trichter (Justiz)
+    # 8) Von der Anzeige zur Verurteilung
     aq = {r["schluessel"]: r for r in lies(OUT / "pks_aufklaerungsquoten_2025.csv")}
     ver = {(r["delikt"], r["jahr"]): z(r["verurteilte"])
            for r in lies(OUT / "destatis_verurteilte.csv")}
-    gruppen = [("****00", "Diebstahl (gesamt)", "Diebstahl (19. Abschnitt)"),
+    gruppen = [("****00", "Diebstahl insgesamt", "Diebstahl (19. Abschnitt)"),
                ("435*00", "Wohnungseinbruch", None),
                ("210000", "Raub", "Raub und räuberische Erpressung (20. Abschnitt)"),
                ("222000", "Gefährliche Körperverletzung", "Körperverletzung")]
-    labels, faelle, aufgeklaert, verurteilt = [], [], [], []
+    # Je Delikt drei Mengen: nicht aufgeklärt, aufgeklärt ohne Verurteilung,
+    # verurteilt. Absolute Balken mit logarithmischer Achse sind hier unbrauchbar
+    # (5.844 Verurteilte gegen 82.920 Fälle verschwinden), und eine log-Achse
+    # kann kaum jemand lesen. Als Anteil am Ausgangsbestand stehen alle vier
+    # Delikte auf einer gemeinsamen, linearen Skala — Null bis hundert Prozent.
+    zeilen = []
     for sch, lab, verlab in gruppen:
         a = aq.get(sch)
         if not a:
             continue
-        labels.append(lab)
-        faelle.append(z(a["faelle"]))
-        aufgeklaert.append(z(a["aufgeklaert"]))
         if verlab:
-            verurteilt.append(ver.get((verlab, "2024")))
+            verurteilt = ver.get((verlab, "2024"))
         else:
-            v = sum(ver.get((k, "2024")) or 0 for k in
-                    ["Einbruchdiebstahl (§ 243 Abs. 1 S. 2 Nr. 1)",
-                     "Wohnungseinbruchdiebstahl (§ 244 Abs. 1 Nr. 3)",
-                     "Schwerer Diebstahl/Banden (§ 244a)"])
-            verurteilt.append(v)
-    # Farbfamilien trennen die beiden Ebenen: Polizei (Petrol) und Justiz (Ocker).
-    # Die drei Serien sind zusaetzlich direkt beschriftet — die Farbe muss die
-    # Zuordnung also nicht allein tragen.
-    f = fig(430, barmode="group", bargap=0.32)
-    f.add_trace(go.Bar(y=labels, x=faelle, orientation="h", name="registrierte Fälle (Polizei, 2025)",
-                       marker_color="#0b4f49", width=0.25,
-                       text=[f"{v:,.0f}".replace(",", ".") for v in faelle],
-                       textposition="outside", textfont=dict(size=11, color="#3d3833"),
-                       hovertemplate="%{y}: %{x:,.0f}<extra>registriert</extra>"))
-    f.add_trace(go.Bar(y=labels, x=aufgeklaert, orientation="h", name="davon aufgeklärt (Polizei, 2025)",
-                       marker_color="#2d8c82", width=0.25,
-                       text=[f"{v:,.0f}".replace(",", ".") for v in aufgeklaert],
-                       textposition="outside", textfont=dict(size=11, color="#3d3833"),
-                       hovertemplate="%{y}: %{x:,.0f}<extra>aufgeklärt</extra>"))
-    f.add_trace(go.Bar(y=labels, x=verurteilt, orientation="h", name="Verurteilungen (Justiz, 2024)",
-                       marker_color="#7d5108", width=0.25,
-                       text=[f"{v:,.0f}".replace(",", ".") if v else "" for v in verurteilt],
-                       textposition="outside", textfont=dict(size=11, color="#3d3833"),
-                       hovertemplate="%{y}: %{x:,.0f}<extra>verurteilt</extra>"))
-    f.update_xaxes(type="log", title="Anzahl (logarithmische Skala)")
-    # Die Serien werden von oben nach unten in umgekehrter Reihenfolge gezeichnet;
-    # die Legende wird angeglichen, damit beide dieselbe Ordnung zeigen.
-    # Achtung: Bei einer log-Achse erwartet Plotly den Bereich in Zehnerpotenzen
-    # (log10), nicht in Rohwerten — sonst wird die Achse ungültig.
-    _max = max([v for v in verurteilt if v] + [v for v in faelle if v] + [1])
-    f.update_xaxes(range=[0, math.log10(_max) + 0.6],
-                   tickvals=[1e2, 1e3, 1e4, 1e5, 1e6, 1e7],
-                   ticktext=["100", "1.000", "10.000", "100.000", "1 Mio.", "10 Mio."])
-    f.update_layout(legend=dict(traceorder="reversed", orientation="h",
-                                y=-0.28, x=0, xanchor="left"))
+            verurteilt = sum(ver.get((k, "2024")) or 0 for k in
+                             ["Einbruchdiebstahl (§ 243 Abs. 1 S. 2 Nr. 1)",
+                              "Wohnungseinbruchdiebstahl (§ 244 Abs. 1 Nr. 3)",
+                              "Schwerer Diebstahl/Banden (§ 244a)"])
+        faelle = z(a["faelle"])
+        aufgeklaert = z(a["aufgeklaert"])
+        if not (faelle and aufgeklaert and verurteilt):
+            continue
+        zeilen.append(dict(name=lab, faelle=faelle, verurteilt=verurteilt,
+                           offen=faelle - aufgeklaert,
+                           aufgeklaert_ohne=aufgeklaert - verurteilt))
+    # Ein Anteil muss zwischen null und hundert liegen: Wäre die Zahl der
+    # Verurteilungen größer als die der aufgeklärten Fälle, stimmt die
+    # Zuordnung der Rubriken nicht — dann lieber abbrechen als irreführen.
+    for zeile in zeilen:
+        if zeile["aufgeklaert_ohne"] < 0:
+            raise ValueError(f"Trichter {zeile['name']}: mehr Verurteilungen "
+                             f"als aufgeklärte Fälle")
+
+    # Zeichenreihenfolge: unten die stärkste Verengung, oben die schwächste.
+    zeilen.sort(key=lambda z: z["verurteilt"] / z["faelle"])
+    namen = [z["name"] for z in zeilen][::-1]
+    f = fig(400, barmode="stack", bargap=0.34)
+    # Farbfamilie Petrol: dunkel = verurteilt, mittel = aufgeklärt ohne
+    # Verurteilung. Die nicht aufgeklärte Menge ist neutral gehalten — sie ist
+    # die Menge, bei der nichts weiter passiert.
+    for feld, name, farbe, schrift in (
+            ("verurteilt", "verurteilt", "#0b4f49", "#ffffff"),
+            ("aufgeklaert_ohne", "aufgeklärt, ohne Verurteilung", "#2d8c82", "#ffffff"),
+            ("offen", "nicht aufgeklärt", "#cbc4b9", INK)):
+        werte = [z[feld] / z["faelle"] * 100 for z in zeilen][::-1]
+        f.add_trace(go.Bar(
+            y=namen, x=werte, orientation="h", name=name, marker_color=farbe,
+            marker_line=dict(color="#ffffff", width=1),
+            # Abschnitte ab vier Prozent werden im Feld beschriftet — darunter
+            # passt keine Zahl mehr hinein (der Wert steht dann im Hover und in
+            # der Einordnung). Vier Prozent sind der wichtigste Wert der Grafik
+            # (Diebstahl), deshalb liegt die Schwelle so niedrig.
+            text=[f"{w:.1f}".replace(".", ",") if w >= 4 else "" for w in werte],
+            textposition="inside", insidetextanchor="middle",
+            textfont=dict(size=11, color=schrift),
+            customdata=[[f"{z[feld]:,.0f}".replace(",", ".") for z in zeilen][::-1]],
+            hovertemplate="%{y}: %{x:.1f} % · %{customdata} Fälle"
+                          "<extra>" + name + "</extra>"))
+    f.update_xaxes(range=[0, 100], dtick=25, ticksuffix=" %",
+                   title="Anteil der registrierten Fälle")
+    f.update_yaxes(automargin=True, tickfont=dict(size=13))
+    layout = dict(BASE)
+    layout.update(height=400, margin=dict(l=10, r=20, t=48, b=54),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.04, x=0,
+                              xanchor="left", font=dict(size=13),
+                              # Plotly dreht die Legende gestapelter Balken
+                              # standardmäßig um; hier soll sie von links nach
+                              # rechts dieselbe Ordnung zeigen wie die Balken.
+                              traceorder="normal",
+                              itemsizing="constant"),
+                  hovermode="closest")
+    f.update_layout(**layout)
     figs.append(("trichter", "Von der Anzeige zur Verurteilung",
-                 "Registrierte Fälle, aufgeklärte Fälle und Verurteilungen im Vergleich "
-                 "(unterschiedliche Einheiten und Jahre — bitte als Größenordnung lesen).",
-                 f, "BKA PKS 2025; Destatis Strafverfolgungsstatistik 2024"))
+                 "Wie registrierte Fälle eines Delikts ausgehen — als Anteil, "
+                 "damit alle vier Delikte auf derselben Skala stehen: nicht "
+                 "aufgeklärt, aufgeklärt ohne Verurteilung, verurteilt. Die "
+                 "Verengung ist zweistufig und fällt sehr unterschiedlich aus: "
+                 "von 4,2 Prozent verurteilter Diebstahlsfälle bis 30 Prozent "
+                 "bei gefährlicher Körperverletzung.",
+                 f, "BKA PKS 2025 (Fälle, Aufklärungen); Destatis "
+                    "Strafverfolgungsstatistik 2024 (Verurteilte)",
+                 "Einordnung: Von 1.813.141 registrierten Diebstählen (2025) "
+                 "wurden 577.495 aufgeklärt (31,9 Prozent); 75.740 Verurteilungen "
+                 "(2024) entsprechen 4,2 Prozent der Fälle. Beim "
+                 "Wohnungseinbruchdiebstahl stehen 5.844 Verurteilungen neben "
+                 "82.920 Fällen (7,0 Prozent), bei Raub 6.098 neben 40.119 (15,2 "
+                 "Prozent), bei gefährlicher Körperverletzung 46.523 neben 155.002 "
+                 "(30,0 Prozent). Interpretation: Beide Stufen verengen, aber "
+                 "unabhängig voneinander — gefährliche Körperverletzung wird zu "
+                 "80,4 Prozent aufgeklärt, doch nur 30 Prozent der Fälle enden in "
+                 "einer Verurteilung; Diebstahl wird zu 31,9 Prozent aufgeklärt "
+                 "und nur 4,2 Prozent der Fälle führen zu einer Verurteilung. Wer "
+                 "aus einer hohen Aufklärungsquote auf eine hohe Verurteilungszahl "
+                 "schließt, übersieht die zweite Stufe. Grenzen: Die drei Mengen "
+                 "stammen aus verschiedenen Quellen und Jahren — Fälle und "
+                 "Aufklärungen aus der PKS 2025, Verurteilungen aus der "
+                 "Strafverfolgungsstatistik 2024 — und Verurteilungen zählen "
+                 "Personen, nicht Fälle. Ein Teil der Verurteilungen von 2024 "
+                 "gehört zu Fällen früherer Jahre; beim Wohnungseinbruch enthält "
+                 "die Verurteilungszahl nur die Qualifikationstatbestände "
+                 "§§ 243, 244, 244a. Die Aufteilung ist deshalb eine Näherung, "
+                 "keine Bilanz derselben Vorgänge."))
 
     # 9) EU-Vergleich: mehrere Delikte als kleine Vielfache
     # Jedes Feld hat eine eigene Werteskala — sonst wären Tötungsdelikte
@@ -764,7 +821,7 @@ def diagramm_pmk():
         f.add_trace(go.Scatter(
             x=jahre, y=[w / g * 100 for w, g in zip(faelle[feld], gesamt)],
             mode="lines+markers", name=PMK_NAMEN[feld],
-            line=dict(color=PMK_FARBEN[feld], width=2.6),
+            line=dict(color=PMK_FARBEN[feld], width=2.9),
             # Die Punkte markieren die zehn Messwerte, bleiben aber klein:
             # Größere Punkte verdecken den Verlauf der Linie.
             marker=dict(size=6.5, color=PMK_FARBEN[feld]),
@@ -774,7 +831,7 @@ def diagramm_pmk():
     f.add_trace(go.Scatter(
         x=jahre, y=[w / g * 100 for w, g in zip(gewalt, gesamt)],
         mode="lines", name="davon Gewalttaten",
-        line=dict(color="#57534e", width=2, dash="dot"),
+        line=dict(color=PMK_GEWALT_FARBE, width=1.8, dash="dot"),
         customdata=[f"{w:,.0f}".replace(",", ".") for w in gewalt],
         hovertemplate="%{y:.1f} % · %{customdata} Fälle<extra></extra>"))
 
@@ -1820,13 +1877,19 @@ function diagrammeAnpassen(){
         'margin.b': schmal ? 64 : 50,
         'margin.t': schmal ? 66 : 54,
       });
-      // Das PMK-Diagramm hat zehn Jahreszahlen auf der x-Achse — stehend
-      // stoßen sie auf dem Handy aneinander. Dort schräg stellen; die
-      // zusätzliche Höhe braucht der untere Rand.
+      // Das PMK-Diagramm hat zehn Jahreszahlen auf der x-Achse. Auf dem Handy
+      // stehen sie sich im Weg, auch schräg gestellt: dort nur jedes zweite
+      // Jahr beschriften, dazu das letzte — Anstiegsjahr und aktuelles Jahr
+      // bleiben damit lesbar.
       if (el.dataset.fig === 'pmk'){
-        Plotly.relayout(el, {'xaxis.tickangle': schmal ? -45 : 0,
-                             'xaxis.tickfont.size': 12,
-                             'margin.b': schmal ? 96 : 46});
+        Plotly.relayout(el, schmal
+          ? {'xaxis.tickmode': 'array',
+             'xaxis.tickvals': [2016, 2018, 2020, 2022, 2025],
+             'xaxis.tickfont.size': 12,
+             'margin.b': 64}
+          : {'xaxis.tickmode': 'linear', 'xaxis.dtick': 1,
+             'xaxis.tickfont.size': 12,
+             'margin.b': 46});
       }
     } catch (e) { /* Diagramm noch nicht fertig gezeichnet */ }
   });
@@ -1868,7 +1931,12 @@ function htmlLegende(el, f){
 // über eine Zuordnungstabelle ersetzt; begrifflich heikle Stellen — etwa
 // „Polizeiliche Kriminalstatistik" — bleiben deutsch, weil die englische
 // Entsprechung dort in die Irre führt.
-const SPRACH_TEXTE = JSON.parse(document.getElementById('i18n').textContent);
+// Die englische Fassung entsteht beim Bauen durch Textersetzung und bringt die
+// Umschalttabelle nicht mit. Fehlt das Element, darf das Seitenskript nicht
+// abbrechen — sonst bleibt die ganze Seite leer.
+const I18N_ELEMENT = document.getElementById('i18n');
+const SPRACH_TEXTE = I18N_ELEMENT ? JSON.parse(I18N_ELEMENT.textContent)
+                                  : {de: {}, en: {}};
 let sprache = 'de';
 
 function texteErsetzen(lang){
