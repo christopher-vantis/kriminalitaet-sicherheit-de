@@ -174,7 +174,25 @@ def lade_daten():
         if v["name"] in kantone:
             kantone[v["name"]]["nuts"] = code
 
-    return kantone, geo["_viewbox"], zr, {"ess": ess, "ref": ref, "eu": eu}
+    # Gepoolter Anteil über alle Runden und alle Befragten, gewichtet. Er ist
+    # der Vergleichsmassstab im Gruppen-Diagramm: Der ungewichtete Mittelwert
+    # der Gruppen wäre dort falsch, weil die Gruppen verschieden gross sind.
+    ess_gesamt = None
+    personen = D / "ch_ess_personen.csv"
+    if personen.exists():
+        summe_w = summe_wu = 0.0
+        with open(personen, encoding="utf-8") as fh:
+            for r in csv.DictReader(fh):
+                w, u = z(r.get("w")), z(r.get("unsicher"))
+                if w is None or u is None or w <= 0:
+                    continue
+                summe_w += w
+                summe_wu += w * u
+        if summe_w:
+            ess_gesamt = 100 * summe_wu / summe_w
+
+    return kantone, geo["_viewbox"], zr, {"ess": ess, "ref": ref, "eu": eu,
+                                          "ess_gesamt": ess_gesamt}
 
 
 def basis_zahlen(kantone, zr):
@@ -689,42 +707,87 @@ def diagramme(kantone, basis, zr, fd):
         "ein Rückgang der Anzeigen sein."))
 
     # 11) Unsicherheit nach Bevölkerungsgruppen (ESS, gepoolt)
-    alle = []
+    #     Drei getrennte Blöcke, nicht eine gemeinsame Liste: Sortiert man alle
+    #     zwölf Gruppen nach ihrem Wert, stehen "Mann", "30-44" und "Land"
+    #     nebeneinander. Man erkennt dann nicht mehr, welche Werte
+    #     zusammengehören — und das war der Hauptgrund, warum das Diagramm
+    #     unlesbar war. Innerhalb jedes Blocks bleibt nach Wert sortiert.
+    zuordnung = {"geschlecht": "Geschlecht", "alter_gr": "Altersgruppe",
+                 "stadt_land": "Wohngemeinde"}
+    bloecke = {name: [] for name in zuordnung.values()}
     for r in ess:
-        if r["kennzahl"] != "unsicher":
+        if r["kennzahl"] != "unsicher" or r["ebene"] not in zuordnung:
             continue
-        if r["ebene"] in ("geschlecht", "alter_gr", "stadt_land"):
-            alle.append((r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), z(r["ki_hi"]),
-                         int(float(r["n"]))))
-    alle = [a for a in alle if a[1] is not None]
-    alle.sort(key=lambda a: a[1])
-    f = fig(460)
-    f.add_trace(go.Scatter(
-        x=[a[1] for a in alle], y=[a[0] for a in alle], mode="markers+text",
-        text=[_fmt(a[1], 1, " %") for a in alle], textposition="middle right",
-        textfont=dict(size=11, color=INK, family=FONT),
-        marker=dict(size=9, color=TEAL_H1),
-        error_x=dict(type="data", symmetric=False,
-                     array=[a[3] - a[1] for a in alle],
-                     arrayminus=[a[1] - a[2] for a in alle],
-                     color=SLATE, thickness=1.4, width=0),
-        customdata=[a[4] for a in alle],
-        hovertemplate="%{y}: %{x:.1f} %<br>n = %{customdata:,}<extra></extra>",
-        showlegend=False))
-    mittel_alle = float(np.mean([a[1] for a in alle]))
-    f.add_vline(x=mittel_alle, line=dict(color=UEBER, width=1.6, dash="dash"))
-    f.add_annotation(x=mittel_alle, y=1.0, yref="paper", yanchor="bottom",
-                     xanchor="left", showarrow=False, text="Mittel der Gruppen",
-                     font=dict(size=11, color=UEBER),
-                     bgcolor="rgba(255,255,255,.92)")
-    f.update_xaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
-                   range=[0, max(a[3] for a in alle) * 1.18])
-    f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
+        if z(r["anteil"]) is None:
+            continue
+        bloecke[zuordnung[r["ebene"]]].append(
+            (r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), z(r["ki_hi"]),
+             int(float(r["n"]))))
+    # Innerhalb der Blöcke die natürliche Reihenfolge, nicht die Rangfolge:
+    # Altersgruppen aufsteigend, Wohngemeinden vom Land zur Grossstadt. Nach
+    # Wert sortiert verschwindet genau das Muster, um das es geht — bei den
+    # Altersgruppen die U-Form (jung und alt fürchten sich mehr als die Mitte),
+    # bei den Wohngemeinden der gleichmässige Anstieg zur Stadt.
+    reihenfolge = {
+        "Geschlecht": ["Mann", "Frau"],
+        "Altersgruppe": ["16-29", "30-44", "45-59", "60-74", "75+"],
+        "Wohngemeinde": ["Land", "Dorf", "Kleinstadt", "Vorort", "Grossstadt"],
+    }
+    for name, werte in bloecke.items():
+        rang = {g: i for i, g in enumerate(reihenfolge.get(name, []))}
+        werte.sort(key=lambda a: rang.get(a[0], 99))
+    alle_g = [g for werte in bloecke.values() for g in werte]
+    xmax = max(g[3] for g in alle_g) * 1.24
+    versatz = xmax * 0.012
+    mittel = fd.get("ess_gesamt")
+
+    f = make_subplots(rows=len(bloecke), cols=1, shared_xaxes=True,
+                      vertical_spacing=0.10, subplot_titles=list(bloecke))
+    f.update_layout(**BASE, height=620)
+    for nr, (name, werte) in enumerate(bloecke.items(), start=1):
+        f.add_trace(go.Scatter(
+            x=[g[1] for g in werte], y=[g[0] for g in werte], mode="markers",
+            marker=dict(size=9, color=TEAL_H1),
+            error_x=dict(type="data", symmetric=False,
+                         array=[g[3] - g[1] for g in werte],
+                         arrayminus=[g[1] - g[2] for g in werte],
+                         color=SLATE, thickness=1.4, width=0),
+            customdata=[g[4] for g in werte],
+            hovertemplate="%{y}: %{x:.1f} %<br>n = %{customdata:,}<extra></extra>",
+            showlegend=False), row=nr, col=1)
+        # Der Wert steht rechts NEBEN dem Intervall, nicht darauf — sonst läuft
+        # die Intervalllinie mitten durch die Zahl.
+        f.add_trace(go.Scatter(
+            x=[g[3] + versatz for g in werte], y=[g[0] for g in werte],
+            mode="text", text=[_fmt(g[1], 1, " %") for g in werte],
+            textposition="middle right",
+            textfont=dict(size=11, color=INK, family=FONT),
+            showlegend=False, hoverinfo="skip"), row=nr, col=1)
+        if mittel is not None:
+            f.add_vline(x=mittel, line=dict(color=UEBER, width=1.5, dash="dash"),
+                        row=nr, col=1)
+            if nr == 1:
+                try:
+                    f.add_annotation(x=mittel, y=1.0, yref="y domain",
+                                     xanchor="left", yanchor="bottom",
+                                     text=" alle Befragten", showarrow=False,
+                                     font=dict(size=11, color=UEBER),
+                                     bgcolor="rgba(255,255,255,.92)",
+                                     row=nr, col=1)
+                except Exception:
+                    pass   # Beschriftung ist Zusatz; das Diagramm bleibt gültig
+        f.update_yaxes(automargin=True, ticks="outside", ticklen=6, row=nr, col=1)
+        f.update_xaxes(range=[0, xmax], ticksuffix=" %", gridcolor=GRID,
+                       linecolor=GRID, row=nr, col=1)
+    f.update_xaxes(title_text="Anteil mit Unsicherheitsgefühl", row=len(bloecke), col=1)
+    for an in f.layout.annotations:
+        an.font.size = 12.5
     figs.append((
         "ch_gruppen", "Wer sich unsicher fühlt",
         "Unsicherheitsgefühl nach Bevölkerungsgruppen, Runden 1–11 gepoolt "
-        "(2002 bis 2023). Kurze Linie: 95-%-Intervall. Fallzahlen zwischen "
-        "831 und 9'633 je Gruppe.",
+        "(2002 bis 2023). Die kurze Linie ist das 95-%-Intervall, die "
+        f"gestrichelte Linie der Anteil über alle Befragten ({_fmt(mittel, 1, ' %')}). "
+        "Fallzahlen zwischen 831 und 9'633 je Gruppe.",
         f, "ESS Runden 1–11, eigene Berechnung (Gewichtung pspwght)",
         "Einordnung: Der Unterschied zwischen Frauen (21,2 Prozent) und Männern "
         "(5,5 Prozent) ist der grösste Einzelbefund — und er ist grösser als in "
@@ -732,12 +795,16 @@ def diagramme(kantone, basis, zr, fd):
         "Frauen fürchten sich deutlich häufiger, ohne häufiger betroffen zu sein: "
         "Die Viktimisierungsrate liegt bei Frauen mit 17,9 Prozent sogar leicht "
         "über der der Männer (17,3 Prozent, Unterschied im Rahmen der "
-        "Zufallsschwankung). Auch die Altersstruktur ist umgekehrt zur "
-        "Opferbelastung: Am unsichersten sind die über 75-Jährigen, am häufigsten "
-        "betroffen die 16- bis 29-Jährigen. Grenzen: Die Gruppen sind gepoolt "
-        "über alle Runden; Veränderungen über die Zeit sind damit nicht sichtbar. "
-        "Bildung, Einkommen und Wohnlage wurden nicht kontrolliert — die "
-        "Unterschiede können sich gegenseitig erklären."))
+        "Zufallsschwankung). Die Unsicherheit steigt mit dem Alter, während die "
+        "Opferbelastung mit dem Alter sinkt — die Furcht folgt also nicht dem "
+        "Risiko. Und sie ist auf dem Land tiefer als in der Stadt, obwohl die "
+        "Häufigkeitszahl der registrierten Straftaten in den Städten höher liegt. "
+        "Grenzen: Die Gruppen sind über alle Runden gepoolt, Veränderungen über "
+        "die Zeit sind damit nicht sichtbar. Bildung, Einkommen und Wohnlage "
+        "wurden nicht kontrolliert — die Gruppen sind bivariat und können sich "
+        "gegenseitig erklären. Die Fallzahlen der einzelnen Gruppen (831 bis "
+        "9'633) sind unterschiedlich gross, die Intervalle deshalb "
+        "unterschiedlich breit."))
 
     # 12) Grossregionen
     reg = []
