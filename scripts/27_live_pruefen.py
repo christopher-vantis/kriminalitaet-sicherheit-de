@@ -48,7 +48,7 @@ def main():
     # Die Seite ist die App selbst — es gibt keine Unterseiten mehr.
     dom = hole(f"{B}/", "live_index.html")
     ergebnisse.append(pruefe("Startseite (= App)", dom, {
-        "Seitentitel": (r"<title>Kriminalität und Sicherheit", 1),
+        "Seitentitel": (r"<title>Die \(un\)berechtigte Furcht vor Kriminalität", 1),
         "Reiterleiste": (r'data-ansicht="(\w+)"', 6),
         "Reiter Inhalt zuerst": (r'data-ansicht="inhalt"', 1),
         "Karte vorhanden": (r'class="bl"', 16),
