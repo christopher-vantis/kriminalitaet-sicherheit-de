@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build_ch.py — Kriminalität und Sicherheit in der Schweiz
+build_ch.py — Die (un)berechtigte Furcht vor Kriminalität in der Schweiz
 ========================================================
 Baut die Schweizer Fassung der App als einzelne HTML-Datei: klickbare
 Kantonskarte, Bundes-Zeitreihen, Furcht, Strafverfolgung, Methoden — und für
@@ -1015,7 +1015,7 @@ def baue_html(karte, daten, fig_json, fig_meta):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#12100e">
-<title>Kriminalität und Sicherheit in der Schweiz</title>
+<title>Die (un)berechtigte Furcht vor Kriminalität in der Schweiz</title>
 <!--PLOTLY-->
 <style>{DE.schrift_css()}</style>
 <style>{DE.CSS}{CH_CSS}</style>
@@ -1025,9 +1025,9 @@ def baue_html(karte, daten, fig_json, fig_meta):
   <header class="kopf">
     <div class="kopf-inner">
       <div class="kopf-titel">
-        <h1>Kriminalität und Sicherheit in der Schweiz</h1>
-        <p>Registrierte Straftaten, Strafverfolgung und das Sicherheitsgefühl der
-        Bevölkerung — für die Schweiz und für jeden Kanton.</p>
+        <h1>Die (un)berechtigte Furcht vor Kriminalität in der Schweiz</h1>
+        <p>Registrierte Kriminalität, Strafverfolgung und das Sicherheitsgefühl der
+        Bevölkerung — für die Eidgenossenschaft und für jeden Kanton.</p>
       </div>
       <div class="kopf-nav">
         <a href="index.html">Startseite</a>

@@ -10,9 +10,9 @@ Das Repository enthält **drei** Seiten:
 
 | Datei | Inhalt |
 |---|---|
-| `index.html` | Startseite: Titel, kurze Beschreibung, zwei anklickbare Karten (Deutschland links, Schweiz rechts) |
-| `deutschland.html` | Deutschland-Fassung — Karte als Einstieg, alles Weitere in Reitern darunter |
-| `schweiz.html` | Schweizer Fassung — Karte der 26 Kantone als Einstieg, gleicher Aufbau |
+| `index.html` | Startseite „Kriminalität und Angst": Titel, kurze Beschreibung, zwei anklickbare Karten (Deutschland links, Schweiz rechts) |
+| `deutschland.html` | „Die (un)berechtigte Furcht vor Kriminalität in Deutschland" — Bundesländerkarte als Einstieg, alles Weitere in Reitern darunter |
+| `schweiz.html` | „Die (un)berechtigte Furcht vor Kriminalität in der Schweiz" — Karte der 26 Kantone als Einstieg, gleicher Aufbau und gleiche Titelform |
 
 Die Startseite ist bewusst leicht (rund 190 KB, kein JavaScript, keine
 Diagramm-Bibliothek): Sie ist eine Tür, keine Auswertung.
