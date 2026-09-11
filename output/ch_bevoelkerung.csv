@@ -1,0 +1,2017 @@
+kanton_code;kanton;jahr;komponente;staatsangehoerigkeit;personen
+0;Schweiz;2008;bestand_1_1;total;7593494
+0;Schweiz;2008;bestand_31_12;total;7701856
+1;Zürich;2008;bestand_1_1;total;1307567
+1;Zürich;2008;bestand_31_12;total;1332727
+2;Bern / Berne;2008;bestand_1_1;total;962982
+2;Bern / Berne;2008;bestand_31_12;total;969299
+3;Luzern;2008;bestand_1_1;total;363475
+3;Luzern;2008;bestand_31_12;total;368742
+4;Uri;2008;bestand_1_1;total;34989
+4;Uri;2008;bestand_31_12;total;35162
+5;Schwyz;2008;bestand_1_1;total;141024
+5;Schwyz;2008;bestand_31_12;total;143719
+6;Obwalden;2008;bestand_1_1;total;33997
+6;Obwalden;2008;bestand_31_12;total;34429
+7;Nidwalden;2008;bestand_1_1;total;40287
+7;Nidwalden;2008;bestand_31_12;total;40737
+8;Glarus;2008;bestand_1_1;total;38237
+8;Glarus;2008;bestand_31_12;total;38370
+9;Zug;2008;bestand_1_1;total;109141
+9;Zug;2008;bestand_31_12;total;110384
+10;Fribourg / Freiburg;2008;bestand_1_1;total;263241
+10;Fribourg / Freiburg;2008;bestand_31_12;total;268537
+11;Solothurn;2008;bestand_1_1;total;250240
+11;Solothurn;2008;bestand_31_12;total;251830
+12;Basel-Stadt;2008;bestand_1_1;total;185227
+12;Basel-Stadt;2008;bestand_31_12;total;186672
+13;Basel-Landschaft;2008;bestand_1_1;total;269145
+13;Basel-Landschaft;2008;bestand_31_12;total;271214
+14;Schaffhausen;2008;bestand_1_1;total;74527
+14;Schaffhausen;2008;bestand_31_12;total;75303
+15;Appenzell Ausserrhoden;2008;bestand_1_1;total;52654
+15;Appenzell Ausserrhoden;2008;bestand_31_12;total;53054
+16;Appenzell Innerrhoden;2008;bestand_1_1;total;15471
+16;Appenzell Innerrhoden;2008;bestand_31_12;total;15549
+17;St. Gallen;2008;bestand_1_1;total;465937
+17;St. Gallen;2008;bestand_31_12;total;471152
+18;Graubünden / Grigioni / Grischun;2008;bestand_1_1;total;188762
+18;Graubünden / Grigioni / Grischun;2008;bestand_31_12;total;190459
+19;Aargau;2008;bestand_1_1;total;581562
+19;Aargau;2008;bestand_31_12;total;591632
+20;Thurgau;2008;bestand_1_1;total;238316
+20;Thurgau;2008;bestand_31_12;total;241811
+21;Ticino;2008;bestand_1_1;total;328580
+21;Ticino;2008;bestand_31_12;total;332736
+22;Vaud;2008;bestand_1_1;total;672039
+22;Vaud;2008;bestand_31_12;total;688245
+23;Valais / Wallis;2008;bestand_1_1;total;298580
+23;Valais / Wallis;2008;bestand_31_12;total;303241
+24;Neuchâtel;2008;bestand_1_1;total;169782
+24;Neuchâtel;2008;bestand_31_12;total;170924
+25;Genève;2008;bestand_1_1;total;438177
+25;Genève;2008;bestand_31_12;total;446106
+26;Jura;2008;bestand_1_1;total;69555
+26;Jura;2008;bestand_31_12;total;69822
+27;Ohne Angabe;2008;bestand_1_1;total;0
+27;Ohne Angabe;2008;bestand_31_12;total;0
+0;Schweiz;2009;bestand_1_1;total;7701856
+0;Schweiz;2009;bestand_31_12;total;7785806
+1;Zürich;2009;bestand_1_1;total;1332727
+1;Zürich;2009;bestand_31_12;total;1351297
+2;Bern / Berne;2009;bestand_1_1;total;969299
+2;Bern / Berne;2009;bestand_31_12;total;974235
+3;Luzern;2009;bestand_1_1;total;368742
+3;Luzern;2009;bestand_31_12;total;372964
+4;Uri;2009;bestand_1_1;total;35162
+4;Uri;2009;bestand_31_12;total;35335
+5;Schwyz;2009;bestand_1_1;total;143719
+5;Schwyz;2009;bestand_31_12;total;144686
+6;Obwalden;2009;bestand_1_1;total;34429
+6;Obwalden;2009;bestand_31_12;total;35032
+7;Nidwalden;2009;bestand_1_1;total;40737
+7;Nidwalden;2009;bestand_31_12;total;40794
+8;Glarus;2009;bestand_1_1;total;38370
+8;Glarus;2009;bestand_31_12;total;38479
+9;Zug;2009;bestand_1_1;total;110384
+9;Zug;2009;bestand_31_12;total;110890
+10;Fribourg / Freiburg;2009;bestand_1_1;total;268537
+10;Fribourg / Freiburg;2009;bestand_31_12;total;273159
+11;Solothurn;2009;bestand_1_1;total;251830
+11;Solothurn;2009;bestand_31_12;total;252748
+12;Basel-Stadt;2009;bestand_1_1;total;186672
+12;Basel-Stadt;2009;bestand_31_12;total;187898
+13;Basel-Landschaft;2009;bestand_1_1;total;271214
+13;Basel-Landschaft;2009;bestand_31_12;total;272815
+14;Schaffhausen;2009;bestand_1_1;total;75303
+14;Schaffhausen;2009;bestand_31_12;total;75657
+15;Appenzell Ausserrhoden;2009;bestand_1_1;total;53054
+15;Appenzell Ausserrhoden;2009;bestand_31_12;total;53043
+16;Appenzell Innerrhoden;2009;bestand_1_1;total;15549
+16;Appenzell Innerrhoden;2009;bestand_31_12;total;15681
+17;St. Gallen;2009;bestand_1_1;total;471152
+17;St. Gallen;2009;bestand_31_12;total;474676
+18;Graubünden / Grigioni / Grischun;2009;bestand_1_1;total;190459
+18;Graubünden / Grigioni / Grischun;2009;bestand_31_12;total;191861
+19;Aargau;2009;bestand_1_1;total;591632
+19;Aargau;2009;bestand_31_12;total;600040
+20;Thurgau;2009;bestand_1_1;total;241811
+20;Thurgau;2009;bestand_31_12;total;244805
+21;Ticino;2009;bestand_1_1;total;332736
+21;Ticino;2009;bestand_31_12;total;335720
+22;Vaud;2009;bestand_1_1;total;688245
+22;Vaud;2009;bestand_31_12;total;701526
+23;Valais / Wallis;2009;bestand_1_1;total;303241
+23;Valais / Wallis;2009;bestand_31_12;total;307392
+24;Neuchâtel;2009;bestand_1_1;total;170924
+24;Neuchâtel;2009;bestand_31_12;total;171647
+25;Genève;2009;bestand_1_1;total;446106
+25;Genève;2009;bestand_31_12;total;453292
+26;Jura;2009;bestand_1_1;total;69822
+26;Jura;2009;bestand_31_12;total;70134
+27;Ohne Angabe;2009;bestand_1_1;total;0
+27;Ohne Angabe;2009;bestand_31_12;total;0
+0;Schweiz;2010;bestand_1_1;total;7785806
+0;Schweiz;2010;bestand_31_12;total;7864012
+1;Zürich;2010;bestand_1_1;total;1351297
+1;Zürich;2010;bestand_31_12;total;1368822
+2;Bern / Berne;2010;bestand_1_1;total;974235
+2;Bern / Berne;2010;bestand_31_12;total;978248
+3;Luzern;2010;bestand_1_1;total;372964
+3;Luzern;2010;bestand_31_12;total;376395
+4;Uri;2010;bestand_1_1;total;35335
+4;Uri;2010;bestand_31_12;total;35301
+5;Schwyz;2010;bestand_1_1;total;144686
+5;Schwyz;2010;bestand_31_12;total;146285
+6;Obwalden;2010;bestand_1_1;total;35032
+6;Obwalden;2010;bestand_31_12;total;35492
+7;Nidwalden;2010;bestand_1_1;total;40794
+7;Nidwalden;2010;bestand_31_12;total;40922
+8;Glarus;2010;bestand_1_1;total;38479
+8;Glarus;2010;bestand_31_12;total;38568
+9;Zug;2010;bestand_1_1;total;110890
+9;Zug;2010;bestand_31_12;total;112237
+10;Fribourg / Freiburg;2010;bestand_1_1;total;273159
+10;Fribourg / Freiburg;2010;bestand_31_12;total;277824
+11;Solothurn;2010;bestand_1_1;total;252748
+11;Solothurn;2010;bestand_31_12;total;254758
+12;Basel-Stadt;2010;bestand_1_1;total;187898
+12;Basel-Stadt;2010;bestand_31_12;total;189431
+13;Basel-Landschaft;2010;bestand_1_1;total;272815
+13;Basel-Landschaft;2010;bestand_31_12;total;273887
+14;Schaffhausen;2010;bestand_1_1;total;75657
+14;Schaffhausen;2010;bestand_31_12;total;76345
+15;Appenzell Ausserrhoden;2010;bestand_1_1;total;53043
+15;Appenzell Ausserrhoden;2010;bestand_31_12;total;52938
+16;Appenzell Innerrhoden;2010;bestand_1_1;total;15681
+16;Appenzell Innerrhoden;2010;bestand_31_12;total;15655
+17;St. Gallen;2010;bestand_1_1;total;474676
+17;St. Gallen;2010;bestand_31_12;total;477746
+18;Graubünden / Grigioni / Grischun;2010;bestand_1_1;total;191861
+18;Graubünden / Grigioni / Grischun;2010;bestand_31_12;total;192702
+19;Aargau;2010;bestand_1_1;total;600040
+19;Aargau;2010;bestand_31_12;total;608299
+20;Thurgau;2010;bestand_1_1;total;244805
+20;Thurgau;2010;bestand_31_12;total;247781
+21;Ticino;2010;bestand_1_1;total;335720
+21;Ticino;2010;bestand_31_12;total;339946
+22;Vaud;2010;bestand_1_1;total;701526
+22;Vaud;2010;bestand_31_12;total;711818
+23;Valais / Wallis;2010;bestand_1_1;total;307392
+23;Valais / Wallis;2010;bestand_31_12;total;311985
+24;Neuchâtel;2010;bestand_1_1;total;171647
+24;Neuchâtel;2010;bestand_31_12;total;171904
+25;Genève;2010;bestand_1_1;total;453292
+25;Genève;2010;bestand_31_12;total;458559
+26;Jura;2010;bestand_1_1;total;70134
+26;Jura;2010;bestand_31_12;total;70164
+27;Ohne Angabe;2010;bestand_1_1;total;0
+27;Ohne Angabe;2010;bestand_31_12;total;0
+0;Schweiz;2011;bestand_1_1;total;7870134
+0;Schweiz;2011;bestand_31_12;total;7954662
+1;Zürich;2011;bestand_1_1;total;1373068
+1;Zürich;2011;bestand_31_12;total;1392396
+2;Bern / Berne;2011;bestand_1_1;total;979754
+2;Bern / Berne;2011;bestand_31_12;total;985000
+3;Luzern;2011;bestand_1_1;total;377610
+3;Luzern;2011;bestand_31_12;total;381966
+4;Uri;2011;bestand_1_1;total;35422
+4;Uri;2011;bestand_31_12;total;35382
+5;Schwyz;2011;bestand_1_1;total;146730
+5;Schwyz;2011;bestand_31_12;total;147904
+6;Obwalden;2011;bestand_1_1;total;35585
+6;Obwalden;2011;bestand_31_12;total;35885
+7;Nidwalden;2011;bestand_1_1;total;41024
+7;Nidwalden;2011;bestand_31_12;total;41311
+8;Glarus;2011;bestand_1_1;total;38608
+8;Glarus;2011;bestand_31_12;total;39217
+9;Zug;2011;bestand_1_1;total;113105
+9;Zug;2011;bestand_31_12;total;115104
+10;Fribourg / Freiburg;2011;bestand_1_1;total;278541
+10;Fribourg / Freiburg;2011;bestand_31_12;total;284714
+11;Solothurn;2011;bestand_1_1;total;255284
+11;Solothurn;2011;bestand_31_12;total;256990
+12;Basel-Stadt;2011;bestand_1_1;total;184950
+12;Basel-Stadt;2011;bestand_31_12;total;186255
+13;Basel-Landschaft;2011;bestand_1_1;total;274404
+13;Basel-Landschaft;2011;bestand_31_12;total;275360
+14;Schaffhausen;2011;bestand_1_1;total;76356
+14;Schaffhausen;2011;bestand_31_12;total;77139
+15;Appenzell Ausserrhoden;2011;bestand_1_1;total;53017
+15;Appenzell Ausserrhoden;2011;bestand_31_12;total;53313
+16;Appenzell Innerrhoden;2011;bestand_1_1;total;15688
+16;Appenzell Innerrhoden;2011;bestand_31_12;total;15743
+17;St. Gallen;2011;bestand_1_1;total;478907
+17;St. Gallen;2011;bestand_31_12;total;483156
+18;Graubünden / Grigioni / Grischun;2011;bestand_1_1;total;192621
+18;Graubünden / Grigioni / Grischun;2011;bestand_31_12;total;193388
+19;Aargau;2011;bestand_1_1;total;611466
+19;Aargau;2011;bestand_31_12;total;618298
+20;Thurgau;2011;bestand_1_1;total;248444
+20;Thurgau;2011;bestand_31_12;total;251973
+21;Ticino;2011;bestand_1_1;total;333753
+21;Ticino;2011;bestand_31_12;total;336943
+22;Vaud;2011;bestand_1_1;total;713281
+22;Vaud;2011;bestand_31_12;total;725944
+23;Valais / Wallis;2011;bestand_1_1;total;312684
+23;Valais / Wallis;2011;bestand_31_12;total;317022
+24;Neuchâtel;2011;bestand_1_1;total;172085
+24;Neuchâtel;2011;bestand_31_12;total;173183
+25;Genève;2011;bestand_1_1;total;457715
+25;Genève;2011;bestand_31_12;total;460534
+26;Jura;2011;bestand_1_1;total;70032
+26;Jura;2011;bestand_31_12;total;70542
+27;Ohne Angabe;2011;bestand_1_1;total;0
+27;Ohne Angabe;2011;bestand_31_12;total;0
+0;Schweiz;2012;bestand_1_1;total;7954662
+0;Schweiz;2012;bestand_31_12;total;8039060
+1;Zürich;2012;bestand_1_1;total;1392396
+1;Zürich;2012;bestand_31_12;total;1408575
+2;Bern / Berne;2012;bestand_1_1;total;985000
+2;Bern / Berne;2012;bestand_31_12;total;992567
+3;Luzern;2012;bestand_1_1;total;381966
+3;Luzern;2012;bestand_31_12;total;386082
+4;Uri;2012;bestand_1_1;total;35382
+4;Uri;2012;bestand_31_12;total;35693
+5;Schwyz;2012;bestand_1_1;total;147904
+5;Schwyz;2012;bestand_31_12;total;149830
+6;Obwalden;2012;bestand_1_1;total;35885
+6;Obwalden;2012;bestand_31_12;total;36115
+7;Nidwalden;2012;bestand_1_1;total;41311
+7;Nidwalden;2012;bestand_31_12;total;41584
+8;Glarus;2012;bestand_1_1;total;39217
+8;Glarus;2012;bestand_31_12;total;39369
+9;Zug;2012;bestand_1_1;total;115104
+9;Zug;2012;bestand_31_12;total;116575
+10;Fribourg / Freiburg;2012;bestand_1_1;total;284714
+10;Fribourg / Freiburg;2012;bestand_31_12;total;291445
+11;Solothurn;2012;bestand_1_1;total;256990
+11;Solothurn;2012;bestand_31_12;total;259283
+12;Basel-Stadt;2012;bestand_1_1;total;186255
+12;Basel-Stadt;2012;bestand_31_12;total;187425
+13;Basel-Landschaft;2012;bestand_1_1;total;275360
+13;Basel-Landschaft;2012;bestand_31_12;total;276537
+14;Schaffhausen;2012;bestand_1_1;total;77139
+14;Schaffhausen;2012;bestand_31_12;total;77955
+15;Appenzell Ausserrhoden;2012;bestand_1_1;total;53313
+15;Appenzell Ausserrhoden;2012;bestand_31_12;total;53438
+16;Appenzell Innerrhoden;2012;bestand_1_1;total;15743
+16;Appenzell Innerrhoden;2012;bestand_31_12;total;15717
+17;St. Gallen;2012;bestand_1_1;total;483156
+17;St. Gallen;2012;bestand_31_12;total;487060
+18;Graubünden / Grigioni / Grischun;2012;bestand_1_1;total;193388
+18;Graubünden / Grigioni / Grischun;2012;bestand_31_12;total;193920
+19;Aargau;2012;bestand_1_1;total;618298
+19;Aargau;2012;bestand_31_12;total;627340
+20;Thurgau;2012;bestand_1_1;total;251973
+20;Thurgau;2012;bestand_31_12;total;256213
+21;Ticino;2012;bestand_1_1;total;336943
+21;Ticino;2012;bestand_31_12;total;341652
+22;Vaud;2012;bestand_1_1;total;725944
+22;Vaud;2012;bestand_31_12;total;734356
+23;Valais / Wallis;2012;bestand_1_1;total;317022
+23;Valais / Wallis;2012;bestand_31_12;total;321732
+24;Neuchâtel;2012;bestand_1_1;total;173183
+24;Neuchâtel;2012;bestand_31_12;total;174554
+25;Genève;2012;bestand_1_1;total;460534
+25;Genève;2012;bestand_31_12;total;463101
+26;Jura;2012;bestand_1_1;total;70542
+26;Jura;2012;bestand_31_12;total;70942
+27;Ohne Angabe;2012;bestand_1_1;total;0
+27;Ohne Angabe;2012;bestand_31_12;total;0
+0;Schweiz;2013;bestand_1_1;total;8039060
+0;Schweiz;2013;bestand_31_12;total;8139631
+1;Zürich;2013;bestand_1_1;total;1408575
+1;Zürich;2013;bestand_31_12;total;1425538
+2;Bern / Berne;2013;bestand_1_1;total;992567
+2;Bern / Berne;2013;bestand_31_12;total;1001232
+3;Luzern;2013;bestand_1_1;total;386082
+3;Luzern;2013;bestand_31_12;total;390349
+4;Uri;2013;bestand_1_1;total;35693
+4;Uri;2013;bestand_31_12;total;35865
+5;Schwyz;2013;bestand_1_1;total;149830
+5;Schwyz;2013;bestand_31_12;total;151396
+6;Obwalden;2013;bestand_1_1;total;36115
+6;Obwalden;2013;bestand_31_12;total;36507
+7;Nidwalden;2013;bestand_1_1;total;41584
+7;Nidwalden;2013;bestand_31_12;total;41888
+8;Glarus;2013;bestand_1_1;total;39369
+8;Glarus;2013;bestand_31_12;total;39593
+9;Zug;2013;bestand_1_1;total;116575
+9;Zug;2013;bestand_31_12;total;118118
+10;Fribourg / Freiburg;2013;bestand_1_1;total;291445
+10;Fribourg / Freiburg;2013;bestand_31_12;total;297671
+11;Solothurn;2013;bestand_1_1;total;259283
+11;Solothurn;2013;bestand_31_12;total;261437
+12;Basel-Stadt;2013;bestand_1_1;total;187425
+12;Basel-Stadt;2013;bestand_31_12;total;189335
+13;Basel-Landschaft;2013;bestand_1_1;total;276537
+13;Basel-Landschaft;2013;bestand_31_12;total;278656
+14;Schaffhausen;2013;bestand_1_1;total;77955
+14;Schaffhausen;2013;bestand_31_12;total;78783
+15;Appenzell Ausserrhoden;2013;bestand_1_1;total;53438
+15;Appenzell Ausserrhoden;2013;bestand_31_12;total;53691
+16;Appenzell Innerrhoden;2013;bestand_1_1;total;15717
+16;Appenzell Innerrhoden;2013;bestand_31_12;total;15778
+17;St. Gallen;2013;bestand_1_1;total;487060
+17;St. Gallen;2013;bestand_31_12;total;491699
+18;Graubünden / Grigioni / Grischun;2013;bestand_1_1;total;193920
+18;Graubünden / Grigioni / Grischun;2013;bestand_31_12;total;194959
+19;Aargau;2013;bestand_1_1;total;627340
+19;Aargau;2013;bestand_31_12;total;636362
+20;Thurgau;2013;bestand_1_1;total;256213
+20;Thurgau;2013;bestand_31_12;total;260278
+21;Ticino;2013;bestand_1_1;total;341652
+21;Ticino;2013;bestand_31_12;total;346539
+22;Vaud;2013;bestand_1_1;total;734356
+22;Vaud;2013;bestand_31_12;total;749373
+23;Valais / Wallis;2013;bestand_1_1;total;321732
+23;Valais / Wallis;2013;bestand_31_12;total;327011
+24;Neuchâtel;2013;bestand_1_1;total;174554
+24;Neuchâtel;2013;bestand_31_12;total;176402
+25;Genève;2013;bestand_1_1;total;463101
+25;Genève;2013;bestand_31_12;total;469433
+26;Jura;2013;bestand_1_1;total;70942
+26;Jura;2013;bestand_31_12;total;71738
+27;Ohne Angabe;2013;bestand_1_1;total;0
+27;Ohne Angabe;2013;bestand_31_12;total;0
+0;Schweiz;2014;bestand_1_1;total;8139631
+0;Schweiz;2014;bestand_31_12;total;8237666
+1;Zürich;2014;bestand_1_1;total;1425538
+1;Zürich;2014;bestand_31_12;total;1446354
+2;Bern / Berne;2014;bestand_1_1;total;1001232
+2;Bern / Berne;2014;bestand_31_12;total;1009370
+3;Luzern;2014;bestand_1_1;total;390349
+3;Luzern;2014;bestand_31_12;total;394604
+4;Uri;2014;bestand_1_1;total;35865
+4;Uri;2014;bestand_31_12;total;36008
+5;Schwyz;2014;bestand_1_1;total;151396
+5;Schwyz;2014;bestand_31_12;total;152759
+6;Obwalden;2014;bestand_1_1;total;36507
+6;Obwalden;2014;bestand_31_12;total;36834
+7;Nidwalden;2014;bestand_1_1;total;41888
+7;Nidwalden;2014;bestand_31_12;total;42080
+8;Glarus;2014;bestand_1_1;total;39593
+8;Glarus;2014;bestand_31_12;total;39794
+9;Zug;2014;bestand_1_1;total;118118
+9;Zug;2014;bestand_31_12;total;120089
+10;Fribourg / Freiburg;2014;bestand_1_1;total;297671
+10;Fribourg / Freiburg;2014;bestand_31_12;total;303425
+11;Solothurn;2014;bestand_1_1;total;261437
+11;Solothurn;2014;bestand_31_12;total;263719
+12;Basel-Stadt;2014;bestand_1_1;total;189335
+12;Basel-Stadt;2014;bestand_31_12;total;190580
+13;Basel-Landschaft;2014;bestand_1_1;total;278656
+13;Basel-Landschaft;2014;bestand_31_12;total;281301
+14;Schaffhausen;2014;bestand_1_1;total;78783
+14;Schaffhausen;2014;bestand_31_12;total;79417
+15;Appenzell Ausserrhoden;2014;bestand_1_1;total;53691
+15;Appenzell Ausserrhoden;2014;bestand_31_12;total;54064
+16;Appenzell Innerrhoden;2014;bestand_1_1;total;15778
+16;Appenzell Innerrhoden;2014;bestand_31_12;total;15854
+17;St. Gallen;2014;bestand_1_1;total;491699
+17;St. Gallen;2014;bestand_31_12;total;495824
+18;Graubünden / Grigioni / Grischun;2014;bestand_1_1;total;194959
+18;Graubünden / Grigioni / Grischun;2014;bestand_31_12;total;195886
+19;Aargau;2014;bestand_1_1;total;636362
+19;Aargau;2014;bestand_31_12;total;645277
+20;Thurgau;2014;bestand_1_1;total;260278
+20;Thurgau;2014;bestand_31_12;total;263733
+21;Ticino;2014;bestand_1_1;total;346539
+21;Ticino;2014;bestand_31_12;total;350363
+22;Vaud;2014;bestand_1_1;total;749373
+22;Vaud;2014;bestand_31_12;total;761446
+23;Valais / Wallis;2014;bestand_1_1;total;327011
+23;Valais / Wallis;2014;bestand_31_12;total;331763
+24;Neuchâtel;2014;bestand_1_1;total;176402
+24;Neuchâtel;2014;bestand_31_12;total;177327
+25;Genève;2014;bestand_1_1;total;469433
+25;Genève;2014;bestand_31_12;total;477385
+26;Jura;2014;bestand_1_1;total;71738
+26;Jura;2014;bestand_31_12;total;72410
+27;Ohne Angabe;2014;bestand_1_1;total;0
+27;Ohne Angabe;2014;bestand_31_12;total;0
+0;Schweiz;2015;bestand_1_1;total;8237666
+0;Schweiz;2015;bestand_31_12;total;8327126
+1;Zürich;2015;bestand_1_1;total;1446354
+1;Zürich;2015;bestand_31_12;total;1466424
+2;Bern / Berne;2015;bestand_1_1;total;1009370
+2;Bern / Berne;2015;bestand_31_12;total;1017434
+3;Luzern;2015;bestand_1_1;total;394604
+3;Luzern;2015;bestand_31_12;total;398762
+4;Uri;2015;bestand_1_1;total;36008
+4;Uri;2015;bestand_31_12;total;35973
+5;Schwyz;2015;bestand_1_1;total;152759
+5;Schwyz;2015;bestand_31_12;total;154093
+6;Obwalden;2015;bestand_1_1;total;36834
+6;Obwalden;2015;bestand_31_12;total;37076
+7;Nidwalden;2015;bestand_1_1;total;42080
+7;Nidwalden;2015;bestand_31_12;total;42420
+8;Glarus;2015;bestand_1_1;total;39794
+8;Glarus;2015;bestand_31_12;total;40028
+9;Zug;2015;bestand_1_1;total;120089
+9;Zug;2015;bestand_31_12;total;122134
+10;Fribourg / Freiburg;2015;bestand_1_1;total;303425
+10;Fribourg / Freiburg;2015;bestand_31_12;total;307510
+11;Solothurn;2015;bestand_1_1;total;263719
+11;Solothurn;2015;bestand_31_12;total;266418
+12;Basel-Stadt;2015;bestand_1_1;total;190580
+12;Basel-Stadt;2015;bestand_31_12;total;191817
+13;Basel-Landschaft;2015;bestand_1_1;total;281301
+13;Basel-Landschaft;2015;bestand_31_12;total;283231
+14;Schaffhausen;2015;bestand_1_1;total;79417
+14;Schaffhausen;2015;bestand_31_12;total;79836
+15;Appenzell Ausserrhoden;2015;bestand_1_1;total;54064
+15;Appenzell Ausserrhoden;2015;bestand_31_12;total;54543
+16;Appenzell Innerrhoden;2015;bestand_1_1;total;15854
+16;Appenzell Innerrhoden;2015;bestand_31_12;total;15974
+17;St. Gallen;2015;bestand_1_1;total;495824
+17;St. Gallen;2015;bestand_31_12;total;499065
+18;Graubünden / Grigioni / Grischun;2015;bestand_1_1;total;195886
+18;Graubünden / Grigioni / Grischun;2015;bestand_31_12;total;196610
+19;Aargau;2015;bestand_1_1;total;645277
+19;Aargau;2015;bestand_31_12;total;653675
+20;Thurgau;2015;bestand_1_1;total;263733
+20;Thurgau;2015;bestand_31_12;total;267429
+21;Ticino;2015;bestand_1_1;total;350363
+21;Ticino;2015;bestand_31_12;total;351946
+22;Vaud;2015;bestand_1_1;total;761446
+22;Vaud;2015;bestand_31_12;total;773407
+23;Valais / Wallis;2015;bestand_1_1;total;331763
+23;Valais / Wallis;2015;bestand_31_12;total;335696
+24;Neuchâtel;2015;bestand_1_1;total;177327
+24;Neuchâtel;2015;bestand_31_12;total;178107
+25;Genève;2015;bestand_1_1;total;477385
+25;Genève;2015;bestand_31_12;total;484736
+26;Jura;2015;bestand_1_1;total;72410
+26;Jura;2015;bestand_31_12;total;72782
+27;Ohne Angabe;2015;bestand_1_1;total;0
+27;Ohne Angabe;2015;bestand_31_12;total;0
+0;Schweiz;2016;bestand_1_1;total;8327126
+0;Schweiz;2016;bestand_31_12;total;8419550
+1;Zürich;2016;bestand_1_1;total;1466424
+1;Zürich;2016;bestand_31_12;total;1487969
+2;Bern / Berne;2016;bestand_1_1;total;1017434
+2;Bern / Berne;2016;bestand_31_12;total;1026464
+3;Luzern;2016;bestand_1_1;total;398762
+3;Luzern;2016;bestand_31_12;total;403397
+4;Uri;2016;bestand_1_1;total;35973
+4;Uri;2016;bestand_31_12;total;36145
+5;Schwyz;2016;bestand_1_1;total;154093
+5;Schwyz;2016;bestand_31_12;total;155863
+6;Obwalden;2016;bestand_1_1;total;37076
+6;Obwalden;2016;bestand_31_12;total;37378
+7;Nidwalden;2016;bestand_1_1;total;42420
+7;Nidwalden;2016;bestand_31_12;total;42556
+8;Glarus;2016;bestand_1_1;total;40028
+8;Glarus;2016;bestand_31_12;total;40147
+9;Zug;2016;bestand_1_1;total;122134
+9;Zug;2016;bestand_31_12;total;123948
+10;Fribourg / Freiburg;2016;bestand_1_1;total;307510
+10;Fribourg / Freiburg;2016;bestand_31_12;total;311963
+11;Solothurn;2016;bestand_1_1;total;266418
+11;Solothurn;2016;bestand_31_12;total;269441
+12;Basel-Stadt;2016;bestand_1_1;total;191817
+12;Basel-Stadt;2016;bestand_31_12;total;193070
+13;Basel-Landschaft;2016;bestand_1_1;total;283231
+13;Basel-Landschaft;2016;bestand_31_12;total;285624
+14;Schaffhausen;2016;bestand_1_1;total;79836
+14;Schaffhausen;2016;bestand_31_12;total;80769
+15;Appenzell Ausserrhoden;2016;bestand_1_1;total;54543
+15;Appenzell Ausserrhoden;2016;bestand_31_12;total;54954
+16;Appenzell Innerrhoden;2016;bestand_1_1;total;15974
+16;Appenzell Innerrhoden;2016;bestand_31_12;total;16003
+17;St. Gallen;2016;bestand_1_1;total;499065
+17;St. Gallen;2016;bestand_31_12;total;502552
+18;Graubünden / Grigioni / Grischun;2016;bestand_1_1;total;196610
+18;Graubünden / Grigioni / Grischun;2016;bestand_31_12;total;197550
+19;Aargau;2016;bestand_1_1;total;653675
+19;Aargau;2016;bestand_31_12;total;663462
+20;Thurgau;2016;bestand_1_1;total;267429
+20;Thurgau;2016;bestand_31_12;total;270709
+21;Ticino;2016;bestand_1_1;total;351946
+21;Ticino;2016;bestand_31_12;total;354375
+22;Vaud;2016;bestand_1_1;total;773407
+22;Vaud;2016;bestand_31_12;total;784822
+23;Valais / Wallis;2016;bestand_1_1;total;335696
+23;Valais / Wallis;2016;bestand_31_12;total;339176
+24;Neuchâtel;2016;bestand_1_1;total;178107
+24;Neuchâtel;2016;bestand_31_12;total;178567
+25;Genève;2016;bestand_1_1;total;484736
+25;Genève;2016;bestand_31_12;total;489524
+26;Jura;2016;bestand_1_1;total;72782
+26;Jura;2016;bestand_31_12;total;73122
+27;Ohne Angabe;2016;bestand_1_1;total;0
+27;Ohne Angabe;2016;bestand_31_12;total;0
+0;Schweiz;2017;bestand_1_1;total;8419550
+0;Schweiz;2017;bestand_31_12;total;8484130
+1;Zürich;2017;bestand_1_1;total;1487969
+1;Zürich;2017;bestand_31_12;total;1504346
+2;Bern / Berne;2017;bestand_1_1;total;1026464
+2;Bern / Berne;2017;bestand_31_12;total;1031080
+3;Luzern;2017;bestand_1_1;total;403397
+3;Luzern;2017;bestand_31_12;total;406506
+4;Uri;2017;bestand_1_1;total;36145
+4;Uri;2017;bestand_31_12;total;36299
+5;Schwyz;2017;bestand_1_1;total;155863
+5;Schwyz;2017;bestand_31_12;total;157301
+6;Obwalden;2017;bestand_1_1;total;37378
+6;Obwalden;2017;bestand_31_12;total;37575
+7;Nidwalden;2017;bestand_1_1;total;42556
+7;Nidwalden;2017;bestand_31_12;total;42969
+8;Glarus;2017;bestand_1_1;total;40147
+8;Glarus;2017;bestand_31_12;total;40349
+9;Zug;2017;bestand_1_1;total;123948
+9;Zug;2017;bestand_31_12;total;125421
+10;Fribourg / Freiburg;2017;bestand_1_1;total;311963
+10;Fribourg / Freiburg;2017;bestand_31_12;total;315120
+11;Solothurn;2017;bestand_1_1;total;269441
+11;Solothurn;2017;bestand_31_12;total;271432
+12;Basel-Stadt;2017;bestand_1_1;total;193070
+12;Basel-Stadt;2017;bestand_31_12;total;193908
+13;Basel-Landschaft;2017;bestand_1_1;total;285624
+13;Basel-Landschaft;2017;bestand_31_12;total;287023
+14;Schaffhausen;2017;bestand_1_1;total;80769
+14;Schaffhausen;2017;bestand_31_12;total;81351
+15;Appenzell Ausserrhoden;2017;bestand_1_1;total;54954
+15;Appenzell Ausserrhoden;2017;bestand_31_12;total;55178
+16;Appenzell Innerrhoden;2017;bestand_1_1;total;16003
+16;Appenzell Innerrhoden;2017;bestand_31_12;total;16105
+17;St. Gallen;2017;bestand_1_1;total;502552
+17;St. Gallen;2017;bestand_31_12;total;504686
+18;Graubünden / Grigioni / Grischun;2017;bestand_1_1;total;197550
+18;Graubünden / Grigioni / Grischun;2017;bestand_31_12;total;197888
+19;Aargau;2017;bestand_1_1;total;663462
+19;Aargau;2017;bestand_31_12;total;670988
+20;Thurgau;2017;bestand_1_1;total;270709
+20;Thurgau;2017;bestand_31_12;total;273801
+21;Ticino;2017;bestand_1_1;total;354375
+21;Ticino;2017;bestand_31_12;total;353709
+22;Vaud;2017;bestand_1_1;total;784822
+22;Vaud;2017;bestand_31_12;total;793129
+23;Valais / Wallis;2017;bestand_1_1;total;339176
+23;Valais / Wallis;2017;bestand_31_12;total;341463
+24;Neuchâtel;2017;bestand_1_1;total;178567
+24;Neuchâtel;2017;bestand_31_12;total;177964
+25;Genève;2017;bestand_1_1;total;489524
+25;Genève;2017;bestand_31_12;total;495249
+26;Jura;2017;bestand_1_1;total;73122
+26;Jura;2017;bestand_31_12;total;73290
+27;Ohne Angabe;2017;bestand_1_1;total;0
+27;Ohne Angabe;2017;bestand_31_12;total;0
+0;Schweiz;2018;bestand_1_1;total;8484130
+0;Schweiz;2018;bestand_31_12;total;8544527
+1;Zürich;2018;bestand_1_1;total;1504346
+1;Zürich;2018;bestand_31_12;total;1520968
+2;Bern / Berne;2018;bestand_1_1;total;1031080
+2;Bern / Berne;2018;bestand_31_12;total;1034931
+3;Luzern;2018;bestand_1_1;total;406506
+3;Luzern;2018;bestand_31_12;total;409557
+4;Uri;2018;bestand_1_1;total;36299
+4;Uri;2018;bestand_31_12;total;36433
+5;Schwyz;2018;bestand_1_1;total;157301
+5;Schwyz;2018;bestand_31_12;total;159165
+6;Obwalden;2018;bestand_1_1;total;37575
+6;Obwalden;2018;bestand_31_12;total;37841
+7;Nidwalden;2018;bestand_1_1;total;42969
+7;Nidwalden;2018;bestand_31_12;total;43223
+8;Glarus;2018;bestand_1_1;total;40349
+8;Glarus;2018;bestand_31_12;total;40403
+9;Zug;2018;bestand_1_1;total;125421
+9;Zug;2018;bestand_31_12;total;126837
+10;Fribourg / Freiburg;2018;bestand_1_1;total;315120
+10;Fribourg / Freiburg;2018;bestand_31_12;total;318760
+11;Solothurn;2018;bestand_1_1;total;271432
+11;Solothurn;2018;bestand_31_12;total;273194
+12;Basel-Stadt;2018;bestand_1_1;total;193908
+12;Basel-Stadt;2018;bestand_31_12;total;194766
+13;Basel-Landschaft;2018;bestand_1_1;total;287023
+13;Basel-Landschaft;2018;bestand_31_12;total;288132
+14;Schaffhausen;2018;bestand_1_1;total;81351
+14;Schaffhausen;2018;bestand_31_12;total;81991
+15;Appenzell Ausserrhoden;2018;bestand_1_1;total;55178
+15;Appenzell Ausserrhoden;2018;bestand_31_12;total;55234
+16;Appenzell Innerrhoden;2018;bestand_1_1;total;16105
+16;Appenzell Innerrhoden;2018;bestand_31_12;total;16145
+17;St. Gallen;2018;bestand_1_1;total;504686
+17;St. Gallen;2018;bestand_31_12;total;507697
+18;Graubünden / Grigioni / Grischun;2018;bestand_1_1;total;197888
+18;Graubünden / Grigioni / Grischun;2018;bestand_31_12;total;198379
+19;Aargau;2018;bestand_1_1;total;670988
+19;Aargau;2018;bestand_31_12;total;678207
+20;Thurgau;2018;bestand_1_1;total;273801
+20;Thurgau;2018;bestand_31_12;total;276472
+21;Ticino;2018;bestand_1_1;total;353709
+21;Ticino;2018;bestand_31_12;total;353343
+22;Vaud;2018;bestand_1_1;total;793129
+22;Vaud;2018;bestand_31_12;total;799145
+23;Valais / Wallis;2018;bestand_1_1;total;341463
+23;Valais / Wallis;2018;bestand_31_12;total;343955
+24;Neuchâtel;2018;bestand_1_1;total;177964
+24;Neuchâtel;2018;bestand_31_12;total;176850
+25;Genève;2018;bestand_1_1;total;495249
+25;Genève;2018;bestand_31_12;total;499480
+26;Jura;2018;bestand_1_1;total;73290
+26;Jura;2018;bestand_31_12;total;73419
+27;Ohne Angabe;2018;bestand_1_1;total;0
+27;Ohne Angabe;2018;bestand_31_12;total;0
+0;Schweiz;2019;bestand_1_1;total;8544527
+0;Schweiz;2019;bestand_31_12;total;8606033
+1;Zürich;2019;bestand_1_1;total;1520968
+1;Zürich;2019;bestand_31_12;total;1539275
+2;Bern / Berne;2019;bestand_1_1;total;1034931
+2;Bern / Berne;2019;bestand_31_12;total;1039426
+3;Luzern;2019;bestand_1_1;total;409557
+3;Luzern;2019;bestand_31_12;total;413120
+4;Uri;2019;bestand_1_1;total;36433
+4;Uri;2019;bestand_31_12;total;36703
+5;Schwyz;2019;bestand_1_1;total;159165
+5;Schwyz;2019;bestand_31_12;total;160480
+6;Obwalden;2019;bestand_1_1;total;37841
+6;Obwalden;2019;bestand_31_12;total;37930
+7;Nidwalden;2019;bestand_1_1;total;43223
+7;Nidwalden;2019;bestand_31_12;total;43087
+8;Glarus;2019;bestand_1_1;total;40403
+8;Glarus;2019;bestand_31_12;total;40590
+9;Zug;2019;bestand_1_1;total;126837
+9;Zug;2019;bestand_31_12;total;127642
+10;Fribourg / Freiburg;2019;bestand_1_1;total;318760
+10;Fribourg / Freiburg;2019;bestand_31_12;total;321831
+11;Solothurn;2019;bestand_1_1;total;273194
+11;Solothurn;2019;bestand_31_12;total;275247
+12;Basel-Stadt;2019;bestand_1_1;total;194766
+12;Basel-Stadt;2019;bestand_31_12;total;195844
+13;Basel-Landschaft;2019;bestand_1_1;total;288132
+13;Basel-Landschaft;2019;bestand_31_12;total;289468
+14;Schaffhausen;2019;bestand_1_1;total;81991
+14;Schaffhausen;2019;bestand_31_12;total;82348
+15;Appenzell Ausserrhoden;2019;bestand_1_1;total;55234
+15;Appenzell Ausserrhoden;2019;bestand_31_12;total;55445
+16;Appenzell Innerrhoden;2019;bestand_1_1;total;16145
+16;Appenzell Innerrhoden;2019;bestand_31_12;total;16128
+17;St. Gallen;2019;bestand_1_1;total;507697
+17;St. Gallen;2019;bestand_31_12;total;510734
+18;Graubünden / Grigioni / Grischun;2019;bestand_1_1;total;198379
+18;Graubünden / Grigioni / Grischun;2019;bestand_31_12;total;199021
+19;Aargau;2019;bestand_1_1;total;678207
+19;Aargau;2019;bestand_31_12;total;685845
+20;Thurgau;2019;bestand_1_1;total;276472
+20;Thurgau;2019;bestand_31_12;total;279547
+21;Ticino;2019;bestand_1_1;total;353343
+21;Ticino;2019;bestand_31_12;total;351491
+22;Vaud;2019;bestand_1_1;total;799145
+22;Vaud;2019;bestand_31_12;total;805098
+23;Valais / Wallis;2019;bestand_1_1;total;343955
+23;Valais / Wallis;2019;bestand_31_12;total;345525
+24;Neuchâtel;2019;bestand_1_1;total;176850
+24;Neuchâtel;2019;bestand_31_12;total;176496
+25;Genève;2019;bestand_1_1;total;499480
+25;Genève;2019;bestand_31_12;total;504128
+26;Jura;2019;bestand_1_1;total;73419
+26;Jura;2019;bestand_31_12;total;73584
+27;Ohne Angabe;2019;bestand_1_1;total;0
+27;Ohne Angabe;2019;bestand_31_12;total;0
+0;Schweiz;2020;bestand_1_1;total;8606033
+0;Schweiz;2020;bestand_31_12;total;8670300
+1;Zürich;2020;bestand_1_1;total;1539275
+1;Zürich;2020;bestand_31_12;total;1553423
+2;Bern / Berne;2020;bestand_1_1;total;1039426
+2;Bern / Berne;2020;bestand_31_12;total;1043081
+3;Luzern;2020;bestand_1_1;total;413120
+3;Luzern;2020;bestand_31_12;total;416347
+4;Uri;2020;bestand_1_1;total;36703
+4;Uri;2020;bestand_31_12;total;36819
+5;Schwyz;2020;bestand_1_1;total;160480
+5;Schwyz;2020;bestand_31_12;total;162157
+6;Obwalden;2020;bestand_1_1;total;37930
+6;Obwalden;2020;bestand_31_12;total;38108
+7;Nidwalden;2020;bestand_1_1;total;43087
+7;Nidwalden;2020;bestand_31_12;total;43520
+8;Glarus;2020;bestand_1_1;total;40590
+8;Glarus;2020;bestand_31_12;total;40851
+9;Zug;2020;bestand_1_1;total;127642
+9;Zug;2020;bestand_31_12;total;128794
+10;Fribourg / Freiburg;2020;bestand_1_1;total;321831
+10;Fribourg / Freiburg;2020;bestand_31_12;total;325547
+11;Solothurn;2020;bestand_1_1;total;275247
+11;Solothurn;2020;bestand_31_12;total;277462
+12;Basel-Stadt;2020;bestand_1_1;total;195844
+12;Basel-Stadt;2020;bestand_31_12;total;196735
+13;Basel-Landschaft;2020;bestand_1_1;total;289468
+13;Basel-Landschaft;2020;bestand_31_12;total;290969
+14;Schaffhausen;2020;bestand_1_1;total;82348
+14;Schaffhausen;2020;bestand_31_12;total;83107
+15;Appenzell Ausserrhoden;2020;bestand_1_1;total;55445
+15;Appenzell Ausserrhoden;2020;bestand_31_12;total;55309
+16;Appenzell Innerrhoden;2020;bestand_1_1;total;16128
+16;Appenzell Innerrhoden;2020;bestand_31_12;total;16293
+17;St. Gallen;2020;bestand_1_1;total;510734
+17;St. Gallen;2020;bestand_31_12;total;514504
+18;Graubünden / Grigioni / Grischun;2020;bestand_1_1;total;199021
+18;Graubünden / Grigioni / Grischun;2020;bestand_31_12;total;200096
+19;Aargau;2020;bestand_1_1;total;685845
+19;Aargau;2020;bestand_31_12;total;694072
+20;Thurgau;2020;bestand_1_1;total;279547
+20;Thurgau;2020;bestand_31_12;total;282909
+21;Ticino;2020;bestand_1_1;total;351491
+21;Ticino;2020;bestand_31_12;total;350986
+22;Vaud;2020;bestand_1_1;total;805098
+22;Vaud;2020;bestand_31_12;total;814762
+23;Valais / Wallis;2020;bestand_1_1;total;345525
+23;Valais / Wallis;2020;bestand_31_12;total;348503
+24;Neuchâtel;2020;bestand_1_1;total;176496
+24;Neuchâtel;2020;bestand_31_12;total;175894
+25;Genève;2020;bestand_1_1;total;504128
+25;Genève;2020;bestand_31_12;total;506343
+26;Jura;2020;bestand_1_1;total;73584
+26;Jura;2020;bestand_31_12;total;73709
+27;Ohne Angabe;2020;bestand_1_1;total;0
+27;Ohne Angabe;2020;bestand_31_12;total;0
+0;Schweiz;2021;bestand_1_1;total;8670300
+0;Schweiz;2021;bestand_31_12;total;8738791
+1;Zürich;2021;bestand_1_1;total;1553423
+1;Zürich;2021;bestand_31_12;total;1564662
+2;Bern / Berne;2021;bestand_1_1;total;1043081
+2;Bern / Berne;2021;bestand_31_12;total;1047422
+3;Luzern;2021;bestand_1_1;total;416347
+3;Luzern;2021;bestand_31_12;total;420326
+4;Uri;2021;bestand_1_1;total;36819
+4;Uri;2021;bestand_31_12;total;37047
+5;Schwyz;2021;bestand_1_1;total;162157
+5;Schwyz;2021;bestand_31_12;total;163689
+6;Obwalden;2021;bestand_1_1;total;38108
+6;Obwalden;2021;bestand_31_12;total;38435
+7;Nidwalden;2021;bestand_1_1;total;43520
+7;Nidwalden;2021;bestand_31_12;total;43894
+8;Glarus;2021;bestand_1_1;total;40851
+8;Glarus;2021;bestand_31_12;total;41190
+9;Zug;2021;bestand_1_1;total;128794
+9;Zug;2021;bestand_31_12;total;129787
+10;Fribourg / Freiburg;2021;bestand_1_1;total;325547
+10;Fribourg / Freiburg;2021;bestand_31_12;total;329860
+11;Solothurn;2021;bestand_1_1;total;277462
+11;Solothurn;2021;bestand_31_12;total;280245
+12;Basel-Stadt;2021;bestand_1_1;total;196735
+12;Basel-Stadt;2021;bestand_31_12;total;196036
+13;Basel-Landschaft;2021;bestand_1_1;total;290969
+13;Basel-Landschaft;2021;bestand_31_12;total;292817
+14;Schaffhausen;2021;bestand_1_1;total;83107
+14;Schaffhausen;2021;bestand_31_12;total;83995
+15;Appenzell Ausserrhoden;2021;bestand_1_1;total;55309
+15;Appenzell Ausserrhoden;2021;bestand_31_12;total;55585
+16;Appenzell Innerrhoden;2021;bestand_1_1;total;16293
+16;Appenzell Innerrhoden;2021;bestand_31_12;total;16360
+17;St. Gallen;2021;bestand_1_1;total;514504
+17;St. Gallen;2021;bestand_31_12;total;519245
+18;Graubünden / Grigioni / Grischun;2021;bestand_1_1;total;200096
+18;Graubünden / Grigioni / Grischun;2021;bestand_31_12;total;201376
+19;Aargau;2021;bestand_1_1;total;694072
+19;Aargau;2021;bestand_31_12;total;703086
+20;Thurgau;2021;bestand_1_1;total;282909
+20;Thurgau;2021;bestand_31_12;total;285964
+21;Ticino;2021;bestand_1_1;total;350986
+21;Ticino;2021;bestand_31_12;total;352181
+22;Vaud;2021;bestand_1_1;total;814762
+22;Vaud;2021;bestand_31_12;total;822968
+23;Valais / Wallis;2021;bestand_1_1;total;348503
+23;Valais / Wallis;2021;bestand_31_12;total;353209
+24;Neuchâtel;2021;bestand_1_1;total;175894
+24;Neuchâtel;2021;bestand_31_12;total;176166
+25;Genève;2021;bestand_1_1;total;506343
+25;Genève;2021;bestand_31_12;total;509448
+26;Jura;2021;bestand_1_1;total;73709
+26;Jura;2021;bestand_31_12;total;73798
+27;Ohne Angabe;2021;bestand_1_1;total;0
+27;Ohne Angabe;2021;bestand_31_12;total;0
+0;Schweiz;2022;bestand_1_1;total;8738791
+0;Schweiz;2022;bestand_31_12;total;8815385
+1;Zürich;2022;bestand_1_1;total;1564662
+1;Zürich;2022;bestand_31_12;total;1579967
+2;Bern / Berne;2022;bestand_1_1;total;1047422
+2;Bern / Berne;2022;bestand_31_12;total;1051437
+3;Luzern;2022;bestand_1_1;total;420326
+3;Luzern;2022;bestand_31_12;total;424851
+4;Uri;2022;bestand_1_1;total;37047
+4;Uri;2022;bestand_31_12;total;37317
+5;Schwyz;2022;bestand_1_1;total;163689
+5;Schwyz;2022;bestand_31_12;total;164920
+6;Obwalden;2022;bestand_1_1;total;38435
+6;Obwalden;2022;bestand_31_12;total;38700
+7;Nidwalden;2022;bestand_1_1;total;43894
+7;Nidwalden;2022;bestand_31_12;total;44420
+8;Glarus;2022;bestand_1_1;total;41190
+8;Glarus;2022;bestand_31_12;total;41471
+9;Zug;2022;bestand_1_1;total;129787
+9;Zug;2022;bestand_31_12;total;131164
+10;Fribourg / Freiburg;2022;bestand_1_1;total;329860
+10;Fribourg / Freiburg;2022;bestand_31_12;total;334465
+11;Solothurn;2022;bestand_1_1;total;280245
+11;Solothurn;2022;bestand_31_12;total;282408
+12;Basel-Stadt;2022;bestand_1_1;total;196036
+12;Basel-Stadt;2022;bestand_31_12;total;196786
+13;Basel-Landschaft;2022;bestand_1_1;total;292817
+13;Basel-Landschaft;2022;bestand_31_12;total;294417
+14;Schaffhausen;2022;bestand_1_1;total;83995
+14;Schaffhausen;2022;bestand_31_12;total;85214
+15;Appenzell Ausserrhoden;2022;bestand_1_1;total;55585
+15;Appenzell Ausserrhoden;2022;bestand_31_12;total;55759
+16;Appenzell Innerrhoden;2022;bestand_1_1;total;16360
+16;Appenzell Innerrhoden;2022;bestand_31_12;total;16416
+17;St. Gallen;2022;bestand_1_1;total;519245
+17;St. Gallen;2022;bestand_31_12;total;525967
+18;Graubünden / Grigioni / Grischun;2022;bestand_1_1;total;201376
+18;Graubünden / Grigioni / Grischun;2022;bestand_31_12;total;202538
+19;Aargau;2022;bestand_1_1;total;703086
+19;Aargau;2022;bestand_31_12;total;711232
+20;Thurgau;2022;bestand_1_1;total;285964
+20;Thurgau;2022;bestand_31_12;total;289650
+21;Ticino;2022;bestand_1_1;total;352181
+21;Ticino;2022;bestand_31_12;total;354023
+22;Vaud;2022;bestand_1_1;total;822968
+22;Vaud;2022;bestand_31_12;total;830431
+23;Valais / Wallis;2022;bestand_1_1;total;353209
+23;Valais / Wallis;2022;bestand_31_12;total;357282
+24;Neuchâtel;2022;bestand_1_1;total;176166
+24;Neuchâtel;2022;bestand_31_12;total;176571
+25;Genève;2022;bestand_1_1;total;509448
+25;Genève;2022;bestand_31_12;total;514114
+26;Jura;2022;bestand_1_1;total;73798
+26;Jura;2022;bestand_31_12;total;73865
+27;Ohne Angabe;2022;bestand_1_1;total;0
+27;Ohne Angabe;2022;bestand_31_12;total;0
+0;Schweiz;2023;bestand_1_1;total;8815385
+0;Schweiz;2023;bestand_31_12;total;8962258
+1;Zürich;2023;bestand_1_1;total;1579967
+1;Zürich;2023;bestand_31_12;total;1605508
+2;Bern / Berne;2023;bestand_1_1;total;1051437
+2;Bern / Berne;2023;bestand_31_12;total;1063533
+3;Luzern;2023;bestand_1_1;total;424851
+3;Luzern;2023;bestand_31_12;total;432744
+4;Uri;2023;bestand_1_1;total;37317
+4;Uri;2023;bestand_31_12;total;37931
+5;Schwyz;2023;bestand_1_1;total;164920
+5;Schwyz;2023;bestand_31_12;total;167403
+6;Obwalden;2023;bestand_1_1;total;38700
+6;Obwalden;2023;bestand_31_12;total;39272
+7;Nidwalden;2023;bestand_1_1;total;44420
+7;Nidwalden;2023;bestand_31_12;total;45016
+8;Glarus;2023;bestand_1_1;total;41471
+8;Glarus;2023;bestand_31_12;total;42056
+9;Zug;2023;bestand_1_1;total;131164
+9;Zug;2023;bestand_31_12;total;132556
+10;Fribourg / Freiburg;2023;bestand_1_1;total;334465
+10;Fribourg / Freiburg;2023;bestand_31_12;total;341537
+11;Solothurn;2023;bestand_1_1;total;282408
+11;Solothurn;2023;bestand_31_12;total;286844
+12;Basel-Stadt;2023;bestand_1_1;total;196786
+12;Basel-Stadt;2023;bestand_31_12;total;200031
+13;Basel-Landschaft;2023;bestand_1_1;total;294417
+13;Basel-Landschaft;2023;bestand_31_12;total;298837
+14;Schaffhausen;2023;bestand_1_1;total;85214
+14;Schaffhausen;2023;bestand_31_12;total;87111
+15;Appenzell Ausserrhoden;2023;bestand_1_1;total;55759
+15;Appenzell Ausserrhoden;2023;bestand_31_12;total;56495
+16;Appenzell Innerrhoden;2023;bestand_1_1;total;16416
+16;Appenzell Innerrhoden;2023;bestand_31_12;total;16585
+17;St. Gallen;2023;bestand_1_1;total;525967
+17;St. Gallen;2023;bestand_31_12;total;535114
+18;Graubünden / Grigioni / Grischun;2023;bestand_1_1;total;202538
+18;Graubünden / Grigioni / Grischun;2023;bestand_31_12;total;204888
+19;Aargau;2023;bestand_1_1;total;711232
+19;Aargau;2023;bestand_31_12;total;726894
+20;Thurgau;2023;bestand_1_1;total;289650
+20;Thurgau;2023;bestand_31_12;total;295220
+21;Ticino;2023;bestand_1_1;total;354023
+21;Ticino;2023;bestand_31_12;total;357720
+22;Vaud;2023;bestand_1_1;total;830431
+22;Vaud;2023;bestand_31_12;total;845870
+23;Valais / Wallis;2023;bestand_1_1;total;357282
+23;Valais / Wallis;2023;bestand_31_12;total;365844
+24;Neuchâtel;2023;bestand_1_1;total;176571
+24;Neuchâtel;2023;bestand_31_12;total;178291
+25;Genève;2023;bestand_1_1;total;514114
+25;Genève;2023;bestand_31_12;total;524410
+26;Jura;2023;bestand_1_1;total;73865
+26;Jura;2023;bestand_31_12;total;74548
+27;Ohne Angabe;2023;bestand_1_1;total;0
+27;Ohne Angabe;2023;bestand_31_12;total;0
+0;Schweiz;2024;bestand_1_1;total;8962258
+0;Schweiz;2024;bestand_31_12;total;9051029
+1;Zürich;2024;bestand_1_1;total;1605508
+1;Zürich;2024;bestand_31_12;total;1620020
+2;Bern / Berne;2024;bestand_1_1;total;1063533
+2;Bern / Berne;2024;bestand_31_12;total;1071216
+3;Luzern;2024;bestand_1_1;total;432744
+3;Luzern;2024;bestand_31_12;total;437944
+4;Uri;2024;bestand_1_1;total;37931
+4;Uri;2024;bestand_31_12;total;38275
+5;Schwyz;2024;bestand_1_1;total;167403
+5;Schwyz;2024;bestand_31_12;total;168931
+6;Obwalden;2024;bestand_1_1;total;39272
+6;Obwalden;2024;bestand_31_12;total;39662
+7;Nidwalden;2024;bestand_1_1;total;45016
+7;Nidwalden;2024;bestand_31_12;total;45345
+8;Glarus;2024;bestand_1_1;total;42056
+8;Glarus;2024;bestand_31_12;total;42371
+9;Zug;2024;bestand_1_1;total;132556
+9;Zug;2024;bestand_31_12;total;133739
+10;Fribourg / Freiburg;2024;bestand_1_1;total;341537
+10;Fribourg / Freiburg;2024;bestand_31_12;total;346674
+11;Solothurn;2024;bestand_1_1;total;286844
+11;Solothurn;2024;bestand_31_12;total;289792
+12;Basel-Stadt;2024;bestand_1_1;total;200031
+12;Basel-Stadt;2024;bestand_31_12;total;201384
+13;Basel-Landschaft;2024;bestand_1_1;total;298837
+13;Basel-Landschaft;2024;bestand_31_12;total;301323
+14;Schaffhausen;2024;bestand_1_1;total;87111
+14;Schaffhausen;2024;bestand_31_12;total;88667
+15;Appenzell Ausserrhoden;2024;bestand_1_1;total;56495
+15;Appenzell Ausserrhoden;2024;bestand_31_12;total;56705
+16;Appenzell Innerrhoden;2024;bestand_1_1;total;16585
+16;Appenzell Innerrhoden;2024;bestand_31_12;total;16733
+17;St. Gallen;2024;bestand_1_1;total;535114
+17;St. Gallen;2024;bestand_31_12;total;540036
+18;Graubünden / Grigioni / Grischun;2024;bestand_1_1;total;204888
+18;Graubünden / Grigioni / Grischun;2024;bestand_31_12;total;206138
+19;Aargau;2024;bestand_1_1;total;726894
+19;Aargau;2024;bestand_31_12;total;735808
+20;Thurgau;2024;bestand_1_1;total;295220
+20;Thurgau;2024;bestand_31_12;total;299509
+21;Ticino;2024;bestand_1_1;total;357720
+21;Ticino;2024;bestand_31_12;total;358903
+22;Vaud;2024;bestand_1_1;total;845870
+22;Vaud;2024;bestand_31_12;total;855106
+23;Valais / Wallis;2024;bestand_1_1;total;365844
+23;Valais / Wallis;2024;bestand_31_12;total;371288
+24;Neuchâtel;2024;bestand_1_1;total;178291
+24;Neuchâtel;2024;bestand_31_12;total;179518
+25;Genève;2024;bestand_1_1;total;524410
+25;Genève;2024;bestand_31_12;total;531102
+26;Jura;2024;bestand_1_1;total;74548
+26;Jura;2024;bestand_31_12;total;74840
+27;Ohne Angabe;2024;bestand_1_1;total;0
+27;Ohne Angabe;2024;bestand_31_12;total;0
+0;Schweiz;2025;bestand_1_1;total;9051029
+0;Schweiz;2025;bestand_31_12;total;9127125
+1;Zürich;2025;bestand_1_1;total;1620020
+1;Zürich;2025;bestand_31_12;total;1632918
+2;Bern / Berne;2025;bestand_1_1;total;1071216
+2;Bern / Berne;2025;bestand_31_12;total;1076127
+3;Luzern;2025;bestand_1_1;total;437944
+3;Luzern;2025;bestand_31_12;total;441500
+4;Uri;2025;bestand_1_1;total;38275
+4;Uri;2025;bestand_31_12;total;38581
+5;Schwyz;2025;bestand_1_1;total;168931
+5;Schwyz;2025;bestand_31_12;total;170072
+6;Obwalden;2025;bestand_1_1;total;39662
+6;Obwalden;2025;bestand_31_12;total;39879
+7;Nidwalden;2025;bestand_1_1;total;45345
+7;Nidwalden;2025;bestand_31_12;total;45664
+8;Glarus;2025;bestand_1_1;total;42371
+8;Glarus;2025;bestand_31_12;total;42451
+9;Zug;2025;bestand_1_1;total;133739
+9;Zug;2025;bestand_31_12;total;135018
+10;Fribourg / Freiburg;2025;bestand_1_1;total;346674
+10;Fribourg / Freiburg;2025;bestand_31_12;total;350918
+11;Solothurn;2025;bestand_1_1;total;289792
+11;Solothurn;2025;bestand_31_12;total;291583
+12;Basel-Stadt;2025;bestand_1_1;total;201384
+12;Basel-Stadt;2025;bestand_31_12;total;204157
+13;Basel-Landschaft;2025;bestand_1_1;total;301323
+13;Basel-Landschaft;2025;bestand_31_12;total;303872
+14;Schaffhausen;2025;bestand_1_1;total;88667
+14;Schaffhausen;2025;bestand_31_12;total;90087
+15;Appenzell Ausserrhoden;2025;bestand_1_1;total;56705
+15;Appenzell Ausserrhoden;2025;bestand_31_12;total;57221
+16;Appenzell Innerrhoden;2025;bestand_1_1;total;16733
+16;Appenzell Innerrhoden;2025;bestand_31_12;total;16890
+17;St. Gallen;2025;bestand_1_1;total;540036
+17;St. Gallen;2025;bestand_31_12;total;544040
+18;Graubünden / Grigioni / Grischun;2025;bestand_1_1;total;206138
+18;Graubünden / Grigioni / Grischun;2025;bestand_31_12;total;207400
+19;Aargau;2025;bestand_1_1;total;735808
+19;Aargau;2025;bestand_31_12;total;743768
+20;Thurgau;2025;bestand_1_1;total;299509
+20;Thurgau;2025;bestand_31_12;total;302806
+21;Ticino;2025;bestand_1_1;total;358903
+21;Ticino;2025;bestand_31_12;total;359783
+22;Vaud;2025;bestand_1_1;total;855106
+22;Vaud;2025;bestand_31_12;total;863650
+23;Valais / Wallis;2025;bestand_1_1;total;371288
+23;Valais / Wallis;2025;bestand_31_12;total;376113
+24;Neuchâtel;2025;bestand_1_1;total;179518
+24;Neuchâtel;2025;bestand_31_12;total;180365
+25;Genève;2025;bestand_1_1;total;531102
+25;Genève;2025;bestand_31_12;total;537084
+26;Jura;2025;bestand_1_1;total;74840
+26;Jura;2025;bestand_31_12;total;75178
+27;Ohne Angabe;2025;bestand_1_1;total;0
+27;Ohne Angabe;2025;bestand_31_12;total;0
+0;Schweiz;2008;bestand_31_12;schweiz;6032141
+0;Schweiz;2008;bestand_31_12;ausland;1669715
+1;Zürich;2008;bestand_31_12;schweiz;1019182
+1;Zürich;2008;bestand_31_12;ausland;313545
+2;Bern / Berne;2008;bestand_31_12;schweiz;845650
+2;Bern / Berne;2008;bestand_31_12;ausland;123649
+3;Luzern;2008;bestand_31_12;schweiz;309007
+3;Luzern;2008;bestand_31_12;ausland;59735
+4;Uri;2008;bestand_31_12;schweiz;31945
+4;Uri;2008;bestand_31_12;ausland;3217
+5;Schwyz;2008;bestand_31_12;schweiz;118044
+5;Schwyz;2008;bestand_31_12;ausland;25675
+6;Obwalden;2008;bestand_31_12;schweiz;30153
+6;Obwalden;2008;bestand_31_12;ausland;4276
+7;Nidwalden;2008;bestand_31_12;schweiz;36434
+7;Nidwalden;2008;bestand_31_12;ausland;4303
+8;Glarus;2008;bestand_31_12;schweiz;30940
+8;Glarus;2008;bestand_31_12;ausland;7430
+9;Zug;2008;bestand_31_12;schweiz;85097
+9;Zug;2008;bestand_31_12;ausland;25287
+10;Fribourg / Freiburg;2008;bestand_31_12;schweiz;222471
+10;Fribourg / Freiburg;2008;bestand_31_12;ausland;46066
+11;Solothurn;2008;bestand_31_12;schweiz;203509
+11;Solothurn;2008;bestand_31_12;ausland;48321
+12;Basel-Stadt;2008;bestand_31_12;schweiz;129290
+12;Basel-Stadt;2008;bestand_31_12;ausland;57382
+13;Basel-Landschaft;2008;bestand_31_12;schweiz;220967
+13;Basel-Landschaft;2008;bestand_31_12;ausland;50247
+14;Schaffhausen;2008;bestand_31_12;schweiz;58291
+14;Schaffhausen;2008;bestand_31_12;ausland;17012
+15;Appenzell Ausserrhoden;2008;bestand_31_12;schweiz;45775
+15;Appenzell Ausserrhoden;2008;bestand_31_12;ausland;7279
+16;Appenzell Innerrhoden;2008;bestand_31_12;schweiz;13984
+16;Appenzell Innerrhoden;2008;bestand_31_12;ausland;1565
+17;St. Gallen;2008;bestand_31_12;schweiz;369971
+17;St. Gallen;2008;bestand_31_12;ausland;101181
+18;Graubünden / Grigioni / Grischun;2008;bestand_31_12;schweiz;160840
+18;Graubünden / Grigioni / Grischun;2008;bestand_31_12;ausland;29619
+19;Aargau;2008;bestand_31_12;schweiz;467649
+19;Aargau;2008;bestand_31_12;ausland;123983
+20;Thurgau;2008;bestand_31_12;schweiz;191942
+20;Thurgau;2008;bestand_31_12;ausland;49869
+21;Ticino;2008;bestand_31_12;schweiz;248274
+21;Ticino;2008;bestand_31_12;ausland;84462
+22;Vaud;2008;bestand_31_12;schweiz;482317
+22;Vaud;2008;bestand_31_12;ausland;205928
+23;Valais / Wallis;2008;bestand_31_12;schweiz;242684
+23;Valais / Wallis;2008;bestand_31_12;ausland;60557
+24;Neuchâtel;2008;bestand_31_12;schweiz;130331
+24;Neuchâtel;2008;bestand_31_12;ausland;40593
+25;Genève;2008;bestand_31_12;schweiz;276012
+25;Genève;2008;bestand_31_12;ausland;170094
+26;Jura;2008;bestand_31_12;schweiz;61382
+26;Jura;2008;bestand_31_12;ausland;8440
+27;Ohne Angabe;2008;bestand_31_12;schweiz;0
+27;Ohne Angabe;2008;bestand_31_12;ausland;0
+0;Schweiz;2009;bestand_31_12;schweiz;6071802
+0;Schweiz;2009;bestand_31_12;ausland;1714004
+1;Zürich;2009;bestand_31_12;schweiz;1031109
+1;Zürich;2009;bestand_31_12;ausland;320188
+2;Bern / Berne;2009;bestand_31_12;schweiz;847153
+2;Bern / Berne;2009;bestand_31_12;ausland;127082
+3;Luzern;2009;bestand_31_12;schweiz;311967
+3;Luzern;2009;bestand_31_12;ausland;60997
+4;Uri;2009;bestand_31_12;schweiz;32005
+4;Uri;2009;bestand_31_12;ausland;3330
+5;Schwyz;2009;bestand_31_12;schweiz;118574
+5;Schwyz;2009;bestand_31_12;ausland;26112
+6;Obwalden;2009;bestand_31_12;schweiz;30524
+6;Obwalden;2009;bestand_31_12;ausland;4508
+7;Nidwalden;2009;bestand_31_12;schweiz;36415
+7;Nidwalden;2009;bestand_31_12;ausland;4379
+8;Glarus;2009;bestand_31_12;schweiz;30866
+8;Glarus;2009;bestand_31_12;ausland;7613
+9;Zug;2009;bestand_31_12;schweiz;85007
+9;Zug;2009;bestand_31_12;ausland;25883
+10;Fribourg / Freiburg;2009;bestand_31_12;schweiz;224802
+10;Fribourg / Freiburg;2009;bestand_31_12;ausland;48357
+11;Solothurn;2009;bestand_31_12;schweiz;203859
+11;Solothurn;2009;bestand_31_12;ausland;48889
+12;Basel-Stadt;2009;bestand_31_12;schweiz;128716
+12;Basel-Stadt;2009;bestand_31_12;ausland;59182
+13;Basel-Landschaft;2009;bestand_31_12;schweiz;221119
+13;Basel-Landschaft;2009;bestand_31_12;ausland;51696
+14;Schaffhausen;2009;bestand_31_12;schweiz;58358
+14;Schaffhausen;2009;bestand_31_12;ausland;17299
+15;Appenzell Ausserrhoden;2009;bestand_31_12;schweiz;45693
+15;Appenzell Ausserrhoden;2009;bestand_31_12;ausland;7350
+16;Appenzell Innerrhoden;2009;bestand_31_12;schweiz;14112
+16;Appenzell Innerrhoden;2009;bestand_31_12;ausland;1569
+17;St. Gallen;2009;bestand_31_12;schweiz;371609
+17;St. Gallen;2009;bestand_31_12;ausland;103067
+18;Graubünden / Grigioni / Grischun;2009;bestand_31_12;schweiz;160928
+18;Graubünden / Grigioni / Grischun;2009;bestand_31_12;ausland;30933
+19;Aargau;2009;bestand_31_12;schweiz;471283
+19;Aargau;2009;bestand_31_12;ausland;128757
+20;Thurgau;2009;bestand_31_12;schweiz;193511
+20;Thurgau;2009;bestand_31_12;ausland;51294
+21;Ticino;2009;bestand_31_12;schweiz;250381
+21;Ticino;2009;bestand_31_12;ausland;85339
+22;Vaud;2009;bestand_31_12;schweiz;487907
+22;Vaud;2009;bestand_31_12;ausland;213619
+23;Valais / Wallis;2009;bestand_31_12;schweiz;244598
+23;Valais / Wallis;2009;bestand_31_12;ausland;62794
+24;Neuchâtel;2009;bestand_31_12;schweiz;131981
+24;Neuchâtel;2009;bestand_31_12;ausland;39666
+25;Genève;2009;bestand_31_12;schweiz;277814
+25;Genève;2009;bestand_31_12;ausland;175478
+26;Jura;2009;bestand_31_12;schweiz;61511
+26;Jura;2009;bestand_31_12;ausland;8623
+27;Ohne Angabe;2009;bestand_31_12;schweiz;0
+27;Ohne Angabe;2009;bestand_31_12;ausland;0
+0;Schweiz;2010;bestand_31_12;schweiz;6109654
+0;Schweiz;2010;bestand_31_12;ausland;1754358
+1;Zürich;2010;bestand_31_12;schweiz;1042179
+1;Zürich;2010;bestand_31_12;ausland;326643
+2;Bern / Berne;2010;bestand_31_12;schweiz;848523
+2;Bern / Berne;2010;bestand_31_12;ausland;129725
+3;Luzern;2010;bestand_31_12;schweiz;314739
+3;Luzern;2010;bestand_31_12;ausland;61656
+4;Uri;2010;bestand_31_12;schweiz;31964
+4;Uri;2010;bestand_31_12;ausland;3337
+5;Schwyz;2010;bestand_31_12;schweiz;119331
+5;Schwyz;2010;bestand_31_12;ausland;26954
+6;Obwalden;2010;bestand_31_12;schweiz;30834
+6;Obwalden;2010;bestand_31_12;ausland;4658
+7;Nidwalden;2010;bestand_31_12;schweiz;36376
+7;Nidwalden;2010;bestand_31_12;ausland;4546
+8;Glarus;2010;bestand_31_12;schweiz;30769
+8;Glarus;2010;bestand_31_12;ausland;7799
+9;Zug;2010;bestand_31_12;schweiz;85483
+9;Zug;2010;bestand_31_12;ausland;26754
+10;Fribourg / Freiburg;2010;bestand_31_12;schweiz;227352
+10;Fribourg / Freiburg;2010;bestand_31_12;ausland;50472
+11;Solothurn;2010;bestand_31_12;schweiz;204677
+11;Solothurn;2010;bestand_31_12;ausland;50081
+12;Basel-Stadt;2010;bestand_31_12;schweiz;128341
+12;Basel-Stadt;2010;bestand_31_12;ausland;61090
+13;Basel-Landschaft;2010;bestand_31_12;schweiz;221454
+13;Basel-Landschaft;2010;bestand_31_12;ausland;52433
+14;Schaffhausen;2010;bestand_31_12;schweiz;58754
+14;Schaffhausen;2010;bestand_31_12;ausland;17591
+15;Appenzell Ausserrhoden;2010;bestand_31_12;schweiz;45533
+15;Appenzell Ausserrhoden;2010;bestand_31_12;ausland;7405
+16;Appenzell Innerrhoden;2010;bestand_31_12;schweiz;14121
+16;Appenzell Innerrhoden;2010;bestand_31_12;ausland;1534
+17;St. Gallen;2010;bestand_31_12;schweiz;373951
+17;St. Gallen;2010;bestand_31_12;ausland;103795
+18;Graubünden / Grigioni / Grischun;2010;bestand_31_12;schweiz;160986
+18;Graubünden / Grigioni / Grischun;2010;bestand_31_12;ausland;31716
+19;Aargau;2010;bestand_31_12;schweiz;475774
+19;Aargau;2010;bestand_31_12;ausland;132525
+20;Thurgau;2010;bestand_31_12;schweiz;194671
+20;Thurgau;2010;bestand_31_12;ausland;53110
+21;Ticino;2010;bestand_31_12;schweiz;251641
+21;Ticino;2010;bestand_31_12;ausland;88305
+22;Vaud;2010;bestand_31_12;schweiz;492312
+22;Vaud;2010;bestand_31_12;ausland;219506
+23;Valais / Wallis;2010;bestand_31_12;schweiz;247101
+23;Valais / Wallis;2010;bestand_31_12;ausland;64884
+24;Neuchâtel;2010;bestand_31_12;schweiz;132436
+24;Neuchâtel;2010;bestand_31_12;ausland;39468
+25;Genève;2010;bestand_31_12;schweiz;278845
+25;Genève;2010;bestand_31_12;ausland;179714
+26;Jura;2010;bestand_31_12;schweiz;61507
+26;Jura;2010;bestand_31_12;ausland;8657
+27;Ohne Angabe;2010;bestand_31_12;schweiz;0
+27;Ohne Angabe;2010;bestand_31_12;ausland;0
+0;Schweiz;2011;bestand_31_12;schweiz;6138668
+0;Schweiz;2011;bestand_31_12;ausland;1815994
+1;Zürich;2011;bestand_31_12;schweiz;1050188
+1;Zürich;2011;bestand_31_12;ausland;342208
+2;Bern / Berne;2011;bestand_31_12;schweiz;850187
+2;Bern / Berne;2011;bestand_31_12;ausland;134813
+3;Luzern;2011;bestand_31_12;schweiz;317823
+3;Luzern;2011;bestand_31_12;ausland;64143
+4;Uri;2011;bestand_31_12;schweiz;31907
+4;Uri;2011;bestand_31_12;ausland;3475
+5;Schwyz;2011;bestand_31_12;schweiz;120013
+5;Schwyz;2011;bestand_31_12;ausland;27891
+6;Obwalden;2011;bestand_31_12;schweiz;30969
+6;Obwalden;2011;bestand_31_12;ausland;4916
+7;Nidwalden;2011;bestand_31_12;schweiz;36441
+7;Nidwalden;2011;bestand_31_12;ausland;4870
+8;Glarus;2011;bestand_31_12;schweiz;30842
+8;Glarus;2011;bestand_31_12;ausland;8375
+9;Zug;2011;bestand_31_12;schweiz;86748
+9;Zug;2011;bestand_31_12;ausland;28356
+10;Fribourg / Freiburg;2011;bestand_31_12;schweiz;230384
+10;Fribourg / Freiburg;2011;bestand_31_12;ausland;54330
+11;Solothurn;2011;bestand_31_12;schweiz;206325
+11;Solothurn;2011;bestand_31_12;ausland;50665
+12;Basel-Stadt;2011;bestand_31_12;schweiz;124589
+12;Basel-Stadt;2011;bestand_31_12;ausland;61666
+13;Basel-Landschaft;2011;bestand_31_12;schweiz;221306
+13;Basel-Landschaft;2011;bestand_31_12;ausland;54054
+14;Schaffhausen;2011;bestand_31_12;schweiz;58950
+14;Schaffhausen;2011;bestand_31_12;ausland;18189
+15;Appenzell Ausserrhoden;2011;bestand_31_12;schweiz;45608
+15;Appenzell Ausserrhoden;2011;bestand_31_12;ausland;7705
+16;Appenzell Innerrhoden;2011;bestand_31_12;schweiz;14153
+16;Appenzell Innerrhoden;2011;bestand_31_12;ausland;1590
+17;St. Gallen;2011;bestand_31_12;schweiz;376226
+17;St. Gallen;2011;bestand_31_12;ausland;106930
+18;Graubünden / Grigioni / Grischun;2011;bestand_31_12;schweiz;160504
+18;Graubünden / Grigioni / Grischun;2011;bestand_31_12;ausland;32884
+19;Aargau;2011;bestand_31_12;schweiz;480532
+19;Aargau;2011;bestand_31_12;ausland;137766
+20;Thurgau;2011;bestand_31_12;schweiz;196272
+20;Thurgau;2011;bestand_31_12;ausland;55701
+21;Ticino;2011;bestand_31_12;schweiz;248599
+21;Ticino;2011;bestand_31_12;ausland;88344
+22;Vaud;2011;bestand_31_12;schweiz;496720
+22;Vaud;2011;bestand_31_12;ausland;229224
+23;Valais / Wallis;2011;bestand_31_12;schweiz;249788
+23;Valais / Wallis;2011;bestand_31_12;ausland;67234
+24;Neuchâtel;2011;bestand_31_12;schweiz;132685
+24;Neuchâtel;2011;bestand_31_12;ausland;40498
+25;Genève;2011;bestand_31_12;schweiz;279309
+25;Genève;2011;bestand_31_12;ausland;181225
+26;Jura;2011;bestand_31_12;schweiz;61600
+26;Jura;2011;bestand_31_12;ausland;8942
+27;Ohne Angabe;2011;bestand_31_12;schweiz;0
+27;Ohne Angabe;2011;bestand_31_12;ausland;0
+0;Schweiz;2012;bestand_31_12;schweiz;6169091
+0;Schweiz;2012;bestand_31_12;ausland;1869969
+1;Zürich;2012;bestand_31_12;schweiz;1057472
+1;Zürich;2012;bestand_31_12;ausland;351103
+2;Bern / Berne;2012;bestand_31_12;schweiz;853553
+2;Bern / Berne;2012;bestand_31_12;ausland;139014
+3;Luzern;2012;bestand_31_12;schweiz;320628
+3;Luzern;2012;bestand_31_12;ausland;65454
+4;Uri;2012;bestand_31_12;schweiz;31938
+4;Uri;2012;bestand_31_12;ausland;3755
+5;Schwyz;2012;bestand_31_12;schweiz;120856
+5;Schwyz;2012;bestand_31_12;ausland;28974
+6;Obwalden;2012;bestand_31_12;schweiz;31131
+6;Obwalden;2012;bestand_31_12;ausland;4984
+7;Nidwalden;2012;bestand_31_12;schweiz;36398
+7;Nidwalden;2012;bestand_31_12;ausland;5186
+8;Glarus;2012;bestand_31_12;schweiz;30795
+8;Glarus;2012;bestand_31_12;ausland;8574
+9;Zug;2012;bestand_31_12;schweiz;87120
+9;Zug;2012;bestand_31_12;ausland;29455
+10;Fribourg / Freiburg;2012;bestand_31_12;schweiz;233154
+10;Fribourg / Freiburg;2012;bestand_31_12;ausland;58291
+11;Solothurn;2012;bestand_31_12;schweiz;207443
+11;Solothurn;2012;bestand_31_12;ausland;51840
+12;Basel-Stadt;2012;bestand_31_12;schweiz;124497
+12;Basel-Stadt;2012;bestand_31_12;ausland;62928
+13;Basel-Landschaft;2012;bestand_31_12;schweiz;220923
+13;Basel-Landschaft;2012;bestand_31_12;ausland;55614
+14;Schaffhausen;2012;bestand_31_12;schweiz;59199
+14;Schaffhausen;2012;bestand_31_12;ausland;18756
+15;Appenzell Ausserrhoden;2012;bestand_31_12;schweiz;45602
+15;Appenzell Ausserrhoden;2012;bestand_31_12;ausland;7836
+16;Appenzell Innerrhoden;2012;bestand_31_12;schweiz;14137
+16;Appenzell Innerrhoden;2012;bestand_31_12;ausland;1580
+17;St. Gallen;2012;bestand_31_12;schweiz;377489
+17;St. Gallen;2012;bestand_31_12;ausland;109571
+18;Graubünden / Grigioni / Grischun;2012;bestand_31_12;schweiz;160390
+18;Graubünden / Grigioni / Grischun;2012;bestand_31_12;ausland;33530
+19;Aargau;2012;bestand_31_12;schweiz;484088
+19;Aargau;2012;bestand_31_12;ausland;143252
+20;Thurgau;2012;bestand_31_12;schweiz;197944
+20;Thurgau;2012;bestand_31_12;ausland;58269
+21;Ticino;2012;bestand_31_12;schweiz;250320
+21;Ticino;2012;bestand_31_12;ausland;91332
+22;Vaud;2012;bestand_31_12;schweiz;498089
+22;Vaud;2012;bestand_31_12;ausland;236267
+23;Valais / Wallis;2012;bestand_31_12;schweiz;252134
+23;Valais / Wallis;2012;bestand_31_12;ausland;69598
+24;Neuchâtel;2012;bestand_31_12;schweiz;132652
+24;Neuchâtel;2012;bestand_31_12;ausland;41902
+25;Genève;2012;bestand_31_12;schweiz;279417
+25;Genève;2012;bestand_31_12;ausland;183684
+26;Jura;2012;bestand_31_12;schweiz;61722
+26;Jura;2012;bestand_31_12;ausland;9220
+27;Ohne Angabe;2012;bestand_31_12;schweiz;0
+27;Ohne Angabe;2012;bestand_31_12;ausland;0
+0;Schweiz;2013;bestand_31_12;schweiz;6202184
+0;Schweiz;2013;bestand_31_12;ausland;1937447
+1;Zürich;2013;bestand_31_12;schweiz;1064112
+1;Zürich;2013;bestand_31_12;ausland;361426
+2;Bern / Berne;2013;bestand_31_12;schweiz;855692
+2;Bern / Berne;2013;bestand_31_12;ausland;145540
+3;Luzern;2013;bestand_31_12;schweiz;323029
+3;Luzern;2013;bestand_31_12;ausland;67320
+4;Uri;2013;bestand_31_12;schweiz;31887
+4;Uri;2013;bestand_31_12;ausland;3978
+5;Schwyz;2013;bestand_31_12;schweiz;121710
+5;Schwyz;2013;bestand_31_12;ausland;29686
+6;Obwalden;2013;bestand_31_12;schweiz;31414
+6;Obwalden;2013;bestand_31_12;ausland;5093
+7;Nidwalden;2013;bestand_31_12;schweiz;36410
+7;Nidwalden;2013;bestand_31_12;ausland;5478
+8;Glarus;2013;bestand_31_12;schweiz;30795
+8;Glarus;2013;bestand_31_12;ausland;8798
+9;Zug;2013;bestand_31_12;schweiz;87575
+9;Zug;2013;bestand_31_12;ausland;30543
+10;Fribourg / Freiburg;2013;bestand_31_12;schweiz;235847
+10;Fribourg / Freiburg;2013;bestand_31_12;ausland;61824
+11;Solothurn;2013;bestand_31_12;schweiz;208257
+11;Solothurn;2013;bestand_31_12;ausland;53180
+12;Basel-Stadt;2013;bestand_31_12;schweiz;124478
+12;Basel-Stadt;2013;bestand_31_12;ausland;64857
+13;Basel-Landschaft;2013;bestand_31_12;schweiz;221006
+13;Basel-Landschaft;2013;bestand_31_12;ausland;57650
+14;Schaffhausen;2013;bestand_31_12;schweiz;59350
+14;Schaffhausen;2013;bestand_31_12;ausland;19433
+15;Appenzell Ausserrhoden;2013;bestand_31_12;schweiz;45645
+15;Appenzell Ausserrhoden;2013;bestand_31_12;ausland;8046
+16;Appenzell Innerrhoden;2013;bestand_31_12;schweiz;14124
+16;Appenzell Innerrhoden;2013;bestand_31_12;ausland;1654
+17;St. Gallen;2013;bestand_31_12;schweiz;379074
+17;St. Gallen;2013;bestand_31_12;ausland;112625
+18;Graubünden / Grigioni / Grischun;2013;bestand_31_12;schweiz;160440
+18;Graubünden / Grigioni / Grischun;2013;bestand_31_12;ausland;34519
+19;Aargau;2013;bestand_31_12;schweiz;487918
+19;Aargau;2013;bestand_31_12;ausland;148444
+20;Thurgau;2013;bestand_31_12;schweiz;199434
+20;Thurgau;2013;bestand_31_12;ausland;60844
+21;Ticino;2013;bestand_31_12;schweiz;252173
+21;Ticino;2013;bestand_31_12;ausland;94366
+22;Vaud;2013;bestand_31_12;schweiz;503493
+22;Vaud;2013;bestand_31_12;ausland;245880
+23;Valais / Wallis;2013;bestand_31_12;schweiz;254273
+23;Valais / Wallis;2013;bestand_31_12;ausland;72738
+24;Neuchâtel;2013;bestand_31_12;schweiz;132428
+24;Neuchâtel;2013;bestand_31_12;ausland;43974
+25;Genève;2013;bestand_31_12;schweiz;279635
+25;Genève;2013;bestand_31_12;ausland;189798
+26;Jura;2013;bestand_31_12;schweiz;61985
+26;Jura;2013;bestand_31_12;ausland;9753
+27;Ohne Angabe;2013;bestand_31_12;schweiz;0
+27;Ohne Angabe;2013;bestand_31_12;ausland;0
+0;Schweiz;2014;bestand_31_12;schweiz;6239207
+0;Schweiz;2014;bestand_31_12;ausland;1998459
+1;Zürich;2014;bestand_31_12;schweiz;1073065
+1;Zürich;2014;bestand_31_12;ausland;373289
+2;Bern / Berne;2014;bestand_31_12;schweiz;857869
+2;Bern / Berne;2014;bestand_31_12;ausland;151501
+3;Luzern;2014;bestand_31_12;schweiz;325336
+3;Luzern;2014;bestand_31_12;ausland;69268
+4;Uri;2014;bestand_31_12;schweiz;31864
+4;Uri;2014;bestand_31_12;ausland;4144
+5;Schwyz;2014;bestand_31_12;schweiz;122299
+5;Schwyz;2014;bestand_31_12;ausland;30460
+6;Obwalden;2014;bestand_31_12;schweiz;31609
+6;Obwalden;2014;bestand_31_12;ausland;5225
+7;Nidwalden;2014;bestand_31_12;schweiz;36363
+7;Nidwalden;2014;bestand_31_12;ausland;5717
+8;Glarus;2014;bestand_31_12;schweiz;30798
+8;Glarus;2014;bestand_31_12;ausland;8996
+9;Zug;2014;bestand_31_12;schweiz;88446
+9;Zug;2014;bestand_31_12;ausland;31643
+10;Fribourg / Freiburg;2014;bestand_31_12;schweiz;238495
+10;Fribourg / Freiburg;2014;bestand_31_12;ausland;64930
+11;Solothurn;2014;bestand_31_12;schweiz;208749
+11;Solothurn;2014;bestand_31_12;ausland;54970
+12;Basel-Stadt;2014;bestand_31_12;schweiz;124274
+12;Basel-Stadt;2014;bestand_31_12;ausland;66306
+13;Basel-Landschaft;2014;bestand_31_12;schweiz;221378
+13;Basel-Landschaft;2014;bestand_31_12;ausland;59923
+14;Schaffhausen;2014;bestand_31_12;schweiz;59542
+14;Schaffhausen;2014;bestand_31_12;ausland;19875
+15;Appenzell Ausserrhoden;2014;bestand_31_12;schweiz;45763
+15;Appenzell Ausserrhoden;2014;bestand_31_12;ausland;8301
+16;Appenzell Innerrhoden;2014;bestand_31_12;schweiz;14169
+16;Appenzell Innerrhoden;2014;bestand_31_12;ausland;1685
+17;St. Gallen;2014;bestand_31_12;schweiz;380500
+17;St. Gallen;2014;bestand_31_12;ausland;115324
+18;Graubünden / Grigioni / Grischun;2014;bestand_31_12;schweiz;160497
+18;Graubünden / Grigioni / Grischun;2014;bestand_31_12;ausland;35389
+19;Aargau;2014;bestand_31_12;schweiz;491344
+19;Aargau;2014;bestand_31_12;ausland;153933
+20;Thurgau;2014;bestand_31_12;schweiz;200849
+20;Thurgau;2014;bestand_31_12;ausland;62884
+21;Ticino;2014;bestand_31_12;schweiz;253633
+21;Ticino;2014;bestand_31_12;ausland;96730
+22;Vaud;2014;bestand_31_12;schweiz;509124
+22;Vaud;2014;bestand_31_12;ausland;252322
+23;Valais / Wallis;2014;bestand_31_12;schweiz;256485
+23;Valais / Wallis;2014;bestand_31_12;ausland;75278
+24;Neuchâtel;2014;bestand_31_12;schweiz;132575
+24;Neuchâtel;2014;bestand_31_12;ausland;44752
+25;Genève;2014;bestand_31_12;schweiz;281897
+25;Genève;2014;bestand_31_12;ausland;195488
+26;Jura;2014;bestand_31_12;schweiz;62284
+26;Jura;2014;bestand_31_12;ausland;10126
+27;Ohne Angabe;2014;bestand_31_12;schweiz;0
+27;Ohne Angabe;2014;bestand_31_12;ausland;0
+0;Schweiz;2015;bestand_31_12;schweiz;6278459
+0;Schweiz;2015;bestand_31_12;ausland;2048667
+1;Zürich;2015;bestand_31_12;schweiz;1083372
+1;Zürich;2015;bestand_31_12;ausland;383052
+2;Bern / Berne;2015;bestand_31_12;schweiz;859970
+2;Bern / Berne;2015;bestand_31_12;ausland;157464
+3;Luzern;2015;bestand_31_12;schweiz;327503
+3;Luzern;2015;bestand_31_12;ausland;71259
+4;Uri;2015;bestand_31_12;schweiz;31840
+4;Uri;2015;bestand_31_12;ausland;4133
+5;Schwyz;2015;bestand_31_12;schweiz;122921
+5;Schwyz;2015;bestand_31_12;ausland;31172
+6;Obwalden;2015;bestand_31_12;schweiz;31716
+6;Obwalden;2015;bestand_31_12;ausland;5360
+7;Nidwalden;2015;bestand_31_12;schweiz;36514
+7;Nidwalden;2015;bestand_31_12;ausland;5906
+8;Glarus;2015;bestand_31_12;schweiz;30721
+8;Glarus;2015;bestand_31_12;ausland;9307
+9;Zug;2015;bestand_31_12;schweiz;89157
+9;Zug;2015;bestand_31_12;ausland;32977
+10;Fribourg / Freiburg;2015;bestand_31_12;schweiz;240229
+10;Fribourg / Freiburg;2015;bestand_31_12;ausland;67281
+11;Solothurn;2015;bestand_31_12;schweiz;209355
+11;Solothurn;2015;bestand_31_12;ausland;57063
+12;Basel-Stadt;2015;bestand_31_12;schweiz;124365
+12;Basel-Stadt;2015;bestand_31_12;ausland;67452
+13;Basel-Landschaft;2015;bestand_31_12;schweiz;221489
+13;Basel-Landschaft;2015;bestand_31_12;ausland;61742
+14;Schaffhausen;2015;bestand_31_12;schweiz;59664
+14;Schaffhausen;2015;bestand_31_12;ausland;20172
+15;Appenzell Ausserrhoden;2015;bestand_31_12;schweiz;45985
+15;Appenzell Ausserrhoden;2015;bestand_31_12;ausland;8558
+16;Appenzell Innerrhoden;2015;bestand_31_12;schweiz;14240
+16;Appenzell Innerrhoden;2015;bestand_31_12;ausland;1734
+17;St. Gallen;2015;bestand_31_12;schweiz;381712
+17;St. Gallen;2015;bestand_31_12;ausland;117353
+18;Graubünden / Grigioni / Grischun;2015;bestand_31_12;schweiz;160689
+18;Graubünden / Grigioni / Grischun;2015;bestand_31_12;ausland;35921
+19;Aargau;2015;bestand_31_12;schweiz;495277
+19;Aargau;2015;bestand_31_12;ausland;158398
+20;Thurgau;2015;bestand_31_12;schweiz;202663
+20;Thurgau;2015;bestand_31_12;ausland;64766
+21;Ticino;2015;bestand_31_12;schweiz;254288
+21;Ticino;2015;bestand_31_12;ausland;97658
+22;Vaud;2015;bestand_31_12;schweiz;513739
+22;Vaud;2015;bestand_31_12;ausland;259668
+23;Valais / Wallis;2015;bestand_31_12;schweiz;258612
+23;Valais / Wallis;2015;bestand_31_12;ausland;77084
+24;Neuchâtel;2015;bestand_31_12;schweiz;132556
+24;Neuchâtel;2015;bestand_31_12;ausland;45551
+25;Genève;2015;bestand_31_12;schweiz;287521
+25;Genève;2015;bestand_31_12;ausland;197215
+26;Jura;2015;bestand_31_12;schweiz;62361
+26;Jura;2015;bestand_31_12;ausland;10421
+27;Ohne Angabe;2015;bestand_31_12;schweiz;0
+27;Ohne Angabe;2015;bestand_31_12;ausland;0
+0;Schweiz;2016;bestand_31_12;schweiz;6318404
+0;Schweiz;2016;bestand_31_12;ausland;2101146
+1;Zürich;2016;bestand_31_12;schweiz;1092631
+1;Zürich;2016;bestand_31_12;ausland;395338
+2;Bern / Berne;2016;bestand_31_12;schweiz;861567
+2;Bern / Berne;2016;bestand_31_12;ausland;164897
+3;Luzern;2016;bestand_31_12;schweiz;329264
+3;Luzern;2016;bestand_31_12;ausland;74133
+4;Uri;2016;bestand_31_12;schweiz;31850
+4;Uri;2016;bestand_31_12;ausland;4295
+5;Schwyz;2016;bestand_31_12;schweiz;123597
+5;Schwyz;2016;bestand_31_12;ausland;32266
+6;Obwalden;2016;bestand_31_12;schweiz;31892
+6;Obwalden;2016;bestand_31_12;ausland;5486
+7;Nidwalden;2016;bestand_31_12;schweiz;36521
+7;Nidwalden;2016;bestand_31_12;ausland;6035
+8;Glarus;2016;bestand_31_12;schweiz;30650
+8;Glarus;2016;bestand_31_12;ausland;9497
+9;Zug;2016;bestand_31_12;schweiz;89809
+9;Zug;2016;bestand_31_12;ausland;34139
+10;Fribourg / Freiburg;2016;bestand_31_12;schweiz;242134
+10;Fribourg / Freiburg;2016;bestand_31_12;ausland;69829
+11;Solothurn;2016;bestand_31_12;schweiz;210240
+11;Solothurn;2016;bestand_31_12;ausland;59201
+12;Basel-Stadt;2016;bestand_31_12;schweiz;124026
+12;Basel-Stadt;2016;bestand_31_12;ausland;69044
+13;Basel-Landschaft;2016;bestand_31_12;schweiz;221990
+13;Basel-Landschaft;2016;bestand_31_12;ausland;63634
+14;Schaffhausen;2016;bestand_31_12;schweiz;59889
+14;Schaffhausen;2016;bestand_31_12;ausland;20880
+15;Appenzell Ausserrhoden;2016;bestand_31_12;schweiz;46044
+15;Appenzell Ausserrhoden;2016;bestand_31_12;ausland;8910
+16;Appenzell Innerrhoden;2016;bestand_31_12;schweiz;14230
+16;Appenzell Innerrhoden;2016;bestand_31_12;ausland;1773
+17;St. Gallen;2016;bestand_31_12;schweiz;382829
+17;St. Gallen;2016;bestand_31_12;ausland;119723
+18;Graubünden / Grigioni / Grischun;2016;bestand_31_12;schweiz;160932
+18;Graubünden / Grigioni / Grischun;2016;bestand_31_12;ausland;36618
+19;Aargau;2016;bestand_31_12;schweiz;499712
+19;Aargau;2016;bestand_31_12;ausland;163750
+20;Thurgau;2016;bestand_31_12;schweiz;204378
+20;Thurgau;2016;bestand_31_12;ausland;66331
+21;Ticino;2016;bestand_31_12;schweiz;254828
+21;Ticino;2016;bestand_31_12;ausland;99547
+22;Vaud;2016;bestand_31_12;schweiz;520957
+22;Vaud;2016;bestand_31_12;ausland;263865
+23;Valais / Wallis;2016;bestand_31_12;schweiz;260444
+23;Valais / Wallis;2016;bestand_31_12;ausland;78732
+24;Neuchâtel;2016;bestand_31_12;schweiz;132878
+24;Neuchâtel;2016;bestand_31_12;ausland;45689
+25;Genève;2016;bestand_31_12;schweiz;292641
+25;Genève;2016;bestand_31_12;ausland;196883
+26;Jura;2016;bestand_31_12;schweiz;62471
+26;Jura;2016;bestand_31_12;ausland;10651
+27;Ohne Angabe;2016;bestand_31_12;schweiz;0
+27;Ohne Angabe;2016;bestand_31_12;ausland;0
+0;Schweiz;2017;bestand_31_12;schweiz;6357738
+0;Schweiz;2017;bestand_31_12;ausland;2126392
+1;Zürich;2017;bestand_31_12;schweiz;1102014
+1;Zürich;2017;bestand_31_12;ausland;402332
+2;Bern / Berne;2017;bestand_31_12;schweiz;864300
+2;Bern / Berne;2017;bestand_31_12;ausland;166780
+3;Luzern;2017;bestand_31_12;schweiz;331512
+3;Luzern;2017;bestand_31_12;ausland;74994
+4;Uri;2017;bestand_31_12;schweiz;31928
+4;Uri;2017;bestand_31_12;ausland;4371
+5;Schwyz;2017;bestand_31_12;schweiz;124130
+5;Schwyz;2017;bestand_31_12;ausland;33171
+6;Obwalden;2017;bestand_31_12;schweiz;32056
+6;Obwalden;2017;bestand_31_12;ausland;5519
+7;Nidwalden;2017;bestand_31_12;schweiz;36712
+7;Nidwalden;2017;bestand_31_12;ausland;6257
+8;Glarus;2017;bestand_31_12;schweiz;30636
+8;Glarus;2017;bestand_31_12;ausland;9713
+9;Zug;2017;bestand_31_12;schweiz;90430
+9;Zug;2017;bestand_31_12;ausland;34991
+10;Fribourg / Freiburg;2017;bestand_31_12;schweiz;244188
+10;Fribourg / Freiburg;2017;bestand_31_12;ausland;70932
+11;Solothurn;2017;bestand_31_12;schweiz;210812
+11;Solothurn;2017;bestand_31_12;ausland;60620
+12;Basel-Stadt;2017;bestand_31_12;schweiz;124147
+12;Basel-Stadt;2017;bestand_31_12;ausland;69761
+13;Basel-Landschaft;2017;bestand_31_12;schweiz;222343
+13;Basel-Landschaft;2017;bestand_31_12;ausland;64680
+14;Schaffhausen;2017;bestand_31_12;schweiz;60185
+14;Schaffhausen;2017;bestand_31_12;ausland;21166
+15;Appenzell Ausserrhoden;2017;bestand_31_12;schweiz;46181
+15;Appenzell Ausserrhoden;2017;bestand_31_12;ausland;8997
+16;Appenzell Innerrhoden;2017;bestand_31_12;schweiz;14271
+16;Appenzell Innerrhoden;2017;bestand_31_12;ausland;1834
+17;St. Gallen;2017;bestand_31_12;schweiz;383755
+17;St. Gallen;2017;bestand_31_12;ausland;120931
+18;Graubünden / Grigioni / Grischun;2017;bestand_31_12;schweiz;160985
+18;Graubünden / Grigioni / Grischun;2017;bestand_31_12;ausland;36903
+19;Aargau;2017;bestand_31_12;schweiz;503709
+19;Aargau;2017;bestand_31_12;ausland;167279
+20;Thurgau;2017;bestand_31_12;schweiz;206118
+20;Thurgau;2017;bestand_31_12;ausland;67683
+21;Ticino;2017;bestand_31_12;schweiz;255122
+21;Ticino;2017;bestand_31_12;ausland;98587
+22;Vaud;2017;bestand_31_12;schweiz;527117
+22;Vaud;2017;bestand_31_12;ausland;266012
+23;Valais / Wallis;2017;bestand_31_12;schweiz;263082
+23;Valais / Wallis;2017;bestand_31_12;ausland;78381
+24;Neuchâtel;2017;bestand_31_12;schweiz;132811
+24;Neuchâtel;2017;bestand_31_12;ausland;45153
+25;Genève;2017;bestand_31_12;schweiz;296675
+25;Genève;2017;bestand_31_12;ausland;198574
+26;Jura;2017;bestand_31_12;schweiz;62519
+26;Jura;2017;bestand_31_12;ausland;10771
+27;Ohne Angabe;2017;bestand_31_12;schweiz;0
+27;Ohne Angabe;2017;bestand_31_12;ausland;0
+0;Schweiz;2018;bestand_31_12;schweiz;6396252
+0;Schweiz;2018;bestand_31_12;ausland;2148275
+1;Zürich;2018;bestand_31_12;schweiz;1112574
+1;Zürich;2018;bestand_31_12;ausland;408394
+2;Bern / Berne;2018;bestand_31_12;schweiz;865861
+2;Bern / Berne;2018;bestand_31_12;ausland;169070
+3;Luzern;2018;bestand_31_12;schweiz;333672
+3;Luzern;2018;bestand_31_12;ausland;75885
+4;Uri;2018;bestand_31_12;schweiz;31936
+4;Uri;2018;bestand_31_12;ausland;4497
+5;Schwyz;2018;bestand_31_12;schweiz;124828
+5;Schwyz;2018;bestand_31_12;ausland;34337
+6;Obwalden;2018;bestand_31_12;schweiz;32296
+6;Obwalden;2018;bestand_31_12;ausland;5545
+7;Nidwalden;2018;bestand_31_12;schweiz;36872
+7;Nidwalden;2018;bestand_31_12;ausland;6351
+8;Glarus;2018;bestand_31_12;schweiz;30671
+8;Glarus;2018;bestand_31_12;ausland;9732
+9;Zug;2018;bestand_31_12;schweiz;90917
+9;Zug;2018;bestand_31_12;ausland;35920
+10;Fribourg / Freiburg;2018;bestand_31_12;schweiz;246400
+10;Fribourg / Freiburg;2018;bestand_31_12;ausland;72360
+11;Solothurn;2018;bestand_31_12;schweiz;211399
+11;Solothurn;2018;bestand_31_12;ausland;61795
+12;Basel-Stadt;2018;bestand_31_12;schweiz;123867
+12;Basel-Stadt;2018;bestand_31_12;ausland;70899
+13;Basel-Landschaft;2018;bestand_31_12;schweiz;222396
+13;Basel-Landschaft;2018;bestand_31_12;ausland;65736
+14;Schaffhausen;2018;bestand_31_12;schweiz;60626
+14;Schaffhausen;2018;bestand_31_12;ausland;21365
+15;Appenzell Ausserrhoden;2018;bestand_31_12;schweiz;46220
+15;Appenzell Ausserrhoden;2018;bestand_31_12;ausland;9014
+16;Appenzell Innerrhoden;2018;bestand_31_12;schweiz;14321
+16;Appenzell Innerrhoden;2018;bestand_31_12;ausland;1824
+17;St. Gallen;2018;bestand_31_12;schweiz;385295
+17;St. Gallen;2018;bestand_31_12;ausland;122402
+18;Graubünden / Grigioni / Grischun;2018;bestand_31_12;schweiz;161397
+18;Graubünden / Grigioni / Grischun;2018;bestand_31_12;ausland;36982
+19;Aargau;2018;bestand_31_12;schweiz;507783
+19;Aargau;2018;bestand_31_12;ausland;170424
+20;Thurgau;2018;bestand_31_12;schweiz;207714
+20;Thurgau;2018;bestand_31_12;ausland;68758
+21;Ticino;2018;bestand_31_12;schweiz;255116
+21;Ticino;2018;bestand_31_12;ausland;98227
+22;Vaud;2018;bestand_31_12;schweiz;533878
+22;Vaud;2018;bestand_31_12;ausland;265267
+23;Valais / Wallis;2018;bestand_31_12;schweiz;265879
+23;Valais / Wallis;2018;bestand_31_12;ausland;78076
+24;Neuchâtel;2018;bestand_31_12;schweiz;132143
+24;Neuchâtel;2018;bestand_31_12;ausland;44707
+25;Genève;2018;bestand_31_12;schweiz;299540
+25;Genève;2018;bestand_31_12;ausland;199940
+26;Jura;2018;bestand_31_12;schweiz;62651
+26;Jura;2018;bestand_31_12;ausland;10768
+27;Ohne Angabe;2018;bestand_31_12;schweiz;0
+27;Ohne Angabe;2018;bestand_31_12;ausland;0
+0;Schweiz;2019;bestand_31_12;schweiz;6430658
+0;Schweiz;2019;bestand_31_12;ausland;2175375
+1;Zürich;2019;bestand_31_12;schweiz;1122495
+1;Zürich;2019;bestand_31_12;ausland;416780
+2;Bern / Berne;2019;bestand_31_12;schweiz;867141
+2;Bern / Berne;2019;bestand_31_12;ausland;172285
+3;Luzern;2019;bestand_31_12;schweiz;335508
+3;Luzern;2019;bestand_31_12;ausland;77612
+4;Uri;2019;bestand_31_12;schweiz;32084
+4;Uri;2019;bestand_31_12;ausland;4619
+5;Schwyz;2019;bestand_31_12;schweiz;125367
+5;Schwyz;2019;bestand_31_12;ausland;35113
+6;Obwalden;2019;bestand_31_12;schweiz;32361
+6;Obwalden;2019;bestand_31_12;ausland;5569
+7;Nidwalden;2019;bestand_31_12;schweiz;36719
+7;Nidwalden;2019;bestand_31_12;ausland;6368
+8;Glarus;2019;bestand_31_12;schweiz;30765
+8;Glarus;2019;bestand_31_12;ausland;9825
+9;Zug;2019;bestand_31_12;schweiz;91475
+9;Zug;2019;bestand_31_12;ausland;36167
+10;Fribourg / Freiburg;2019;bestand_31_12;schweiz;248374
+10;Fribourg / Freiburg;2019;bestand_31_12;ausland;73457
+11;Solothurn;2019;bestand_31_12;schweiz;212104
+11;Solothurn;2019;bestand_31_12;ausland;63143
+12;Basel-Stadt;2019;bestand_31_12;schweiz;124085
+12;Basel-Stadt;2019;bestand_31_12;ausland;71759
+13;Basel-Landschaft;2019;bestand_31_12;schweiz;222615
+13;Basel-Landschaft;2019;bestand_31_12;ausland;66853
+14;Schaffhausen;2019;bestand_31_12;schweiz;60891
+14;Schaffhausen;2019;bestand_31_12;ausland;21457
+15;Appenzell Ausserrhoden;2019;bestand_31_12;schweiz;46319
+15;Appenzell Ausserrhoden;2019;bestand_31_12;ausland;9126
+16;Appenzell Innerrhoden;2019;bestand_31_12;schweiz;14312
+16;Appenzell Innerrhoden;2019;bestand_31_12;ausland;1816
+17;St. Gallen;2019;bestand_31_12;schweiz;385916
+17;St. Gallen;2019;bestand_31_12;ausland;124818
+18;Graubünden / Grigioni / Grischun;2019;bestand_31_12;schweiz;161639
+18;Graubünden / Grigioni / Grischun;2019;bestand_31_12;ausland;37382
+19;Aargau;2019;bestand_31_12;schweiz;512350
+19;Aargau;2019;bestand_31_12;ausland;173495
+20;Thurgau;2019;bestand_31_12;schweiz;209234
+20;Thurgau;2019;bestand_31_12;ausland;70313
+21;Ticino;2019;bestand_31_12;schweiz;254633
+21;Ticino;2019;bestand_31_12;ausland;96858
+22;Vaud;2019;bestand_31_12;schweiz;539414
+22;Vaud;2019;bestand_31_12;ausland;265684
+23;Valais / Wallis;2019;bestand_31_12;schweiz;267503
+23;Valais / Wallis;2019;bestand_31_12;ausland;78022
+24;Neuchâtel;2019;bestand_31_12;schweiz;131913
+24;Neuchâtel;2019;bestand_31_12;ausland;44583
+25;Genève;2019;bestand_31_12;schweiz;302692
+25;Genève;2019;bestand_31_12;ausland;201436
+26;Jura;2019;bestand_31_12;schweiz;62749
+26;Jura;2019;bestand_31_12;ausland;10835
+27;Ohne Angabe;2019;bestand_31_12;schweiz;0
+27;Ohne Angabe;2019;bestand_31_12;ausland;0
+0;Schweiz;2020;bestand_31_12;schweiz;6459512
+0;Schweiz;2020;bestand_31_12;ausland;2210788
+1;Zürich;2020;bestand_31_12;schweiz;1129722
+1;Zürich;2020;bestand_31_12;ausland;423701
+2;Bern / Berne;2020;bestand_31_12;schweiz;869632
+2;Bern / Berne;2020;bestand_31_12;ausland;173449
+3;Luzern;2020;bestand_31_12;schweiz;337132
+3;Luzern;2020;bestand_31_12;ausland;79215
+4;Uri;2020;bestand_31_12;schweiz;32073
+4;Uri;2020;bestand_31_12;ausland;4746
+5;Schwyz;2020;bestand_31_12;schweiz;126227
+5;Schwyz;2020;bestand_31_12;ausland;35930
+6;Obwalden;2020;bestand_31_12;schweiz;32475
+6;Obwalden;2020;bestand_31_12;ausland;5633
+7;Nidwalden;2020;bestand_31_12;schweiz;36996
+7;Nidwalden;2020;bestand_31_12;ausland;6524
+8;Glarus;2020;bestand_31_12;schweiz;30753
+8;Glarus;2020;bestand_31_12;ausland;10098
+9;Zug;2020;bestand_31_12;schweiz;91736
+9;Zug;2020;bestand_31_12;ausland;37058
+10;Fribourg / Freiburg;2020;bestand_31_12;schweiz;250336
+10;Fribourg / Freiburg;2020;bestand_31_12;ausland;75211
+11;Solothurn;2020;bestand_31_12;schweiz;212535
+11;Solothurn;2020;bestand_31_12;ausland;64927
+12;Basel-Stadt;2020;bestand_31_12;schweiz;124151
+12;Basel-Stadt;2020;bestand_31_12;ausland;72584
+13;Basel-Landschaft;2020;bestand_31_12;schweiz;222404
+13;Basel-Landschaft;2020;bestand_31_12;ausland;68565
+14;Schaffhausen;2020;bestand_31_12;schweiz;61267
+14;Schaffhausen;2020;bestand_31_12;ausland;21840
+15;Appenzell Ausserrhoden;2020;bestand_31_12;schweiz;46135
+15;Appenzell Ausserrhoden;2020;bestand_31_12;ausland;9174
+16;Appenzell Innerrhoden;2020;bestand_31_12;schweiz;14420
+16;Appenzell Innerrhoden;2020;bestand_31_12;ausland;1873
+17;St. Gallen;2020;bestand_31_12;schweiz;387398
+17;St. Gallen;2020;bestand_31_12;ausland;127106
+18;Graubünden / Grigioni / Grischun;2020;bestand_31_12;schweiz;161989
+18;Graubünden / Grigioni / Grischun;2020;bestand_31_12;ausland;38107
+19;Aargau;2020;bestand_31_12;schweiz;517015
+19;Aargau;2020;bestand_31_12;ausland;177057
+20;Thurgau;2020;bestand_31_12;schweiz;210840
+20;Thurgau;2020;bestand_31_12;ausland;72069
+21;Ticino;2020;bestand_31_12;schweiz;254109
+21;Ticino;2020;bestand_31_12;ausland;96877
+22;Vaud;2020;bestand_31_12;schweiz;544045
+22;Vaud;2020;bestand_31_12;ausland;270717
+23;Valais / Wallis;2020;bestand_31_12;schweiz;268980
+23;Valais / Wallis;2020;bestand_31_12;ausland;79523
+24;Neuchâtel;2020;bestand_31_12;schweiz;131671
+24;Neuchâtel;2020;bestand_31_12;ausland;44223
+25;Genève;2020;bestand_31_12;schweiz;302731
+25;Genève;2020;bestand_31_12;ausland;203612
+26;Jura;2020;bestand_31_12;schweiz;62740
+26;Jura;2020;bestand_31_12;ausland;10969
+27;Ohne Angabe;2020;bestand_31_12;schweiz;0
+27;Ohne Angabe;2020;bestand_31_12;ausland;0
+0;Schweiz;2021;bestand_31_12;schweiz;6494610
+0;Schweiz;2021;bestand_31_12;ausland;2244181
+1;Zürich;2021;bestand_31_12;schweiz;1136406
+1;Zürich;2021;bestand_31_12;ausland;428256
+2;Bern / Berne;2021;bestand_31_12;schweiz;871574
+2;Bern / Berne;2021;bestand_31_12;ausland;175848
+3;Luzern;2021;bestand_31_12;schweiz;339079
+3;Luzern;2021;bestand_31_12;ausland;81247
+4;Uri;2021;bestand_31_12;schweiz;32143
+4;Uri;2021;bestand_31_12;ausland;4904
+5;Schwyz;2021;bestand_31_12;schweiz;126855
+5;Schwyz;2021;bestand_31_12;ausland;36834
+6;Obwalden;2021;bestand_31_12;schweiz;32623
+6;Obwalden;2021;bestand_31_12;ausland;5812
+7;Nidwalden;2021;bestand_31_12;schweiz;37080
+7;Nidwalden;2021;bestand_31_12;ausland;6814
+8;Glarus;2021;bestand_31_12;schweiz;30891
+8;Glarus;2021;bestand_31_12;ausland;10299
+9;Zug;2021;bestand_31_12;schweiz;91762
+9;Zug;2021;bestand_31_12;ausland;38025
+10;Fribourg / Freiburg;2021;bestand_31_12;schweiz;253070
+10;Fribourg / Freiburg;2021;bestand_31_12;ausland;76790
+11;Solothurn;2021;bestand_31_12;schweiz;213728
+11;Solothurn;2021;bestand_31_12;ausland;66517
+12;Basel-Stadt;2021;bestand_31_12;schweiz;123872
+12;Basel-Stadt;2021;bestand_31_12;ausland;72164
+13;Basel-Landschaft;2021;bestand_31_12;schweiz;223507
+13;Basel-Landschaft;2021;bestand_31_12;ausland;69310
+14;Schaffhausen;2021;bestand_31_12;schweiz;61688
+14;Schaffhausen;2021;bestand_31_12;ausland;22307
+15;Appenzell Ausserrhoden;2021;bestand_31_12;schweiz;46368
+15;Appenzell Ausserrhoden;2021;bestand_31_12;ausland;9217
+16;Appenzell Innerrhoden;2021;bestand_31_12;schweiz;14479
+16;Appenzell Innerrhoden;2021;bestand_31_12;ausland;1881
+17;St. Gallen;2021;bestand_31_12;schweiz;389811
+17;St. Gallen;2021;bestand_31_12;ausland;129434
+18;Graubünden / Grigioni / Grischun;2021;bestand_31_12;schweiz;162520
+18;Graubünden / Grigioni / Grischun;2021;bestand_31_12;ausland;38856
+19;Aargau;2021;bestand_31_12;schweiz;521525
+19;Aargau;2021;bestand_31_12;ausland;181561
+20;Thurgau;2021;bestand_31_12;schweiz;212475
+20;Thurgau;2021;bestand_31_12;ausland;73489
+21;Ticino;2021;bestand_31_12;schweiz;254310
+21;Ticino;2021;bestand_31_12;ausland;97871
+22;Vaud;2021;bestand_31_12;schweiz;550447
+22;Vaud;2021;bestand_31_12;ausland;272521
+23;Valais / Wallis;2021;bestand_31_12;schweiz;271208
+23;Valais / Wallis;2021;bestand_31_12;ausland;82001
+24;Neuchâtel;2021;bestand_31_12;schweiz;131653
+24;Neuchâtel;2021;bestand_31_12;ausland;44513
+25;Genève;2021;bestand_31_12;schweiz;302804
+25;Genève;2021;bestand_31_12;ausland;206644
+26;Jura;2021;bestand_31_12;schweiz;62732
+26;Jura;2021;bestand_31_12;ausland;11066
+27;Ohne Angabe;2021;bestand_31_12;schweiz;0
+27;Ohne Angabe;2021;bestand_31_12;ausland;0
+0;Schweiz;2022;bestand_31_12;schweiz;6519362
+0;Schweiz;2022;bestand_31_12;ausland;2296023
+1;Zürich;2022;bestand_31_12;schweiz;1141651
+1;Zürich;2022;bestand_31_12;ausland;438316
+2;Bern / Berne;2022;bestand_31_12;schweiz;872661
+2;Bern / Berne;2022;bestand_31_12;ausland;178776
+3;Luzern;2022;bestand_31_12;schweiz;340582
+3;Luzern;2022;bestand_31_12;ausland;84269
+4;Uri;2022;bestand_31_12;schweiz;32224
+4;Uri;2022;bestand_31_12;ausland;5093
+5;Schwyz;2022;bestand_31_12;schweiz;127120
+5;Schwyz;2022;bestand_31_12;ausland;37800
+6;Obwalden;2022;bestand_31_12;schweiz;32652
+6;Obwalden;2022;bestand_31_12;ausland;6048
+7;Nidwalden;2022;bestand_31_12;schweiz;37150
+7;Nidwalden;2022;bestand_31_12;ausland;7270
+8;Glarus;2022;bestand_31_12;schweiz;30918
+8;Glarus;2022;bestand_31_12;ausland;10553
+9;Zug;2022;bestand_31_12;schweiz;92130
+9;Zug;2022;bestand_31_12;ausland;39034
+10;Fribourg / Freiburg;2022;bestand_31_12;schweiz;255175
+10;Fribourg / Freiburg;2022;bestand_31_12;ausland;79290
+11;Solothurn;2022;bestand_31_12;schweiz;214403
+11;Solothurn;2022;bestand_31_12;ausland;68005
+12;Basel-Stadt;2022;bestand_31_12;schweiz;123465
+12;Basel-Stadt;2022;bestand_31_12;ausland;73321
+13;Basel-Landschaft;2022;bestand_31_12;schweiz;223876
+13;Basel-Landschaft;2022;bestand_31_12;ausland;70541
+14;Schaffhausen;2022;bestand_31_12;schweiz;62066
+14;Schaffhausen;2022;bestand_31_12;ausland;23148
+15;Appenzell Ausserrhoden;2022;bestand_31_12;schweiz;46395
+15;Appenzell Ausserrhoden;2022;bestand_31_12;ausland;9364
+16;Appenzell Innerrhoden;2022;bestand_31_12;schweiz;14510
+16;Appenzell Innerrhoden;2022;bestand_31_12;ausland;1906
+17;St. Gallen;2022;bestand_31_12;schweiz;392009
+17;St. Gallen;2022;bestand_31_12;ausland;133958
+18;Graubünden / Grigioni / Grischun;2022;bestand_31_12;schweiz;162686
+18;Graubünden / Grigioni / Grischun;2022;bestand_31_12;ausland;39852
+19;Aargau;2022;bestand_31_12;schweiz;524909
+19;Aargau;2022;bestand_31_12;ausland;186323
+20;Thurgau;2022;bestand_31_12;schweiz;213633
+20;Thurgau;2022;bestand_31_12;ausland;76017
+21;Ticino;2022;bestand_31_12;schweiz;254597
+21;Ticino;2022;bestand_31_12;ausland;99426
+22;Vaud;2022;bestand_31_12;schweiz;554772
+22;Vaud;2022;bestand_31_12;ausland;275659
+23;Valais / Wallis;2022;bestand_31_12;schweiz;272671
+23;Valais / Wallis;2022;bestand_31_12;ausland;84611
+24;Neuchâtel;2022;bestand_31_12;schweiz;131328
+24;Neuchâtel;2022;bestand_31_12;ausland;45243
+25;Genève;2022;bestand_31_12;schweiz;303157
+25;Genève;2022;bestand_31_12;ausland;210957
+26;Jura;2022;bestand_31_12;schweiz;62622
+26;Jura;2022;bestand_31_12;ausland;11243
+27;Ohne Angabe;2022;bestand_31_12;schweiz;0
+27;Ohne Angabe;2022;bestand_31_12;ausland;0
+0;Schweiz;2023;bestand_31_12;schweiz;6544970
+0;Schweiz;2023;bestand_31_12;ausland;2417288
+1;Zürich;2023;bestand_31_12;schweiz;1145802
+1;Zürich;2023;bestand_31_12;ausland;459706
+2;Bern / Berne;2023;bestand_31_12;schweiz;873149
+2;Bern / Berne;2023;bestand_31_12;ausland;190384
+3;Luzern;2023;bestand_31_12;schweiz;341873
+3;Luzern;2023;bestand_31_12;ausland;90871
+4;Uri;2023;bestand_31_12;schweiz;32289
+4;Uri;2023;bestand_31_12;ausland;5642
+5;Schwyz;2023;bestand_31_12;schweiz;127559
+5;Schwyz;2023;bestand_31_12;ausland;39844
+6;Obwalden;2023;bestand_31_12;schweiz;32835
+6;Obwalden;2023;bestand_31_12;ausland;6437
+7;Nidwalden;2023;bestand_31_12;schweiz;37232
+7;Nidwalden;2023;bestand_31_12;ausland;7784
+8;Glarus;2023;bestand_31_12;schweiz;30989
+8;Glarus;2023;bestand_31_12;ausland;11067
+9;Zug;2023;bestand_31_12;schweiz;92423
+9;Zug;2023;bestand_31_12;ausland;40133
+10;Fribourg / Freiburg;2023;bestand_31_12;schweiz;257057
+10;Fribourg / Freiburg;2023;bestand_31_12;ausland;84480
+11;Solothurn;2023;bestand_31_12;schweiz;215055
+11;Solothurn;2023;bestand_31_12;ausland;71789
+12;Basel-Stadt;2023;bestand_31_12;schweiz;123470
+12;Basel-Stadt;2023;bestand_31_12;ausland;76561
+13;Basel-Landschaft;2023;bestand_31_12;schweiz;224047
+13;Basel-Landschaft;2023;bestand_31_12;ausland;74790
+14;Schaffhausen;2023;bestand_31_12;schweiz;62442
+14;Schaffhausen;2023;bestand_31_12;ausland;24669
+15;Appenzell Ausserrhoden;2023;bestand_31_12;schweiz;46455
+15;Appenzell Ausserrhoden;2023;bestand_31_12;ausland;10040
+16;Appenzell Innerrhoden;2023;bestand_31_12;schweiz;14519
+16;Appenzell Innerrhoden;2023;bestand_31_12;ausland;2066
+17;St. Gallen;2023;bestand_31_12;schweiz;393155
+17;St. Gallen;2023;bestand_31_12;ausland;141959
+18;Graubünden / Grigioni / Grischun;2023;bestand_31_12;schweiz;162697
+18;Graubünden / Grigioni / Grischun;2023;bestand_31_12;ausland;42191
+19;Aargau;2023;bestand_31_12;schweiz;528295
+19;Aargau;2023;bestand_31_12;ausland;198599
+20;Thurgau;2023;bestand_31_12;schweiz;215329
+20;Thurgau;2023;bestand_31_12;ausland;79891
+21;Ticino;2023;bestand_31_12;schweiz;253794
+21;Ticino;2023;bestand_31_12;ausland;103926
+22;Vaud;2023;bestand_31_12;schweiz;561410
+22;Vaud;2023;bestand_31_12;ausland;284460
+23;Valais / Wallis;2023;bestand_31_12;schweiz;273857
+23;Valais / Wallis;2023;bestand_31_12;ausland;91987
+24;Neuchâtel;2023;bestand_31_12;schweiz;130853
+24;Neuchâtel;2023;bestand_31_12;ausland;47438
+25;Genève;2023;bestand_31_12;schweiz;305726
+25;Genève;2023;bestand_31_12;ausland;218684
+26;Jura;2023;bestand_31_12;schweiz;62658
+26;Jura;2023;bestand_31_12;ausland;11890
+27;Ohne Angabe;2023;bestand_31_12;schweiz;0
+27;Ohne Angabe;2023;bestand_31_12;ausland;0
+0;Schweiz;2024;bestand_31_12;schweiz;6571141
+0;Schweiz;2024;bestand_31_12;ausland;2479888
+1;Zürich;2024;bestand_31_12;schweiz;1150108
+1;Zürich;2024;bestand_31_12;ausland;469912
+2;Bern / Berne;2024;bestand_31_12;schweiz;874493
+2;Bern / Berne;2024;bestand_31_12;ausland;196723
+3;Luzern;2024;bestand_31_12;schweiz;343673
+3;Luzern;2024;bestand_31_12;ausland;94271
+4;Uri;2024;bestand_31_12;schweiz;32426
+4;Uri;2024;bestand_31_12;ausland;5849
+5;Schwyz;2024;bestand_31_12;schweiz;128255
+5;Schwyz;2024;bestand_31_12;ausland;40676
+6;Obwalden;2024;bestand_31_12;schweiz;32903
+6;Obwalden;2024;bestand_31_12;ausland;6759
+7;Nidwalden;2024;bestand_31_12;schweiz;37270
+7;Nidwalden;2024;bestand_31_12;ausland;8075
+8;Glarus;2024;bestand_31_12;schweiz;31065
+8;Glarus;2024;bestand_31_12;ausland;11306
+9;Zug;2024;bestand_31_12;schweiz;92986
+9;Zug;2024;bestand_31_12;ausland;40753
+10;Fribourg / Freiburg;2024;bestand_31_12;schweiz;258941
+10;Fribourg / Freiburg;2024;bestand_31_12;ausland;87733
+11;Solothurn;2024;bestand_31_12;schweiz;215619
+11;Solothurn;2024;bestand_31_12;ausland;74173
+12;Basel-Stadt;2024;bestand_31_12;schweiz;123481
+12;Basel-Stadt;2024;bestand_31_12;ausland;77903
+13;Basel-Landschaft;2024;bestand_31_12;schweiz;224550
+13;Basel-Landschaft;2024;bestand_31_12;ausland;76773
+14;Schaffhausen;2024;bestand_31_12;schweiz;63003
+14;Schaffhausen;2024;bestand_31_12;ausland;25664
+15;Appenzell Ausserrhoden;2024;bestand_31_12;schweiz;46411
+15;Appenzell Ausserrhoden;2024;bestand_31_12;ausland;10294
+16;Appenzell Innerrhoden;2024;bestand_31_12;schweiz;14616
+16;Appenzell Innerrhoden;2024;bestand_31_12;ausland;2117
+17;St. Gallen;2024;bestand_31_12;schweiz;394417
+17;St. Gallen;2024;bestand_31_12;ausland;145619
+18;Graubünden / Grigioni / Grischun;2024;bestand_31_12;schweiz;162764
+18;Graubünden / Grigioni / Grischun;2024;bestand_31_12;ausland;43374
+19;Aargau;2024;bestand_31_12;schweiz;531021
+19;Aargau;2024;bestand_31_12;ausland;204787
+20;Thurgau;2024;bestand_31_12;schweiz;216914
+20;Thurgau;2024;bestand_31_12;ausland;82595
+21;Ticino;2024;bestand_31_12;schweiz;253361
+21;Ticino;2024;bestand_31_12;ausland;105542
+22;Vaud;2024;bestand_31_12;schweiz;564524
+22;Vaud;2024;bestand_31_12;ausland;290582
+23;Valais / Wallis;2024;bestand_31_12;schweiz;275085
+23;Valais / Wallis;2024;bestand_31_12;ausland;96203
+24;Neuchâtel;2024;bestand_31_12;schweiz;130926
+24;Neuchâtel;2024;bestand_31_12;ausland;48592
+25;Genève;2024;bestand_31_12;schweiz;309624
+25;Genève;2024;bestand_31_12;ausland;221478
+26;Jura;2024;bestand_31_12;schweiz;62705
+26;Jura;2024;bestand_31_12;ausland;12135
+27;Ohne Angabe;2024;bestand_31_12;schweiz;0
+27;Ohne Angabe;2024;bestand_31_12;ausland;0
+0;Schweiz;2025;bestand_31_12;schweiz;6599008
+0;Schweiz;2025;bestand_31_12;ausland;2528117
+1;Zürich;2025;bestand_31_12;schweiz;1156310
+1;Zürich;2025;bestand_31_12;ausland;476608
+2;Bern / Berne;2025;bestand_31_12;schweiz;876004
+2;Bern / Berne;2025;bestand_31_12;ausland;200123
+3;Luzern;2025;bestand_31_12;schweiz;344704
+3;Luzern;2025;bestand_31_12;ausland;96796
+4;Uri;2025;bestand_31_12;schweiz;32483
+4;Uri;2025;bestand_31_12;ausland;6098
+5;Schwyz;2025;bestand_31_12;schweiz;128725
+5;Schwyz;2025;bestand_31_12;ausland;41347
+6;Obwalden;2025;bestand_31_12;schweiz;32930
+6;Obwalden;2025;bestand_31_12;ausland;6949
+7;Nidwalden;2025;bestand_31_12;schweiz;37385
+7;Nidwalden;2025;bestand_31_12;ausland;8279
+8;Glarus;2025;bestand_31_12;schweiz;31042
+8;Glarus;2025;bestand_31_12;ausland;11409
+9;Zug;2025;bestand_31_12;schweiz;93671
+9;Zug;2025;bestand_31_12;ausland;41347
+10;Fribourg / Freiburg;2025;bestand_31_12;schweiz;260333
+10;Fribourg / Freiburg;2025;bestand_31_12;ausland;90585
+11;Solothurn;2025;bestand_31_12;schweiz;216165
+11;Solothurn;2025;bestand_31_12;ausland;75418
+12;Basel-Stadt;2025;bestand_31_12;schweiz;124136
+12;Basel-Stadt;2025;bestand_31_12;ausland;80021
+13;Basel-Landschaft;2025;bestand_31_12;schweiz;225257
+13;Basel-Landschaft;2025;bestand_31_12;ausland;78615
+14;Schaffhausen;2025;bestand_31_12;schweiz;63557
+14;Schaffhausen;2025;bestand_31_12;ausland;26530
+15;Appenzell Ausserrhoden;2025;bestand_31_12;schweiz;46788
+15;Appenzell Ausserrhoden;2025;bestand_31_12;ausland;10433
+16;Appenzell Innerrhoden;2025;bestand_31_12;schweiz;14695
+16;Appenzell Innerrhoden;2025;bestand_31_12;ausland;2195
+17;St. Gallen;2025;bestand_31_12;schweiz;396093
+17;St. Gallen;2025;bestand_31_12;ausland;147947
+18;Graubünden / Grigioni / Grischun;2025;bestand_31_12;schweiz;163341
+18;Graubünden / Grigioni / Grischun;2025;bestand_31_12;ausland;44059
+19;Aargau;2025;bestand_31_12;schweiz;534484
+19;Aargau;2025;bestand_31_12;ausland;209284
+20;Thurgau;2025;bestand_31_12;schweiz;218347
+20;Thurgau;2025;bestand_31_12;ausland;84459
+21;Ticino;2025;bestand_31_12;schweiz;252583
+21;Ticino;2025;bestand_31_12;ausland;107200
+22;Vaud;2025;bestand_31_12;schweiz;567831
+22;Vaud;2025;bestand_31_12;ausland;295819
+23;Valais / Wallis;2025;bestand_31_12;schweiz;276443
+23;Valais / Wallis;2025;bestand_31_12;ausland;99670
+24;Neuchâtel;2025;bestand_31_12;schweiz;131089
+24;Neuchâtel;2025;bestand_31_12;ausland;49276
+25;Genève;2025;bestand_31_12;schweiz;311817
+25;Genève;2025;bestand_31_12;ausland;225267
+26;Jura;2025;bestand_31_12;schweiz;62795
+26;Jura;2025;bestand_31_12;ausland;12383
+27;Ohne Angabe;2025;bestand_31_12;schweiz;0
+27;Ohne Angabe;2025;bestand_31_12;ausland;0

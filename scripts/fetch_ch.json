@@ -1,0 +1,38 @@
+[
+ {
+  "url": "https://www.unisg.ch/fileadmin/user_upload/HSG_ROOT/_Kernauftritt_HSG/Universitaet/Crime_Survey_2022_Hauptbericht.pdf",
+  "rel_dir": "data/raw/ch/crime_survey",
+  "berichtsjahr": "2022",
+  "quelle_institution": "ZHAW / Universitaet St. Gallen (KKPKS)",
+  "lizenz": "keine offene Lizenz, wissenschaftliche Nutzung mit Quellenangabe",
+  "format": "pdf",
+  "bemerkung": "swiss_crime_survey_2022_hauptbericht"
+ },
+ {
+  "url": "https://www.unisg.ch/fileadmin/user_upload/HSG_ROOT/_Kernauftritt_HSG/Universitaet/Crime_Survey_2022_Zusatzbericht_Hate_Crime.pdf",
+  "rel_dir": "data/raw/ch/crime_survey",
+  "berichtsjahr": "2022",
+  "quelle_institution": "ZHAW / Universitaet St. Gallen (KKPKS)",
+  "lizenz": "keine offene Lizenz, wissenschaftliche Nutzung mit Quellenangabe",
+  "format": "pdf",
+  "bemerkung": "swiss_crime_survey_2022_hate_crime"
+ },
+ {
+  "url": "https://www.krc.ch/krcwp/wp-content/uploads/2016/02/ICVS_2015_Bericht_National_DE_final.pdf",
+  "rel_dir": "data/raw/ch/crime_survey",
+  "berichtsjahr": "2015",
+  "quelle_institution": "Killias Research & Consulting, im Auftrag KKPKS",
+  "lizenz": "keine offene Lizenz, wissenschaftliche Nutzung mit Quellenangabe",
+  "format": "pdf",
+  "bemerkung": "schweizerische_sicherheitsbefragung_2015_nationalbericht"
+ },
+ {
+  "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/kriminalitaet-strafrecht.assetdetail.35482316.html",
+  "rel_dir": "data/raw/ch/bfs",
+  "berichtsjahr": "2025",
+  "quelle_institution": "Bundesamt fuer Statistik",
+  "lizenz": "OPEN-BY (BFS)",
+  "format": "pdf",
+  "bemerkung": "bfs_medienmitteilung_kriminalitaet_2025_versuch"
+ }
+]

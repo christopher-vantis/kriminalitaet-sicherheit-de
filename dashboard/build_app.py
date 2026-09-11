@@ -48,6 +48,18 @@ BG, SURFACE = "#faf8f5", "#ffffff"
 
 FARBEN_KARTE = ["#e8f3f1", "#c3e2dd", "#96cbc4", "#5fada4", "#2d8c82", "#0f5f58"]
 
+# Politisch motivierte Kriminalität: eine Farbe je Phänomenbereich. Petrol =
+# rechts, Ocker = links, Violett = Ideologie, warmes Grau = Fälle ohne
+# Zuordnung. Alle vier erreichen gegen den Hintergrund mindestens 3:1 Kontrast
+# (#a8a29e läge mit 2,4:1 darunter und ist deshalb zu #8b8378 abgedunkelt).
+PMK_FARBEN = {"rechts": "#0f766e", "links": "#a16207",
+              "ideologie": "#6d28d9", "sonstige_zuordnung": "#8b8378"}
+PMK_NAMEN = {"rechts": "rechts", "links": "links",
+             "ideologie": "ausländische und religiöse Ideologie",
+             "sonstige_zuordnung": "sonstige Zuordnung"}
+# Zeichenreihenfolge = Reihenfolge in der Legende.
+PMK_REIHENFOLGE = ("rechts", "links", "ideologie", "sonstige_zuordnung")
+
 
 def lies(pfad, delim=","):
     with open(pfad, encoding="utf-8") as fh:
@@ -262,15 +274,35 @@ def diagramme(laender, basis):
     _pmk = diagramm_pmk()
     if _pmk is not None:
         figs.append(("pmk", "Politisch motivierte Kriminalität",
-                     "Zwei Zahlen, die weit auseinanderlaufen: Das Gesamtaufkommen hat "
-                     "sich seit 2016 mehr als verdoppelt, die Gewalttaten blieben "
-                     "praktisch unverändert. Ein großer Teil der Fälle sind "
-                     "Propagandadelikte. Beide Felder haben eine eigene Skala "
-                     "(links bis rund 86.000, rechts bis rund 4.200 Fälle) — die "
-                     "Linienhöhen sind nur innerhalb eines Feldes vergleichbar.",
+                     "Anteil jedes Phänomenbereichs am Gesamtaufkommen, 2016 bis "
+                     "2025. Der Anteil bringt alle Bereiche auf eine gemeinsame "
+                     "Skala; in Fallzahlen würden die kleinen Bereiche neben rechts "
+                     "verschwinden. Die gestrichelte Linie zeigt die Gewalttaten, "
+                     "gemessen an derselben Grundgesamtheit. Ein fallender Anteil "
+                     "heißt nicht fallende Fallzahlen: Das Gesamtaufkommen ist von "
+                     "41.549 Fällen (2016) auf 85.837 Fälle (2025) gestiegen.",
                      _pmk,
                      "BKA, Bundesweite Fallzahlen zur politisch motivierten "
-                     "Kriminalität 2025 (Fact Sheet); eigene Aufbereitung."))
+                     "Kriminalität 2025 (Fact Sheet), Zeitreihe 2016–2025; eigene "
+                     "Berechnung der Anteile.",
+                     "Einordnung: Das Gesamtaufkommen ist von 41.549 Fällen (2016) "
+                     "auf 85.837 Fälle (2025) gestiegen, ein Plus von 107 Prozent. "
+                     "Die politisch motivierten Gewalttaten blieben im selben "
+                     "Zeitraum praktisch unverändert (4.311 gegen 4.156 Fälle, "
+                     "−3,6 Prozent); ihr Anteil am Gesamtaufkommen fiel deshalb von "
+                     "10,4 auf 4,8 Prozent. Ein großer Teil der Fälle sind "
+                     "Propagandadelikte: 2025 waren es 35,4 Prozent. Interpretation: "
+                     "In Fallzahlen gerechnet wuchs der Bereich rechts von 23.555 auf "
+                     "42.544 (+81 Prozent) und links von 9.389 auf 13.490 (+44 "
+                     "Prozent). Die Rubrik sonstige Zuordnung — Fälle, die keiner "
+                     "Ideologie zugeordnet werden — wuchs von 5.233 auf 20.934 Fälle "
+                     "und stellt zeitweise die größte Einzelgruppe: 2022 lag sie mit "
+                     "40,9 Prozent vor rechts (39,9 Prozent). Grenzen: Für 2016 "
+                     "liegen ausländische und religiöse Ideologie nur zusammen vor "
+                     "(früherer Sammelbereich PMAK), deshalb sind sie hier eine "
+                     "Linie; ab 2017 werden sie getrennt gezählt. Die Anteile "
+                     "beziehen sich auf das polizeilich bekannt gewordene Hellfeld, "
+                     "über das Dunkelfeld sagt diese Statistik nichts."))
     _alter = diagramm_alter_furcht()
     if _alter is not None:
         figs.append(("alter_furcht", "Furcht über die Altersspanne",
@@ -666,77 +698,94 @@ def diagramm_skid_orte():
 
 
 def diagramm_pmk():
-    """Politisch motivierte Kriminalität nach Phänomenbereich.
+    """Politisch motivierte Kriminalität: Anteile der Phänomenbereiche.
 
-    Warum je Bereich ein eigenes Feld: Die Bereiche unterscheiden sich um mehr
-    als das Zwanzigfache (rechts 42.544 Fälle, religiöse Ideologie 1.983). In
-    einem gemeinsamen Maßstab sind die kleinen Bereiche unsichtbar, auf einer
-    logarithmischen Achse kann sie niemand lesen. Deshalb sechs kleine Felder
-    mit je eigener linearer Skala — der Vergleich läuft innerhalb eines Feldes
-    (Verlauf) und nicht über die Felder hinweg.
+    Warum Anteile und nicht Fallzahlen: Die Bereiche unterscheiden sich um mehr
+    als das Zwanzigfache (rechts 42.544 Fälle, religiöse Ideologie 1.983). Auf
+    einer gemeinsamen Fallzahl-Achse verschwinden die kleinen Bereiche, auf
+    einer logarithmischen kann sie niemand lesen. Der Anteil am Gesamtaufkommen
+    bringt alle Bereiche auf dieselbe Skala — nur so lassen sie sich
+    unmittelbar miteinander vergleichen. Die Kehrseite steht im Untertitel und
+    in der Einordnung: Ein fallender Anteil heißt nicht fallende Fallzahlen.
+
+    Ausländische und religiöse Ideologie sind zu einer Linie zusammengefasst,
+    weil der frühere Sammelbereich PMAK 2016 genau diese beiden umfasste — nur
+    so ist die Reihe ab 2016 durchgehend. Die gestrichelte Linie zeigt die
+    Gewalttaten als Anteil derselben Grundgesamtheit; sie sind eine Teilmenge
+    und kein eigener Bereich, deshalb keine fünfte Farbe.
 
     Returns:
         plotly.graph_objects.Figure | None
+
+    Raises:
+        ValueError: Wenn die Bereiche je Jahr nicht das Gesamtaufkommen ergeben.
     """
     pfad = OUT / "pmk_zeitreihe.csv"
     if not pfad.exists():
         return None
-    daten = lies(pfad, delim=";")
 
-    bereiche = [
-        ("gesamt", "Alle Bereiche zusammen"),
-        ("rechts", "rechts"),
-        ("links", "links"),
-        ("sonstige_zuordnung", "sonstige Zuordnung"),
-        ("auslaendische_ideologie", "ausländische Ideologie"),
-        ("religioese_ideologie", "religiöse Ideologie"),
-    ]
+    werte = {(r["art"], r["bereich"], int(float(r["jahr"]))): z(r["faelle"])
+             for r in lies(pfad, delim=";")}
+    jahre = sorted({jahr for (_, _, jahr) in werte})
 
-    # Zwei Achsen je Feld: Die Gewalttaten liegen um ein Vielfaches unter den
-    # Gesamtfallzahlen (4.156 gegen 85.837) und verschwinden in deren Maßstab
-    # auf der Nulllinie. Sie bekommen deshalb eine eigene Skala, rechts am Rand.
-    f = make_subplots(
-        rows=2, cols=3, horizontal_spacing=0.12, vertical_spacing=0.21,
-        specs=[[{"secondary_y": True}] * 3, [{"secondary_y": True}] * 3],
-        subplot_titles=[t for _, t in bereiche],
-    )
-    for i, (feld, titel) in enumerate(bereiche):
-        zeile, spalte = divmod(i, 3)
-        for art, name, farbe, strich in (("gesamt", "alle Straftaten", "#0b4f49", "solid"),
-                                         ("gewalt", "davon Gewalttaten", "#b8860b", "dot")):
-            reihe = sorted(
-                (int(float(r["jahr"])), z(r["faelle"]))
-                for r in daten
-                if r["art"] == art and r["bereich"] == feld and r["faelle"])
-            if not reihe:
-                continue
-            f.add_trace(go.Scatter(
-                x=[j for j, _ in reihe], y=[w for _, w in reihe],
-                mode="lines+markers", name=name,
-                line=dict(color=farbe, width=2.4, dash=strich),
-                # Kleine Marker: Bei 10 Werten je Linie reicht ein Punkt als
-                # Hinweis auf den Messwert, große Punkte verdecken die Linie.
-                marker=dict(size=3.0, color=farbe),
-                legendgroup=name, showlegend=(i == 0),
-                hovertemplate="%{y:,.0f} Fälle im Jahr %{x}<extra>" + name + "</extra>",
-            ), row=zeile + 1, col=spalte + 1, secondary_y=(art == "gewalt"))
-        f.update_yaxes(rangemode="tozero", automargin=True, tickformat=",.0f",
-                       row=zeile + 1, col=spalte + 1, secondary_y=False)
-        f.update_yaxes(rangemode="tozero", automargin=True, tickformat=",.0f",
-                       showgrid=False, tickfont=dict(size=10,
-                       color="#8a5305"), row=zeile + 1, col=spalte + 1,
-                       secondary_y=True)
-        f.update_xaxes(automargin=True, dtick=4, tickfont=dict(size=11),
-                       row=zeile + 1, col=spalte + 1)
+    def reihe(feld):
+        """Fallzahlen eines Phänomenbereichs in der Reihenfolge von `jahre`.
 
+        Args:
+            feld: Schlüssel des Bereichs; "ideologie" ist die Summe aus
+                ausländischer und religiöser Ideologie.
+
+        Returns:
+            Liste von Fallzahlen, eine je Jahr.
+        """
+        if feld == "ideologie":
+            # Beide Bereiche entstanden erst 2017; für 2016 trägt der frühere
+            # Sammelbereich PMAK genau diese beiden.
+            schluessel = ("auslaendische_ideologie", "religioese_ideologie",
+                          "pmak_2016")
+            return [sum(werte.get(("gesamt", k, jahr)) or 0 for k in schluessel)
+                    for jahr in jahre]
+        return [werte.get(("gesamt", feld, jahr)) for jahr in jahre]
+
+    faelle = {feld: reihe(feld) for feld in PMK_REIHENFOLGE}
+    gesamt = [werte[("gesamt", "gesamt", jahr)] for jahr in jahre]
+
+    # Summenkontrolle wie in scripts/31_pmk_aufbereiten.py: Die Bereiche müssen
+    # je Jahr das Gesamtaufkommen ergeben. Sonst ist die Zuordnung verschoben
+    # und die Anteile sind falsch — dann lieber kein Diagramm.
+    for i, jahr in enumerate(jahre):
+        summe = sum(faelle[feld][i] for feld in PMK_REIHENFOLGE)
+        if not gesamt[i] or abs(summe - gesamt[i]) > 0.5:
+            raise ValueError(f"PMK {jahr}: Summe der Bereiche {summe}, "
+                             f"Gesamtaufkommen {gesamt[i]}")
+
+    f = fig(470, hovermode="x unified")
+    for feld in PMK_REIHENFOLGE:
+        f.add_trace(go.Scatter(
+            x=jahre, y=[w / g * 100 for w, g in zip(faelle[feld], gesamt)],
+            mode="lines+markers", name=PMK_NAMEN[feld],
+            line=dict(color=PMK_FARBEN[feld], width=2.6),
+            # Die Punkte markieren die zehn Messwerte, bleiben aber klein:
+            # Größere Punkte verdecken den Verlauf der Linie.
+            marker=dict(size=6.5, color=PMK_FARBEN[feld]),
+            customdata=[f"{w:,.0f}".replace(",", ".") for w in faelle[feld]],
+            hovertemplate="%{y:.1f} % · %{customdata} Fälle<extra></extra>"))
+    gewalt = [werte[("gewalt", "gesamt", jahr)] for jahr in jahre]
+    f.add_trace(go.Scatter(
+        x=jahre, y=[w / g * 100 for w, g in zip(gewalt, gesamt)],
+        mode="lines", name="davon Gewalttaten",
+        line=dict(color="#57534e", width=2, dash="dot"),
+        customdata=[f"{w:,.0f}".replace(",", ".") for w in gewalt],
+        hovertemplate="%{y:.1f} % · %{customdata} Fälle<extra></extra>"))
+
+    f.update_yaxes(range=[0, 60], dtick=10, ticksuffix=" %",
+                   title="Anteil am Gesamtaufkommen")
+    f.update_xaxes(dtick=1)
     layout = dict(BASE)
-    f.update_layout(yaxis_title=None, yaxis2_title=None)
-    layout.update(height=600, showlegend=True,
-                  margin=dict(l=10, r=18, t=76, b=42),
-                  legend=dict(orientation="h", yanchor="bottom", y=1.075, x=0,
-                              xanchor="left", font=dict(size=14),
-                              itemsizing="constant", itemwidth=30),
-                  hovermode="closest")
+    layout.update(height=470, margin=dict(l=10, r=20, t=54, b=46),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
+                              xanchor="left", font=dict(size=13),
+                              itemsizing="constant"))
     f.update_layout(**layout)
     return f
 
@@ -1204,6 +1253,51 @@ def main():
                     + json.dumps(sprachtexte, ensure_ascii=False).replace("</", "<\\/")
                     + '</script>')
     ziel = ROOT / "dashboard" / "index.html"
+    # Zweite Sprachfassung: Die Texte werden hier ersetzt, nicht im Browser.
+    # Ein Umschalten per JavaScript scheiterte daran, dass dynamisch erzeugte
+    # Ansichten danach neu gerendert wurden; zwei fertige Fassungen sind
+    # robuster und lassen sich einzeln prüfen.
+    def uebersetze(text, tabelle):
+        """Ersetzt deutsche Oberflächentexte durch die englische Fassung.
+
+        Geschützt werden nur die Datenblöcke: Daten, Figuren und Metadaten
+        enthalten Schlüssel, die nicht angetastet werden dürfen. Alles andere —
+        auch die Textbausteine im Seitenskript — wird ersetzt, sonst bliebe die
+        halbe Oberfläche deutsch.
+
+        Args:
+            text: vollständiges HTML.
+            tabelle: Zuordnung deutscher Text -> englischer Text.
+
+        Returns:
+            str: HTML mit ersetzten Texten.
+        """
+        geschuetzt = {}
+
+        def merken(m):
+            schluessel = f"@@SCHUTZ{len(geschuetzt)}@@"
+            geschuetzt[schluessel] = m.group(0)
+            return schluessel
+
+        # Nur die Plotly-Bibliothek bleibt unangetastet. Die Daten- und
+        # Metadatenblöcke enthalten übersetzbare Texte (Deliktnamen,
+        # Diagrammtitel) und werden mit übersetzt — ihre Schlüssel sind
+        # englisch und werden von der Tabelle nicht berührt.
+        text = re.sub(r"<!--PLOTLY-->", merken, text)
+        for dt in sorted(tabelle, key=len, reverse=True):
+            if len(dt) > 2:
+                text = text.replace(dt, tabelle[dt])
+        for schluessel, inhalt in geschuetzt.items():
+            text = text.replace(schluessel, inhalt)
+        return text
+
+    if sprachtexte.get("en"):
+        html_en = uebersetze(html, sprachtexte["en"])
+        ziel_en = ROOT / "dashboard" / "index-en.html"
+        ziel_en.write_text(html_en.replace("<!--I18N-->", "")
+                           .replace("<!--PLOTLY-->", "<script>")
+                           + get_plotlyjs() + "</script>", encoding="utf-8")
+        print(f"index-en.html: {ziel_en.stat().st_size/1e6:.2f} MB")
     ziel.write_text(html.replace("<!--PLOTLY-->", "<script>")
                     .replace("<!--I18N-->", i18n_element)
                     + get_plotlyjs() + "</script>"),
@@ -1249,8 +1343,8 @@ def baue_html(karte, daten, fig_json, fig_meta):
   <header class="kopf">
     <div class="kopf-inner">
       <div class="sprachwahl">
-        <button type="button" data-sprache="de" class="aktiv" aria-pressed="true">DE</button>
-        <button type="button" data-sprache="en" aria-pressed="false">EN</button>
+        <a href="index.html" data-sprache="de" class="aktiv">DE</a>
+        <a href="index-en.html" data-sprache="en">EN</a>
       </div>
       <div class="kopf-titel">
         <h1>Die (un)berechtigte Furcht vor Kriminalität in Deutschland</h1>
@@ -1327,11 +1421,11 @@ body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:
  display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center;justify-content:space-between}
 .sprachwahl{position:absolute;top:14px;right:var(--gutter);display:flex;gap:0;
  border:1px solid rgba(255,255,255,.42);border-radius:999px;overflow:hidden;z-index:3}
-.sprachwahl button{appearance:none;border:0;background:transparent;color:#fff;
- font:inherit;font-size:.78rem;font-weight:600;letter-spacing:.06em;
+.sprachwahl a{display:block;background:transparent;color:#fff;text-decoration:none;
+ font-size:.78rem;font-weight:600;letter-spacing:.06em;
  padding:5px 11px;cursor:pointer;transition:background .15s}
-.sprachwahl button:hover{background:rgba(255,255,255,.14)}
-.sprachwahl button.aktiv{background:rgba(255,255,255,.9);color:#16403b}
+.sprachwahl a:hover{background:rgba(255,255,255,.14)}
+.sprachwahl a.aktiv{background:rgba(255,255,255,.9);color:#16403b}
 .kopf-titel{min-width:260px;flex:1 1 340px}
 .kopf h1{margin:0;font-size:clamp(1.22rem,2.2vw,1.58rem);line-height:1.2;letter-spacing:-.022em}
 .kopf p{margin:3px 0 0;font-size:.82rem;color:#b8b2ab;max-width:72ch}
@@ -1672,10 +1766,13 @@ function diagrammeAnpassen(){
   document.querySelectorAll('.js-plotly-plot').forEach(el => {
     if (!el || !el.layout) return;
     try {
-      // Marker auf schmalen Fenstern verkleinern; sonst stoßen die beiden
-      // Herkunftsgruppen trotz seitlichem Versatz aneinander.
+      // Marker nur dort anpassen, wo sie absichtlich groß sind (Altersdiagramm:
+      // Gruppen mit der Fallzahl im Punkt). Verlaufs-Punkte — PMK- oder
+      // Furcht-Zeitreihe — dürfen nicht mitwachsen: Mit 27 Pixeln verdecken sie
+      // die Linie, die sie markieren sollen.
       if (el.data) {
-        el.data.forEach(t => { if (t.marker && t.mode && t.mode.indexOf('markers') >= 0) {
+        el.data.forEach(t => { if (t.marker && t.marker.size > 12 && t.mode
+                                  && t.mode.indexOf('markers') >= 0) {
           Plotly.restyle(el, {'marker.size': schmal ? 19 : 27}, [el.data.indexOf(t)]);
           if (t.textfont) Plotly.restyle(el, {'textfont.size': schmal ? 14 : 19},
                                           [el.data.indexOf(t)]);
@@ -1807,12 +1904,20 @@ document.querySelectorAll('.sprachwahl button').forEach(b => {
 });
 
 // Beim Laden: Sprache aus der Adresse
-(function(){
+// Achtung: Dieses Skript steht im Kopf der Seite, dort gibt es noch kein
+// document.body. Die Sprachinitialisierung muss deshalb auf das Laden warten —
+// sonst bricht sie beim ersten Zugriff ab und die Umschaltung bleibt wirkungslos.
+function spracheStarten(){
   const gewuenscht = new URLSearchParams(window.location.search).get('lang');
   if (gewuenscht && gewuenscht !== 'de' && SPRACH_TEXTE[gewuenscht]) {
-    setTimeout(() => spracheSetzen(gewuenscht), 120);
+    setTimeout(() => spracheSetzen(gewuenscht), 150);
   }
-})();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', spracheStarten);
+} else {
+  spracheStarten();
+}
 
 // Baut die gerade sichtbare Ansicht neu auf — beim Sprachwechsel nötig, damit
 // auch dynamisch erzeugte Texte (Tabellen, Länderprofile, Diagramm-Beschriftungen)

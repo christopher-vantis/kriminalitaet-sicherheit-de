@@ -1,0 +1,51 @@
+region;jahr;n;n_unsicher;region_name
+99999;2018;1;1;
+CH01;2010;246;246;Genferseeregion
+CH01;2012;229;226;Genferseeregion
+CH01;2014;252;252;Genferseeregion
+CH01;2016;265;265;Genferseeregion
+CH01;2018;296;294;Genferseeregion
+CH01;2020;284;283;Genferseeregion
+CH01;2023;276;275;Genferseeregion
+CH02;2010;356;356;Espace Mittelland
+CH02;2012;397;397;Espace Mittelland
+CH02;2014;368;368;Espace Mittelland
+CH02;2016;361;361;Espace Mittelland
+CH02;2018;355;355;Espace Mittelland
+CH02;2020;319;317;Espace Mittelland
+CH02;2023;349;347;Espace Mittelland
+CH03;2010;208;208;Nordwestschweiz
+CH03;2012;204;203;Nordwestschweiz
+CH03;2014;200;200;Nordwestschweiz
+CH03;2016;211;209;Nordwestschweiz
+CH03;2018;202;202;Nordwestschweiz
+CH03;2020;224;224;Nordwestschweiz
+CH03;2023;176;175;Nordwestschweiz
+CH04;2010;238;237;Zürich
+CH04;2012;234;232;Zürich
+CH04;2014;237;236;Zürich
+CH04;2016;236;236;Zürich
+CH04;2018;251;250;Zürich
+CH04;2020;247;246;Zürich
+CH04;2023;206;206;Zürich
+CH05;2010;249;249;Ostschweiz
+CH05;2012;236;236;Ostschweiz
+CH05;2014;259;258;Ostschweiz
+CH05;2016;238;238;Ostschweiz
+CH05;2018;239;239;Ostschweiz
+CH05;2020;246;246;Ostschweiz
+CH05;2023;189;189;Ostschweiz
+CH06;2010;161;161;Zentralschweiz
+CH06;2012;162;162;Zentralschweiz
+CH06;2014;148;148;Zentralschweiz
+CH06;2016;158;158;Zentralschweiz
+CH06;2018;140;140;Zentralschweiz
+CH06;2020;142;139;Zentralschweiz
+CH06;2023;147;147;Zentralschweiz
+CH07;2010;48;48;Tessin
+CH07;2012;31;31;Tessin
+CH07;2014;68;68;Tessin
+CH07;2016;56;56;Tessin
+CH07;2018;58;58;Tessin
+CH07;2020;61;60;Tessin
+CH07;2023;41;41;Tessin

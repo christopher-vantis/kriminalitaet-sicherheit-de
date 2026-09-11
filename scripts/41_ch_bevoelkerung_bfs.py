@@ -38,6 +38,7 @@ BASIS = "https://www.pxweb.bfs.admin.ch/api/v1/de"
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"
 
 KOMPONENTEN = {"0": "bestand_1_1", "14": "bestand_31_12"}
+STAATSANGEHOERIGKEIT = {"0": "total", "1": "schweiz", "2": "ausland"}
 
 
 def hole(url, daten=None):
@@ -60,6 +61,49 @@ def hole(url, daten=None):
         return r.read()
 
 
+def abfrage_werte(jahre, kt_code, kt_text, komponenten, staatsangehoerigkeiten):
+    """Fragt Bestände ab und gibt sie als Liste von dicts zurück.
+
+    Args:
+        jahre: Liste der Jahreswerte (Strings).
+        kt_code: Kantonscodes der Tabelle.
+        kt_text: zugehörige Bezeichnungen (gleiche Reihenfolge).
+        komponenten: Liste der Komponentencodes (z. B. ["0", "14"]).
+        staatsangehoerigkeiten: Liste der Codes der Staatsangehörigkeits-Kategorie.
+
+    Returns:
+        list[dict]: je Zelle Kanton, Jahr, Komponente, Staatsangehörigkeit, Zahl.
+    """
+    abfrage = {
+        "query": [
+            {"code": "Jahr", "selection": {"filter": "item", "values": jahre}},
+            {"code": "Kanton", "selection": {"filter": "item", "values": kt_code}},
+            {"code": "Staatsangehörigkeit (Kategorie)",
+             "selection": {"filter": "item", "values": staatsangehoerigkeiten}},
+            {"code": "Geschlecht", "selection": {"filter": "item", "values": ["0"]}},
+            {"code": "Demografische Komponente",
+             "selection": {"filter": "item", "values": komponenten}},
+        ],
+        "response": {"format": "json"},
+    }
+    roh = json.loads(hole(f"{BASIS}/{TABELLE}/{TABELLE}.px", abfrage))
+    spalten = [c["code"] for c in roh["columns"]]
+    zeilen = []
+    for d in roh["data"]:
+        r = dict(zip(spalten, d["key"]))
+        wert = d["values"][0]
+        zeilen.append({
+            "kanton_code": r["Kanton"],
+            "kanton": kt_text[kt_code.index(r["Kanton"])],
+            "jahr": int(r["Jahr"]),
+            "komponente": KOMPONENTEN[r["Demografische Komponente"]],
+            "staatsangehoerigkeit":
+                STAATSANGEHOERIGKEIT[r["Staatsangehörigkeit (Kategorie)"]],
+            "personen": None if wert in ("", None, "..") else int(wert),
+        })
+    return zeilen
+
+
 def main():
     RAW.mkdir(parents=True, exist_ok=True)
     meta = json.loads(hole(f"{BASIS}/{TABELLE}/{TABELLE}.px"))
@@ -72,34 +116,14 @@ def main():
     # 1.-Januar-Stand 2009.
     jahre = [j for j in V["Jahr"]["values"] if 2008 <= int(j) <= 2025]
 
-    abfrage = {
-        "query": [
-            {"code": "Jahr", "selection": {"filter": "item", "values": jahre}},
-            {"code": "Kanton", "selection": {"filter": "item", "values": kt_code}},
-            {"code": "Staatsangehörigkeit (Kategorie)",
-             "selection": {"filter": "item", "values": ["0"]}},
-            {"code": "Geschlecht", "selection": {"filter": "item", "values": ["0"]}},
-            {"code": "Demografische Komponente",
-             "selection": {"filter": "item", "values": list(KOMPONENTEN)}},
-        ],
-        "response": {"format": "json"},
-    }
-    roh = json.loads(hole(f"{BASIS}/{TABELLE}/{TABELLE}.px", abfrage))
-    (RAW / f"{TABELLE}.json").write_bytes(
-        json.dumps(roh, ensure_ascii=False).encode())
+    # Zwei getrennte Abfragen, weil getrennte Zellen sonst unnötig gross werden:
+    #  a) Gesamtbevölkerung zu beiden Ständen (1.1. und 31.12.)
+    #  b) Schweizer/ausländische Wohnbevölkerung am 31.12.
+    zeilen = abfrage_werte(jahre, kt_code, kt_text, list(KOMPONENTEN), ["0"])
+    zeilen += abfrage_werte(jahre, kt_code, kt_text, ["14"], ["1", "2"])
+    (RAW / f"{TABELLE}_abfrage.json").write_bytes(
+        json.dumps(zeilen, ensure_ascii=False).encode())
 
-    spalten = [c["code"] for c in roh["columns"]]
-    zeilen = []
-    for d in roh["data"]:
-        r = dict(zip(spalten, d["key"]))
-        wert = d["values"][0]
-        zeilen.append({
-            "kanton_code": r["Kanton"],
-            "kanton": kt_text[kt_code.index(r["Kanton"])],
-            "jahr": int(r["Jahr"]),
-            "komponente": KOMPONENTEN[r["Demografische Komponente"]],
-            "personen": None if wert in ("", None, "..") else int(wert),
-        })
     ziel = OUT / "ch_bevoelkerung.csv"
     with open(ziel, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(zeilen[0].keys()), delimiter=";")
