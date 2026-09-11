@@ -673,8 +673,12 @@ def diagramm_pmk():
         ("religioese_ideologie", "religiöse Ideologie"),
     ]
 
+    # Zwei Achsen je Feld: Die Gewalttaten liegen um ein Vielfaches unter den
+    # Gesamtfallzahlen (4.156 gegen 85.837) und verschwinden in deren Maßstab
+    # auf der Nulllinie. Sie bekommen deshalb eine eigene Skala, rechts am Rand.
     f = make_subplots(
-        rows=2, cols=3, horizontal_spacing=0.09, vertical_spacing=0.19,
+        rows=2, cols=3, horizontal_spacing=0.12, vertical_spacing=0.21,
+        specs=[[{"secondary_y": True}] * 3, [{"secondary_y": True}] * 3],
         subplot_titles=[t for _, t in bereiche],
     )
     for i, (feld, titel) in enumerate(bereiche):
@@ -693,17 +697,22 @@ def diagramm_pmk():
                 line=dict(color=farbe, width=2.4, dash=strich),
                 # Kleine Marker: Bei 10 Werten je Linie reicht ein Punkt als
                 # Hinweis auf den Messwert, große Punkte verdecken die Linie.
-                marker=dict(size=3.6, color=farbe),
+                marker=dict(size=3.0, color=farbe),
                 legendgroup=name, showlegend=(i == 0),
                 hovertemplate="%{y:,.0f} Fälle im Jahr %{x}<extra>" + name + "</extra>",
-            ), row=zeile + 1, col=spalte + 1)
+            ), row=zeile + 1, col=spalte + 1, secondary_y=(art == "gewalt"))
         f.update_yaxes(rangemode="tozero", automargin=True, tickformat=",.0f",
-                       ticksuffix="", row=zeile + 1, col=spalte + 1)
+                       row=zeile + 1, col=spalte + 1, secondary_y=False)
+        f.update_yaxes(rangemode="tozero", automargin=True, tickformat=",.0f",
+                       showgrid=False, tickfont=dict(size=10,
+                       color="#8a5305"), row=zeile + 1, col=spalte + 1,
+                       secondary_y=True)
         f.update_xaxes(automargin=True, dtick=4, tickfont=dict(size=11),
                        row=zeile + 1, col=spalte + 1)
 
     layout = dict(BASE)
-    layout.update(height=560, showlegend=True,
+    f.update_layout(yaxis_title=None, yaxis2_title=None)
+    layout.update(height=600, showlegend=True,
                   margin=dict(l=10, r=18, t=76, b=42),
                   legend=dict(orientation="h", yanchor="bottom", y=1.075, x=0,
                               xanchor="left", font=dict(size=14),
