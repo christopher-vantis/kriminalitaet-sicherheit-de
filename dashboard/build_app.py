@@ -49,12 +49,27 @@ FARBEN_KARTE = ["#e8f3f1", "#c3e2dd", "#96cbc4", "#5fada4", "#2d8c82", "#0f5f58"
 
 # Politisch motivierte Kriminalität: eine Farbe je Phänomenbereich. Petrol =
 # rechts, Ocker = links, Violett = Ideologie, warmes Grau = Fälle ohne
-# Zuordnung. Die Töne sind bewusst dunkel gewählt: Alle vier erreichen gegen
-# den hellen Hintergrund mindestens 5,8:1 (vorher bis hinunter 3,5:1, was auf
-# dem Handy kaum zu lesen war) und liegen zugleich weit genug in der Helligkeit
-# auseinander, um sich an Kreuzungspunkten zu trennen.
-PMK_FARBEN = {"rechts": "#0b4f49", "links": "#7c4a03",
-              "ideologie": "#5b21b6", "sonstige_zuordnung": "#6b645c"}
+# Zuordnung.
+#
+# Die Töne wurden nach dem kleinsten paarweisen Farbabstand (CIEDE2000) neu
+# gewählt, nicht nur nach dem Kontrast gegen den Hintergrund. Der Unterschied
+# ist wichtig: Alle vier Töne können einzeln gut lesbar sein und trotzdem
+# einander ähnlich sehen. Gemessen gegen den Seitenhintergrund #faf8f5 und
+# gegen die vier übrigen Bereiche:
+#   rechts              #0b4f49   8,9:1
+#   links               #b45309   5,4:1   (vorher #7c4a03)
+#   Ideologie           #4c1d95  10,3:1   (vorher #5b21b6)
+#   sonstige Zuordnung  #78716c   4,5:1   (vorher #6b645c)
+# Kleinster Farbabstand zwischen zwei Bereichen: 24 statt 20 (Normalsichtig),
+# 14 statt 10 bei Protanopie. Weiter kommt man mit Farbe allein nicht — selbst
+# im günstigsten Fall liegen Petrol und Grau bei Rot-Grün-Blindheit nahe
+# beieinander. Deshalb trägt jede Reihe zusätzlich ein eigenes Symbol
+# (PMK_SYMBOLE): Unterscheidbar sind die Reihen dann auch ohne Farbwahrnehmung.
+PMK_FARBEN = {"rechts": "#0b4f49", "links": "#b45309",
+              "ideologie": "#4c1d95", "sonstige_zuordnung": "#78716c"}
+# Symbol je Bereich — das zweite, farbunabhängige Unterscheidungsmerkmal.
+PMK_SYMBOLE = {"rechts": "circle", "links": "square",
+               "ideologie": "diamond", "sonstige_zuordnung": "triangle-up"}
 PMK_NAMEN = {"rechts": "rechts", "links": "links",
              "ideologie": "ausländische und religiöse Ideologie",
              "sonstige_zuordnung": "sonstige Zuordnung"}
@@ -821,17 +836,21 @@ def diagramm_pmk():
         f.add_trace(go.Scatter(
             x=jahre, y=[w / g * 100 for w, g in zip(faelle[feld], gesamt)],
             mode="lines+markers", name=PMK_NAMEN[feld],
-            line=dict(color=PMK_FARBEN[feld], width=2.9),
-            # Die Punkte markieren die zehn Messwerte, bleiben aber klein:
-            # Größere Punkte verdecken den Verlauf der Linie.
-            marker=dict(size=6.5, color=PMK_FARBEN[feld]),
+            line=dict(color=PMK_FARBEN[feld], width=3.1),
+            # Die Punkte markieren die zehn Messwerte und tragen das Symbol der
+            # Reihe. Der helle Rand hebt sie dort ab, wo sich zwei Linien
+            # kreuzen — das ist die Stelle, an der man sonst nicht mehr weiss,
+            # welche Linie zu welcher Farbe gehört.
+            marker=dict(size=7.5, symbol=PMK_SYMBOLE[feld],
+                        color=PMK_FARBEN[feld],
+                        line=dict(width=1.2, color="#faf8f5")),
             customdata=[f"{w:,.0f}".replace(",", ".") for w in faelle[feld]],
             hovertemplate="%{y:.1f} % · %{customdata} Fälle<extra></extra>"))
     gewalt = [werte[("gewalt", "gesamt", jahr)] for jahr in jahre]
     f.add_trace(go.Scatter(
         x=jahre, y=[w / g * 100 for w, g in zip(gewalt, gesamt)],
         mode="lines", name="davon Gewalttaten",
-        line=dict(color=PMK_GEWALT_FARBE, width=1.8, dash="dot"),
+        line=dict(color=PMK_GEWALT_FARBE, width=1.9, dash="dash"),
         customdata=[f"{w:,.0f}".replace(",", ".") for w in gewalt],
         hovertemplate="%{y:.1f} % · %{customdata} Fälle<extra></extra>"))
 

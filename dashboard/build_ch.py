@@ -76,7 +76,8 @@ PROFIL_DELIKTE = [
     ("Einbruchdiebstahl (Art. 139)", "einbruch"),
     ("Raub (Art. 140)", "raub"),
     ("Sachbeschädigung (Art. 144)", "sachbeschaedigung"),
-    ("Betrug und betrügerischer Missbrauch einer Datenanlage", "cyberbetrug"),
+    ("Betrügerischer Missbrauch einer Datenverarbeitungsanlage (Art. 147)",
+         "cyberbetrug"),
     ("Straftaten gegen Leib und Leben (1. Titel)", "leib_leben"),
     ("Vergewaltigung (Art. 190)", "vergewaltigung"),
 ]
@@ -365,22 +366,26 @@ def diagramme(kantone, basis, zr, fd):
     # 3) Zeitreihe: Entwicklung nach Deliktsgruppen, indexiert
     jahre = [int(r["jahr"]) for r in zr]
     start_jahr = jahre[0]
+    # Fünf Reihen in einem Diagramm: Farbe allein reicht nicht (zwei Petroltöne
+    # lagen dicht beieinander, und die blasseste Linie hatte nur 2,4:1 Kontrast). Jede
+    # Reihe bekommt deshalb ein eigenes Symbol als zweites Merkmal.
     reihen = [
-        ("hz_stgb", "Straftaten insgesamt", TEAL_H1),
-        ("hz_diebstahl", "Diebstahl", TEAL_H2),
-        ("hz_einbruch", "Einbruchdiebstahl", UEBER),
-        ("hz_leib_leben", "Leib und Leben", "#6d28d9"),
-        ("hz_cyberbetrug", "Betrug mit Datenanlagen", NEUTRAL),
+        ("hz_stgb", "Straftaten insgesamt", "#0b4f49", "circle"),
+        ("hz_diebstahl", "Diebstahl", "#2d8c82", "square"),
+        ("hz_einbruch", "Einbruchdiebstahl", "#b45309", "diamond"),
+        ("hz_leib_leben", "Leib und Leben", "#4c1d95", "triangle-up"),
+        ("hz_cyberbetrug", "Cyberbetrug (Art. 147)", "#78716c", "cross"),
     ]
     f = fig(440)
-    for feld, name, farbe in reihen:
+    for feld, name, farbe, symbol in reihen:
         werte = [z(r[feld]) for r in zr]
         basiswert = werte[0]
         f.add_trace(go.Scatter(
             x=jahre, y=[None if v is None else 100 * v / basiswert for v in werte],
             mode="lines+markers", name=name,
-            line=dict(color=farbe, width=2.4),
-            marker=dict(size=7, color=farbe, line=dict(color="#ffffff", width=1)),
+            line=dict(color=farbe, width=2.7),
+            marker=dict(size=8, symbol=symbol, color=farbe,
+                        line=dict(color="#faf8f5", width=1.2)),
             hovertemplate=name + " %{x}: Index %{y:.0f}<extra></extra>"))
     f.update_yaxes(title=f"Index ({start_jahr} = 100)")
     f.update_xaxes(title="Jahr", dtick=2,
@@ -890,7 +895,7 @@ def diagramme(kantone, basis, zr, fd):
                  ("aq_raub", "Raub"),
                  ("aq_sachbeschaedigung", "Sachbeschädigung"),
                  ("aq_vergewaltigung", "Vergewaltigung"),
-                 ("aq_cyberbetrug", "Betrug mit Datenanlagen")]
+                 ("aq_cyberbetrug", "Cyberbetrug (Art. 147)")]
     aq = [(name, z(letzte[feld])) for feld, name in aq_felder
           if z(letzte[feld]) is not None]
     aq.sort(key=lambda t: t[1])
