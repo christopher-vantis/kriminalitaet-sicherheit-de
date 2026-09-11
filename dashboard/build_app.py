@@ -270,6 +270,16 @@ def diagramme(laender, basis):
                      _pmk,
                      "BKA, Bundesweite Fallzahlen zur politisch motivierten "
                      "Kriminalität 2025 (Fact Sheet); eigene Aufbereitung."))
+    _alter = diagramm_alter_furcht()
+    if _alter is not None:
+        figs.append(("alter_furcht", "Furcht über die Altersspanne",
+                     "Anteil mit Unsicherheitsgefühl je Altersgruppe. Symbol steht "
+                     "für das Geschlecht, Farbe für den Migrationshintergrund. "
+                     "Gruppen mit weniger als 30 Befragten entfallen, sonst wären "
+                     "die Ausschläge Zufall.",
+                     _alter,
+                     "European Social Survey, Runden 1–11, Deutschland; eigene "
+                     "Berechnung, gewichtet."))
     _skid1 = diagramm_skid_delikte()
     if _skid1 is not None:
         figs.append(("skid_delikte", "Wovor sich Deutschland fürchtet",
@@ -420,6 +430,106 @@ def diagramme(laender, basis):
 
 
 # ---------------------------------------------------------------- Zusammenhänge
+def diagramm_alter_furcht():
+    """Furcht über die Altersspanne, getrennt nach Geschlecht und Herkunft.
+
+    Warum aggregiert und nicht als Rohpunktwolke: Die Furcht ist im ESS eine
+    Ja/Nein-Angabe. Trägt man 16.000 Einzelpersonen auf, liegen alle Punkte auf
+    zwei Linien (0 und 1) — man sieht kein Muster, nur zwei Streifen. Deshalb
+    wird je Altersgruppe der Anteil berechnet. Das ist dieselbe Information,
+    nur lesbar.
+
+    Codierung:
+        Symbol  ♀ / ♂  — Geschlecht
+        Farbe          — mit / ohne Migrationshintergrund
+        Fläche         — Fallzahl der Gruppe (Punkte unter n = 30 entfallen)
+
+    Returns:
+        plotly.graph_objects.Figure | None
+    """
+    pfad = pathlib.Path(__file__).resolve().parent / "data" / "ess_de_personen.csv"
+    if not pfad.exists():
+        return None
+    personen = lies(pfad)
+    if not personen:
+        return None
+
+    def zahl(wert):
+        try:
+            return float(str(wert).replace(",", "."))
+        except (TypeError, ValueError):
+            return None
+
+    # Altersgruppen bilden: 15-24, 25-34 ... 75+
+    gruppen = [(15, 24), (25, 34), (35, 44), (45, 54), (55, 64), (65, 74), (75, 110)]
+
+    def gruppe_von(alter):
+        for von, bis in gruppen:
+            if von <= alter <= bis:
+                return von
+        return None
+
+    # Codierung in der Datei: Geschlecht als "Frau"/"Mann", Migrationshintergrund
+    # und Unsicherheit als 0/1, fehlende Werte als "NA".
+    zellen = {}
+    for r in personen:
+        alter = zahl(r.get("agea_c"))
+        unsicher = str(r.get("unsicher", "")).strip()
+        geschlecht = str(r.get("geschlecht", "")).strip()
+        mh = str(r.get("mh", "")).strip()
+        if alter is None or unsicher not in ("0", "1") or mh not in ("0", "1"):
+            continue
+        if geschlecht not in ("Frau", "Mann"):
+            continue
+        g = gruppe_von(alter)
+        if g is None:
+            continue
+        schluessel = (g, geschlecht, mh)
+        z = zellen.setdefault(schluessel, [0, 0])
+        z[0] += int(unsicher)
+        z[1] += 1
+
+    f = fig(460)
+    # Frauen zuerst, damit sie beim Überlagern oben liegen
+    for geschlecht, symbol, name_sex in (("Frau", "♀", "Frauen"),
+                                         ("Mann", "♂", "Männer")):
+        for mh, farbe, name_mh in (("1", "#0b4f49", "mit Migrationshintergrund"),
+                                   ("0", "#b8860b", "ohne Migrationshintergrund")):
+            punkte = []
+            for (g, sex, herkunft), (treffer, n) in zellen.items():
+                if sex != geschlecht or herkunft != mh or n < 30:
+                    continue
+                punkte.append((g + 5, 100 * treffer / n, n))
+            if not punkte:
+                continue
+            punkte.sort()
+            f.add_trace(go.Scatter(
+                x=[p[0] for p in punkte], y=[p[1] for p in punkte],
+                mode="markers+text", name=f"{name_sex}, {name_mh}",
+                marker=dict(size=13, color=farbe, opacity=0.85,
+                            line=dict(width=1.2, color="#ffffff")),
+                text=[symbol] * len(punkte), textposition="middle center",
+                textfont=dict(size=11, color="#ffffff"),
+                customdata=[[p[2]] for p in punkte],
+                hovertemplate=("Alter %{x}<br>%{y:.1f} % unsicher"
+                               "<br>n = %{customdata[0]}<extra>" +
+                               f"{name_sex}, {name_mh}" + "</extra>"),
+            ))
+
+    f.update_xaxes(title="Alter in Jahren", dtick=10, range=[12, 88],
+                   automargin=True)
+    f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
+                   rangemode="tozero", automargin=True)
+    layout = dict(BASE)
+    layout.update(height=460, margin=dict(l=10, r=20, t=54, b=50),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.05, x=0,
+                              xanchor="left", font=dict(size=13),
+                              itemsizing="constant", itemwidth=30),
+                  hovermode="closest")
+    f.update_layout(**layout)
+    return f
+
+
 def diagramm_skid_delikte():
     """Wovor sich Deutschland fürchtet (SKiD 2024).
 
@@ -442,14 +552,20 @@ def diagramm_skid_delikte():
     f = fig(430)
     f.add_trace(go.Bar(y=namen, x=furcht, orientation="h", name="Furcht",
                        marker_color="#0b4f49",
+                       text=[f"{w:.1f}" for w in furcht], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"),
+                       cliponaxis=False,
                        hovertemplate="%{y}: %{x:.1f} %<extra>Furcht</extra>"))
     f.add_trace(go.Bar(y=namen, x=risiko, orientation="h",
                        name="Einschätzung, selbst Opfer zu werden",
                        marker_color="#b8860b",
+                       text=[f"{w:.1f}" for w in risiko], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"),
+                       cliponaxis=False,
                        hovertemplate="%{y}: %{x:.1f} %<extra>Risikoeinschätzung</extra>"))
     f.update_layout(barmode="group", bargap=0.28, bargroupgap=0.08)
     f.update_xaxes(title="Anteil der Befragten", ticksuffix=" %", range=[0, 60])
-    f.update_yaxes(automargin=True, tickfont=dict(size=13))
+    f.update_yaxes(automargin=True, tickfont=dict(size=13, color="#12100e"))
     layout = dict(BASE)
     layout.update(height=430, margin=dict(l=10, r=20, t=54, b=50),
                   legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
@@ -473,14 +589,18 @@ def diagramm_skid_orte():
     f = fig(430)
     f.add_trace(go.Bar(y=namen, x=tag, orientation="h", name="tagsüber",
                        marker_color="#0b4f49",
+                       text=[f"{w:.1f}" for w in tag], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"), cliponaxis=False,
                        hovertemplate="%{y}: %{x:.1f} %<extra>tagsüber</extra>"))
     f.add_trace(go.Bar(y=namen, x=nacht, orientation="h", name="nachts",
                        marker_color="#b8860b",
+                       text=[f"{w:.1f}" for w in nacht], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"), cliponaxis=False,
                        hovertemplate="%{y}: %{x:.1f} %<extra>nachts</extra>"))
     f.update_layout(barmode="group", bargap=0.28, bargroupgap=0.08)
     f.update_xaxes(title="Anteil, der sich sicher fühlt", ticksuffix=" %",
                    range=[0, 105])
-    f.update_yaxes(automargin=True, tickfont=dict(size=13))
+    f.update_yaxes(automargin=True, tickfont=dict(size=13, color="#12100e"))
     layout = dict(BASE)
     layout.update(height=430, margin=dict(l=10, r=20, t=54, b=50),
                   legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
@@ -1232,7 +1352,11 @@ const L = DATEN.laender;
 const LN = {};                       /* Zugriff über den NUTS-Code (DE1 … DEG) */
 Object.values(L).forEach(l => { if (l.nuts) LN[l.nuts] = l; });
 const B = DATEN.basis;
-const KONF = {responsive:true, displayModeBar:false, displaylogo:false, scrollZoom:false};
+// Werkzeugleiste an: Zoomen, Verschieben, als Bild speichern. Ohne sie
+// fehlen genau die Funktionen, die man von Dash kennt.
+const KONF = {responsive:true, displaylogo:false, scrollZoom:true,
+  displayModeBar:true, modeBarButtonsToRemove:['lasso2d','select2d'],
+  toImageButtonOptions:{format:'png', filename:'kriminalitaet-sicherheit', scale:2}};
 
 /* ---------- Hilfsfunktionen ---------- */
 const nf = (v, d = 0) => (v === null || v === undefined || isNaN(v)) ? '—'
@@ -1426,7 +1550,7 @@ function ansichtKarte(){
 const THEMEN = {
   inhalt:          {ids:[], text:null},
   kriminalitaet:   {ids:['hz','aq','zeitreihe','eu','pmk'], text:'kriminalitaet'},
-  furcht:          {ids:['furcht','furcht_zr','delikte','skid_delikte','skid_orte'], text:'furcht'},
+  furcht:          {ids:['alter_furcht','furcht','furcht_zr','delikte','skid_delikte','skid_orte'], text:'furcht'},
   justiz:          {ids:['trichter'], text:'justiz'},
   methodik:        {ids:[], text:null},
 };
