@@ -1,0 +1,59 @@
+{
+  "_hinweis": "Übersetzungstabelle Deutsch-Englisch. Schlüssel sind stabil, die Werte werden beim Sprachwechsel ausgetauscht. Fachbegriffe bleiben dort deutsch, wo die englische Entsprechung irreführen würde (etwa 'Polizeiliche Kriminalstatistik' — im Englischen 'police crime statistics', nicht 'criminal statistics').",
+
+  "sprache": {"de": "Deutsch", "en": "English"},
+  "umschalten": {"de": "Sprache wechseln", "en": "Switch language"},
+
+  "titel": {"de": "Die (un)berechtigte Furcht vor Kriminalität in Deutschland",
+            "en": "The (Un)warranted Fear of Crime in Germany"},
+  "untertitel": {"de": "Registrierte Kriminalität, Strafverfolgung und das Sicherheitsgefühl der Bevölkerung — für die Republik und für jedes Bundesland.",
+                 "en": "Recorded crime, law enforcement and the public's sense of safety — for Germany as a whole and for each federal state."},
+
+  "nav.inhalt": {"de": "Inhalt", "en": "Contents"},
+  "nav.karte": {"de": "Karte", "en": "Map"},
+  "nav.kriminalitaet": {"de": "Kriminalität", "en": "Crime"},
+  "nav.furcht": {"de": "Furcht", "en": "Fear"},
+  "nav.justiz": {"de": "Strafverfolgung", "en": "Prosecution"},
+  "nav.methodik": {"de": "Daten & Methoden", "en": "Data & Methods"},
+
+  "kennzahl.label": {"de": "Kennzahl", "en": "Indicator"},
+  "kennzahl.ranking": {"de": "Rangliste", "en": "Ranking"},
+  "kennzahl.alle": {"de": "alle anzeigen", "en": "show all"},
+  "kennzahl.zurueck": {"de": "weniger anzeigen", "en": "show fewer"},
+  "kennzahl.stufen": {"de": "Stufen nach Rang", "en": "rank-based steps"},
+  "kennzahl.niedrig": {"de": "niedrig", "en": "low"},
+  "kennzahl.hoch": {"de": "hoch", "en": "high"},
+  "kennzahl.waehlen": {"de": "Kennzahl wählen", "en": "Choose indicator"},
+
+  "land.zurueck": {"de": "Zurück zur Karte", "en": "Back to the map"},
+  "land.kennzahlen": {"de": "Kennzahlen", "en": "Indicators"},
+
+  "methoden.aufklappen": {"de": "Die Methoden in einfachen Worten", "en": "The methods in plain words"},
+  "methoden.quellen": {"de": "Quellen", "en": "Sources"},
+  "methoden.grenzen": {"de": "Grenzen", "en": "Limits"},
+
+  "tabelle.jahr": {"de": "Jahr", "en": "Year"},
+  "tabelle.wert": {"de": "Wert", "en": "Value"},
+  "tabelle.faelle": {"de": "Fälle", "en": "Cases"},
+  "tabelle.anteil": {"de": "Anteil", "en": "Share"},
+
+  "achse.jahr": {"de": "Jahr", "en": "Year"},
+  "achse.faelle": {"de": "Fälle", "en": "Cases"},
+  "achse.anteil": {"de": "Anteil", "en": "Share"},
+  "achse.prozent": {"de": "Prozent", "en": "per cent"},
+  "achse.einwohner": {"de": "je 100.000 Einwohner", "en": "per 100,000 inhabitants"},
+  "legende.deutschland": {"de": "Deutschland", "en": "Germany"},
+  "legende.kontrollierte": {"de": "kontrollierte Fälle", "en": "cleared cases"},
+  "legende.registriert": {"de": "registrierte Fälle", "en": "recorded cases"},
+  "legende.gewalt": {"de": "davon Gewalttaten", "en": "of which violent offences"},
+  "legende.alle": {"de": "alle Straftaten", "en": "all offences"},
+  "legende.frauen": {"de": "Frauen", "en": "Women"},
+  "legende.maenner": {"de": "Männer", "en": "Men"},
+  "legende.mitmh": {"de": "mit Migrationshintergrund", "en": "with migration background"},
+  "legende.ohnemh": {"de": "ohne Migrationshintergrund", "en": "without migration background"},
+  "legende.sicher": {"de": "sicher", "en": "safe"},
+  "legende.unsicher": {"de": "unsicher", "en": "unsafe"},
+
+  "hinweis.frueherstand": {"de": "Diese Seite ist in früher Entwicklung. Zahlen und Darstellungen können sich ändern.",
+                            "en": "This site is at an early stage. Figures and presentations may change."}
+}
