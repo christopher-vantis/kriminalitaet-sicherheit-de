@@ -2,7 +2,8 @@
 """
 build_start.py — Startseite mit beiden Ländern
 ==============================================
-Baut die Startseite der Website: Titel, kurze Beschreibung und zwei Karten
+Baut die Startseite der Website (Titel: "Kriminalität und Angst"):
+kurze Beschreibung und zwei Karten
 nebeneinander — Deutschland links, Schweiz rechts. Beide Karten sind anklickbar
 und führen auf die jeweilige Länderfassung.
 
@@ -188,10 +189,10 @@ def baue_start(de_z, ch_z):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#12100e">
-<title>Kriminalität und Sicherheit in Deutschland und der Schweiz</title>
-<meta name="description" content="Registrierte Kriminalität, Strafverfolgung und
-das Sicherheitsgefühl der Bevölkerung in Deutschland und in der Schweiz —
-für beide Länder und für jede Region.">
+<title>Kriminalität und Angst — Deutschland und die Schweiz</title>
+<meta name="description" content="Kriminalität und Angst in Deutschland und in
+der Schweiz: registrierte Straftaten, Strafverfolgung und das Sicherheitsgefühl
+der Bevölkerung — für beide Länder und für jede Region.">
 <style>{DE.schrift_css()}</style>
 <style>{DE.CSS}{START_CSS}</style>
 </head>
@@ -200,8 +201,8 @@ für beide Länder und für jede Region.">
   <header class="kopf start-kopf">
     <div class="kopf-inner">
       <div class="kopf-titel">
-        <h1>Kriminalität und Sicherheit in Deutschland und der Schweiz</h1>
-        <p>Zwei Länder, dieselben Fragen: Was wird registriert, was wird
+        <h1>Kriminalität und Angst</h1>
+        <p>Deutschland und die Schweiz, dieselben Fragen: Was wird registriert, was wird
         aufgeklärt — und wie sicher fühlen sich die Menschen? Die Auswertungen
         beruhen auf amtlichen Polizeistatistiken, auf den Befragungen des
         European Social Survey und auf den Opferbefragungen beider Länder.
