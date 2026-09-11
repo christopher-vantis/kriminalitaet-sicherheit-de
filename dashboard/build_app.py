@@ -527,7 +527,12 @@ def diagramm_alter_furcht():
             # Werten gezeichnet und als Verlauf gelesen.
             xs, ys = rohdaten.get((geschlecht, mh), ([], []))
             if len(xs) >= 200:
-                glatt = lowess(ys, xs, frac=0.65, return_sorted=True)
+                # it=0: keine robuste Iteration. Die Voreinstellung (it=3)
+                # gewichtet Ausreißer ab — bei einer Ja/Nein-Variable mit
+                # überwiegend Nullen verwirft sie damit sämtliche Einsen, und
+                # die Kurve läuft gegen null. Genau das war bei den Männern
+                # (88 % ohne Unsicherheitsgefühl) der Fall.
+                glatt = lowess(ys, xs, frac=0.65, it=0, return_sorted=True)
                 # Ausdünnen: Die geglättete Kurve hat so viele Stützstellen wie
                 # Befragte; für die Zeichnung genügen wenige. Das hält die
                 # Seitengröße klein, ohne dass man einen Unterschied sieht.
@@ -1521,6 +1526,33 @@ function rankingZeigen(k, grenzen){
 }
 
 /* ---------- Diagramme faul zeichnen ---------- */
+// Diagramme an die Fenstergröße anpassen. Plotly skaliert die Fläche mit,
+// aber nicht die Schrift: In einem schmalen Fenster — und auf dem Handy —
+// werden Achsen und Legende sonst zu klein zum Lesen.
+let anpassungsTimer = null;
+function diagrammeAnpassen(){
+  const schmal = window.innerWidth < 720;
+  document.querySelectorAll('.js-plotly-plot').forEach(el => {
+    if (!el || !el.layout) return;
+    try {
+      Plotly.relayout(el, {
+        'font.size': schmal ? 15 : 12.5,
+        'xaxis.tickfont.size': schmal ? 14 : 12,
+        'yaxis.tickfont.size': schmal ? 14 : 12,
+        'legend.font.size': schmal ? 15 : 14,
+        'margin.l': schmal ? 8 : 10,
+        'margin.r': schmal ? 8 : 20,
+        'margin.b': schmal ? 64 : 50,
+        'margin.t': schmal ? 66 : 54,
+      });
+    } catch (e) { /* Diagramm noch nicht fertig gezeichnet */ }
+  });
+}
+window.addEventListener('resize', () => {
+  clearTimeout(anpassungsTimer);
+  anpassungsTimer = setTimeout(diagrammeAnpassen, 220);
+});
+
 function zeichne(el){
   if (el.dataset.state) return;
   el.dataset.state = 'laeuft';
@@ -1530,7 +1562,10 @@ function zeichne(el){
   const lay = Object.assign({}, f.layout || {});
   lay.autosize = true;
   if (window.innerWidth < 560 && lay.height) lay.height = Math.min(lay.height, 330);
-  Plotly.newPlot(el, f.data, lay, KONF).then(() => el.dataset.state = 'fertig')
+  Plotly.newPlot(el, f.data, lay, KONF).then(() => {
+    el.dataset.state = 'fertig';
+    diagrammeAnpassen();
+  })
     .catch(() => { delete el.dataset.state; });
 }
 function beobachte(){
