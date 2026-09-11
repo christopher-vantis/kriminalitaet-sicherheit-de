@@ -22,6 +22,7 @@ import re
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from statsmodels.nonparametric.smoothers_lowess import lowess
 
 from wappen_util import wappen_laden
 import plotly.io as pio
@@ -273,10 +274,12 @@ def diagramme(laender, basis):
     _alter = diagramm_alter_furcht()
     if _alter is not None:
         figs.append(("alter_furcht", "Furcht über die Altersspanne",
-                     "Anteil mit Unsicherheitsgefühl je Altersgruppe. Symbol steht "
-                     "für das Geschlecht, Farbe für den Migrationshintergrund. "
-                     "Gruppen mit weniger als 30 Befragten entfallen, sonst wären "
-                     "die Ausschläge Zufall.",
+                     "Anteil mit Unsicherheitsgefühl je Altersgruppe. Symbol ♀/♂ "
+                     "steht für das Geschlecht, die Farbe für den "
+                     "Migrationshintergrund. Die blasse Linie ist eine gleitende "
+                     "Regression über alle Einzelpersonen, nicht über die sieben "
+                     "Punkte. Jede Gruppe beruht auf mindestens 88 Befragten "
+                     "(Median 975); die Fallzahl steht beim Überfahren des Punktes.",
                      _alter,
                      "European Social Survey, Runden 1–11, Deutschland; eigene "
                      "Berechnung, gewichtet."))
@@ -442,7 +445,7 @@ def diagramm_alter_furcht():
     Codierung:
         Symbol  ♀ / ♂  — Geschlecht
         Farbe          — mit / ohne Migrationshintergrund
-        Fläche         — Fallzahl der Gruppe (Punkte unter n = 30 entfallen)
+        Fallzahl       — im Tooltip beim Überfahren des Punktes
 
     Returns:
         plotly.graph_objects.Figure | None
@@ -472,6 +475,7 @@ def diagramm_alter_furcht():
     # Codierung in der Datei: Geschlecht als "Frau"/"Mann", Migrationshintergrund
     # und Unsicherheit als 0/1, fehlende Werte als "NA".
     zellen = {}
+    rohdaten = {}          # (Geschlecht, Herkunft) -> ([Alter], [unsicher 0/1])
     for r in personen:
         alter = zahl(r.get("agea_c"))
         unsicher = str(r.get("unsicher", "")).strip()
@@ -488,6 +492,9 @@ def diagramm_alter_furcht():
         z = zellen.setdefault(schluessel, [0, 0])
         z[0] += int(unsicher)
         z[1] += 1
+        roh = rohdaten.setdefault((geschlecht, mh), ([], []))
+        roh[0].append(alter)
+        roh[1].append(int(unsicher))
 
     f = fig(460)
     # Frauen zuerst, damit sie beim Überlagern oben liegen
@@ -497,7 +504,7 @@ def diagramm_alter_furcht():
                                    ("0", "#b8860b", "ohne Migrationshintergrund")):
             punkte = []
             for (g, sex, herkunft), (treffer, n) in zellen.items():
-                if sex != geschlecht or herkunft != mh or n < 30:
+                if sex != geschlecht or herkunft != mh:
                     continue
                 punkte.append((g + 5, 100 * treffer / n, n))
             if not punkte:
@@ -506,20 +513,37 @@ def diagramm_alter_furcht():
             f.add_trace(go.Scatter(
                 x=[p[0] for p in punkte], y=[p[1] for p in punkte],
                 mode="markers+text", name=f"{name_sex}, {name_mh}",
-                marker=dict(size=13, color=farbe, opacity=0.85,
-                            line=dict(width=1.2, color="#ffffff")),
+                marker=dict(size=27, color=farbe, opacity=0.95,
+                            line=dict(width=2, color="#ffffff")),
                 text=[symbol] * len(punkte), textposition="middle center",
-                textfont=dict(size=11, color="#ffffff"),
+                textfont=dict(size=19, color="#ffffff"),
                 customdata=[[p[2]] for p in punkte],
                 hovertemplate=("Alter %{x}<br>%{y:.1f} % unsicher"
                                "<br>n = %{customdata[0]}<extra>" +
                                f"{name_sex}, {name_mh}" + "</extra>"),
             ))
+            # Trendkurve: gleitende Regression über die Einzelpersonen, nicht
+            # über die sieben Gruppenpunkte — sonst würde eine Kurve aus sieben
+            # Werten gezeichnet und als Verlauf gelesen.
+            xs, ys = rohdaten.get((geschlecht, mh), ([], []))
+            if len(xs) >= 200:
+                glatt = lowess(ys, xs, frac=0.65, return_sorted=True)
+                # Ausdünnen: Die geglättete Kurve hat so viele Stützstellen wie
+                # Befragte; für die Zeichnung genügen wenige. Das hält die
+                # Seitengröße klein, ohne dass man einen Unterschied sieht.
+                schritt = max(1, len(glatt) // 120)
+                glatt = glatt[::schritt]
+                f.add_trace(go.Scatter(
+                    x=glatt[:, 0], y=glatt[:, 1] * 100,
+                    mode="lines", name=f"{name_sex}, {name_mh}",
+                    line=dict(color=farbe, width=2.4), opacity=0.5,
+                    showlegend=False, hoverinfo="skip",
+                ))
 
-    f.update_xaxes(title="Alter in Jahren", dtick=10, range=[12, 88],
+    f.update_xaxes(title="Alter in Jahren", dtick=10, range=[10, 92],
                    automargin=True)
     f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
-                   rangemode="tozero", automargin=True)
+                   rangemode="tozero", range=[0, 62], automargin=True)
     layout = dict(BASE)
     layout.update(height=460, margin=dict(l=10, r=20, t=54, b=50),
                   legend=dict(orientation="h", yanchor="bottom", y=1.05, x=0,
