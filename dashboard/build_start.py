@@ -100,6 +100,33 @@ def schweiz_zahlen():
             "hz": round(1e5 * faelle / einwohner, 1), "unsicher": unsicher}
 
 
+# Flaggen der beiden Länder als eingebettetes SVG. Beide sind geometrisch
+# festgelegt und lassen sich exakt zeichnen — dafür braucht die Startseite kein
+# externes Bild und keinen zusätzlichen Abruf. Sie stehen neben dem Ländernamen
+# und sind deshalb als Schmuck gekennzeichnet (aria-hidden), damit
+# Vorleseprogramme den Namen nicht doppelt ansagen.
+#
+# Farben: Deutschland Schwarz/Rot/Gold (#000000, #DD0000, #FFCE00) in drei
+# gleich hohen Bahnen. Schweiz Rot nach der amtlichen Vorgabe (Pantone 485 C,
+# hier als Bildschirmnäherung #DA291C) mit weissem Kreuz; das Kreuz ist auf
+# 32 x 32 Einheiten je 6 Einheiten breit und 20 lang, so wie es die
+# eidgenössische Vorlage festlegt.
+FLAGGEN = {
+    "de": (
+        '<svg class="flagge de" viewBox="0 0 30 18" aria-hidden="true" '
+        'focusable="false" xmlns="http://www.w3.org/2000/svg">'
+        '<rect width="30" height="6" fill="#000000"/>'
+        '<rect y="6" width="30" height="6" fill="#dd0000"/>'
+        '<rect y="12" width="30" height="6" fill="#ffce00"/></svg>'),
+    "ch": (
+        '<svg class="flagge ch" viewBox="0 0 32 32" aria-hidden="true" '
+        'focusable="false" xmlns="http://www.w3.org/2000/svg">'
+        '<rect width="32" height="32" fill="#da291c"/>'
+        '<rect x="13" y="6" width="6" height="20" fill="#ffffff"/>'
+        '<rect x="6" y="13" width="20" height="6" fill="#ffffff"/></svg>'),
+}
+
+
 def karte(geometrien, css_klasse):
     """Baut ein ruhiges Übersichtsbild eines Landes als SVG.
 
@@ -138,7 +165,12 @@ START_CSS = """
 .land-karte:hover{transform:translateY(-3px);border-color:#c9ded9;
  box-shadow:0 18px 40px -22px rgba(24,20,16,.34)}
 .land-karte:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
-.land-karte h2{margin:0 0 2px;font-size:1.22rem;letter-spacing:-.015em;color:var(--ink)}
+.land-karte h2{margin:0 0 2px;font-size:1.22rem;letter-spacing:-.015em;
+ color:var(--ink);display:flex;align-items:center;gap:10px}
+/* Flagge in gleicher Höhe für beide Länder; der feine Rand hält die
+   weissen Flächen der Schweizer Flagge auf dem weissen Grund sichtbar. */
+.land-karte .flagge{height:19px;width:auto;flex:0 0 auto;border-radius:2.5px;
+ box-shadow:0 0 0 1px rgba(18,16,14,.16);display:block}
 .land-karte .unter{margin:0 0 12px;font-size:.86rem;color:var(--muted)}
 .land-karte .bild{flex:1 1 auto;display:flex;align-items:center;justify-content:center;
  padding:4px 0 10px}
@@ -215,7 +247,7 @@ der Bevölkerung — für beide Länder und für jede Region.">
   <main>
     <div class="laender">
       <a class="land-karte" href="deutschland.html">
-        <h2>Deutschland</h2>
+        <h2>{FLAGGEN["de"]}Deutschland</h2>
         <p class="unter">Die Bundesrepublik und jedes Bundesland</p>
         <div class="bild">{karte(de_geo, "de")}</div>
         <div class="kennzahlen">
@@ -227,7 +259,7 @@ der Bevölkerung — für beide Länder und für jede Region.">
       </a>
 
       <a class="land-karte" href="schweiz.html">
-        <h2>Schweiz</h2>
+        <h2>{FLAGGEN["ch"]}Schweiz</h2>
         <p class="unter">Die Eidgenossenschaft und jeder Kanton</p>
         <div class="bild">{karte(ch_geo, "ch")}</div>
         <div class="kennzahlen">
