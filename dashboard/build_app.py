@@ -1322,10 +1322,15 @@ def main():
     def uebersetze(text, tabelle):
         """Ersetzt deutsche Oberflächentexte durch die englische Fassung.
 
-        Geschützt werden nur die Datenblöcke: Daten, Figuren und Metadaten
-        enthalten Schlüssel, die nicht angetastet werden dürfen. Alles andere —
-        auch die Textbausteine im Seitenskript — wird ersetzt, sonst bliebe die
-        halbe Oberfläche deutsch.
+        Wichtig — zwei Fallen, die hier umgangen werden:
+
+        1. Die Leerzeichen dürfen NICHT global vereinheitlicht werden. Im
+           JavaScript stehen einzeilige //-Kommentare; werden die Zeilenumbrüche
+           entfernt, kommentiert der erste davon den gesamten restlichen Code
+           aus. Die Seite bliebe dann leer, ohne Fehlermeldung.
+        2. Die Textersetzung darf im JavaScript nicht die Struktur treffen.
+           Deshalb werden Skriptblöcke getrennt behandelt: außerhalb wird
+           normalisiert und ersetzt, innerhalb nur ersetzt.
 
         Args:
             text: vollständiges HTML.
@@ -1341,38 +1346,55 @@ def main():
             geschuetzt[schluessel] = m.group(0)
             return schluessel
 
-        # Nur die Plotly-Bibliothek bleibt unangetastet. Die Daten- und
-        # Metadatenblöcke enthalten übersetzbare Texte (Deliktnamen,
-        # Diagrammtitel) und werden mit übersetzt — ihre Schlüssel sind
-        # englisch und werden von der Tabelle nicht berührt.
+        # Datenblöcke (JSON) vollständig ersetzen — dort stehen die
+        # Diagrammtexte und Deliktnamen. Sie enthalten keine Kommentare, sind
+        # also von der Zeilenumbruch-Falle nicht betroffen.
+        def datenblock(m):
+            block = m.group(0)
+            for dt in sorted(tabelle, key=len, reverse=True):
+                if len(dt) > 2:
+                    block = block.replace(dt, tabelle[dt])
+            return block
+
+        text = re.sub(r'<script id="(?:daten|figuren|figmeta|i18n)"[^>]*>.*?</script>',
+                      datenblock, text, flags=re.S)
+
+        # Plotly-Bibliothek und das Logik-Skript auslagern
         text = re.sub(r"<!--PLOTLY-->", merken, text)
-        # Leerzeichen vereinheitlichen: Im Quelltext sind Sätze über mehrere
-        # Zeilen und Einrückungen verteilt, wodurch die Ersetzung sie nicht
-        # findet. HTML behandelt mehrere Leerzeichen wie eines, die Ausgabe
-        # ändert sich also nicht — nur die Auffindbarkeit.
+        text = re.sub(r"<script\b[^>]*>.*?</script\s*>", merken, text, flags=re.S | re.I)
+
+        # Außerhalb der Skripte: Leerzeichen vereinheitlichen (HTML behandelt
+        # mehrere Leerzeichen wie eines) und ersetzen.
         text = re.sub(r"\s+", " ", text)
         for dt in sorted(tabelle, key=len, reverse=True):
             if len(dt) > 2:
                 text = text.replace(dt, tabelle[dt])
+
+        # Skriptblöcke unverändert einsetzen — ohne Normalisierung.
         for schluessel, inhalt in geschuetzt.items():
             text = text.replace(schluessel, inhalt)
+
+        # Die Texte innerhalb der Skriptblöcke getrennt ersetzen: dort gibt es
+        # keine mehrzeiligen Textstellen, und die Struktur bleibt erhalten.
+        def in_skripten(m):
+            block = m.group(0)
+            for dt in sorted(tabelle, key=len, reverse=True):
+                if len(dt) > 3 and "\n" not in dt:
+                    block = block.replace(dt, tabelle[dt])
+            return block
+
+        text = re.sub(r"<script\b[^>]*>.*?</script\s*>", in_skripten, text,
+                      flags=re.S | re.I)
         return text
 
-    # Die Plotly-Bibliothek wird AM Platzhalter eingesetzt, nicht ans Dateiende
-    # gehängt: Der Platzhalter steht im Kopf, der Bibliotheksquelltext muss
-    # deshalb zusammen mit seinen <script>-Marken dort stehen. Sonst liegt der
-    # Quelltext hinter </html>, wird als Text angezeigt, und der im Kopf
-    # geöffnete <script>-Block verschluckt das ganze Dokument bis zum ersten
-    # </script> — die Seite bleibt leer.
-    bibliothek = "<script>" + get_plotlyjs() + "</script>"
     if sprachtexte.get("en"):
         html_en = uebersetze(html, sprachtexte["en"])
         ziel_en = ROOT / "dashboard" / "index-en.html"
         ziel_en.write_text(html_en.replace("<!--I18N-->", "")
-                           .replace("<!--PLOTLY-->", bibliothek),
+                           .replace("<!--PLOTLY-->", "<script>" + get_plotlyjs() + "</script>"),
                            encoding="utf-8")
         print(f"index-en.html: {ziel_en.stat().st_size/1e6:.2f} MB")
-    ziel.write_text(html.replace("<!--PLOTLY-->", bibliothek)
+    ziel.write_text(html.replace("<!--PLOTLY-->", "<script>" + get_plotlyjs() + "</script>")
                     .replace("<!--I18N-->", i18n_element), encoding="utf-8")
     print(f"index.html: {ziel.stat().st_size/1e6:.2f} MB")
     return laender, basis
