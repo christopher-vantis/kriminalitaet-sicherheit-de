@@ -55,7 +55,7 @@ def main():
         "Schrift eingebettet": (r"data:font/woff2", 1),
         # Die Rangliste zeigt zunaechst nur die hoechsten und niedrigsten fuenf
         # Bundeslaender (10 Eintraege); der Rest erscheint erst beim Aufklappen.
-        "Wappen eingebettet": (r"class=\"wappen\"", 10),
+        "Wappen eingebettet": (r"preserveAspectRatio=\\\"xMidYMid meet\\\"", 10),
     }))
 
     dom = hole(f"{B}/#inhalt", "live_inhalt.html")

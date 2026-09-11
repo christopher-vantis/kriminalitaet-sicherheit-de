@@ -1291,16 +1291,22 @@ def main():
             text = text.replace(schluessel, inhalt)
         return text
 
+    # Die Plotly-Bibliothek wird AM Platzhalter eingesetzt, nicht ans Dateiende
+    # gehängt: Der Platzhalter steht im Kopf, der Bibliotheksquelltext muss
+    # deshalb zusammen mit seinen <script>-Marken dort stehen. Sonst liegt der
+    # Quelltext hinter </html>, wird als Text angezeigt, und der im Kopf
+    # geöffnete <script>-Block verschluckt das ganze Dokument bis zum ersten
+    # </script> — die Seite bleibt leer.
+    bibliothek = "<script>" + get_plotlyjs() + "</script>"
     if sprachtexte.get("en"):
         html_en = uebersetze(html, sprachtexte["en"])
         ziel_en = ROOT / "dashboard" / "index-en.html"
         ziel_en.write_text(html_en.replace("<!--I18N-->", "")
-                           .replace("<!--PLOTLY-->", "<script>")
-                           + get_plotlyjs() + "</script>", encoding="utf-8")
+                           .replace("<!--PLOTLY-->", bibliothek),
+                           encoding="utf-8")
         print(f"index-en.html: {ziel_en.stat().st_size/1e6:.2f} MB")
-    ziel.write_text(html.replace("<!--PLOTLY-->", "<script>")
-                    .replace("<!--I18N-->", i18n_element)
-                    + get_plotlyjs() + "</script>"),
+    ziel.write_text(html.replace("<!--PLOTLY-->", bibliothek)
+                    .replace("<!--I18N-->", i18n_element), encoding="utf-8")
     print(f"index.html: {ziel.stat().st_size/1e6:.2f} MB")
     return laender, basis
 
@@ -1804,6 +1810,14 @@ function diagrammeAnpassen(){
         'margin.b': schmal ? 64 : 50,
         'margin.t': schmal ? 66 : 54,
       });
+      // Das PMK-Diagramm hat zehn Jahreszahlen auf der x-Achse — stehend
+      // stoßen sie auf dem Handy aneinander. Dort schräg stellen; die
+      // zusätzliche Höhe braucht der untere Rand.
+      if (el.dataset.fig === 'pmk'){
+        Plotly.relayout(el, {'xaxis.tickangle': schmal ? -45 : 0,
+                             'xaxis.tickfont.size': 12,
+                             'margin.b': schmal ? 96 : 46});
+      }
     } catch (e) { /* Diagramm noch nicht fertig gezeichnet */ }
   });
 }
