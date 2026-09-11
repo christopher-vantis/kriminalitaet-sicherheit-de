@@ -415,18 +415,32 @@ def diagramme(laender, basis):
             an.font.size = 12.5
         figs.append(("eu", "Deutschland im EU-Vergleich",
                      "Registrierte Fälle je 100.000 Einwohner, Deutschland gegenüber dem "
-                     "Median der Vergleichsländer (rund 40 Staaten). Achtung: Jedes Feld hat "
-                     "eine <em>eigene</em> Werteskala — die Höhe der Linien ist nur innerhalb "
-                     "eines Feldes vergleichbar, nicht zwischen den Feldern. Der senkrechte "
-                     "Abstand zwischen beiden Linien zeigt, ob Deutschland über oder unter "
-                     "dem europäischen Mittelfeld liegt. Bei Körperverletzung und Diebstahl "
-                     "liegt Deutschland um ein Mehrfaches darüber, bei Wohnungseinbruch "
-                     "nahezu auf Augenhöhe. Die Reihe beginnt 2009: Für 2008 weist "
-                     "Eurostat bei Körperverletzung und Diebstahl ein Mehrfaches des "
-                     "Folgejahres aus — das ist ein Bruch in der Datenreihe, kein "
-                     "tatsächlicher Rückgang. Die Polizeiliche Kriminalstatistik zeigt für "
-                     "dieselben Jahre nur wenige Prozent Unterschied.",
-                     f, "Eurostat crim_off_cat, Datenstand 08/2025"))
+                     "Median der Vergleichsländer (rund 40 Staaten). Der senkrechte "
+                     "Abstand zwischen beiden Linien zeigt, ob Deutschland über oder "
+                     "unter dem europäischen Mittelfeld liegt. Bei Körperverletzung "
+                     "und Diebstahl liegt Deutschland um ein Mehrfaches darüber, bei "
+                     "Wohnungseinbruch nahezu auf Augenhöhe. Die Reihe beginnt 2009: "
+                     "Für 2008 weist Eurostat bei Körperverletzung und Diebstahl ein "
+                     "Mehrfaches des Folgejahres aus — ein Bruch in der Datenreihe, "
+                     "kein tatsächlicher Rückgang. Jedes Feld hat eine <em>eigene</em> "
+                     "Werteskala.",
+                     f, "Eurostat crim_off_cat, Datenstand 08/2025",
+                     # Ausführliche Einordnung: Warum diese Zahlen nicht die
+                     # Kriminalität der Länder vergleichen. Belege im Text.
+                     "Warum die Abstände nicht die Wirklichkeit abbilden: "
+                     "Die Daten zeigen nur, was der Polizei gemeldet wurde — und wie "
+                     "sie es zählt. Eurostat weist selbst darauf hin, dass jedes Land "
+                     "eigene Strafgesetze, eigene Deliktdefinitionen und eigene "
+                     "Zählregeln hat und die Zahlen ausschließlich polizeilich bekannt "
+                     "gewordene Fälle abbilden. Die Anzeigebereitschaft unterscheidet "
+                     "sich erheblich: In Deutschland liegt die Anzeigequote bei Gewalt "
+                     "nach der Dunkelfeldstudie LeSuBiA des BKA meist unter zehn "
+                     "Prozent. Beim Körperverletzungsvergleich kommt eine deutsche "
+                     "Besonderheit hinzu: Die gefährliche Körperverletzung nach § 224 "
+                     "StGB fasst Fälle zusammen, die in anderen Ländern teils als "
+                     "einfache Körperverletzung gezählt werden. Der Abstand von "
+                     "Deutschland zum Mittelfeld ist deshalb vor allem ein Abbild "
+                     "der Erfassungspraxis, nicht der Gewaltrate."))
     return figs
 
 
@@ -1166,9 +1180,14 @@ def main():
     # Diagramme als JSON (Lazy-Rendering)
     fig_json = {}
     fig_meta = []
-    for fid, titel, unter, f, quelle in figs:
+    for eintrag in figs:
+        # Ältere Diagramme liefern fünf Felder, neuere mit ausführlicher
+        # Einordnung sechs (id, Titel, Kurztext, Figur, Quelle, Langtext).
+        fid, titel, unter, f, quelle = eintrag[:5]
+        langtext = eintrag[5] if len(eintrag) > 5 else None
         fig_json[fid] = json.loads(pio.to_json(f))
-        fig_meta.append({"id": fid, "titel": titel, "unter": unter, "quelle": quelle})
+        fig_meta.append({"id": fid, "titel": titel, "unter": unter,
+                         "quelle": quelle, "langtext": langtext})
 
     karte = karte_html(laender, viewbox)
     html = baue_html(karte, daten, fig_json, fig_meta)
@@ -1741,7 +1760,9 @@ function kartenblock(ids, mitEinordnung){
     }
     return '<section class="card"><h3>' + m.titel + '</h3><p class="unter">' + m.unter
       + '</p><div class="chart" data-fig="' + id + '"></div>'
-      + eo + '<p class="quelle">Quelle: ' + m.quelle + '</p></section>';
+      + eo + '<p class="quelle">Quelle: ' + m.quelle + '</p>'
+      + (m.langtext ? '<p class="langtext">' + m.langtext + '</p>' : '')
+      + '</section>';
   }).join('');
 }
 
