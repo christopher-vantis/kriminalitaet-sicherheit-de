@@ -1252,6 +1252,11 @@ def main():
     i18n_element = ('<script id="i18n" type="application/json">'
                     + json.dumps(sprachtexte, ensure_ascii=False).replace("</", "<\\/")
                     + '</script>')
+    # Die App ist die Startseite: index.html. Eine frühere Fassung dieser Datei
+    # erzeugte eine Unterseite und ließ die Startseite von build_start.py
+    # aufbauen — diese Struktur ist aufgelöst.
+    # ACHTUNG: Wer hier wieder deutschland.html
+    # einträgt, überschreibt die Startseite bei jedem Lauf.
     ziel = ROOT / "dashboard" / "index.html"
     # Zweite Sprachfassung: Die Texte werden hier ersetzt, nicht im Browser.
     # Ein Umschalten per JavaScript scheiterte daran, dass dynamisch erzeugte
@@ -1284,6 +1289,11 @@ def main():
         # Diagrammtitel) und werden mit übersetzt — ihre Schlüssel sind
         # englisch und werden von der Tabelle nicht berührt.
         text = re.sub(r"<!--PLOTLY-->", merken, text)
+        # Leerzeichen vereinheitlichen: Im Quelltext sind Sätze über mehrere
+        # Zeilen und Einrückungen verteilt, wodurch die Ersetzung sie nicht
+        # findet. HTML behandelt mehrere Leerzeichen wie eines, die Ausgabe
+        # ändert sich also nicht — nur die Auffindbarkeit.
+        text = re.sub(r"\s+", " ", text)
         for dt in sorted(tabelle, key=len, reverse=True):
             if len(dt) > 2:
                 text = text.replace(dt, tabelle[dt])
