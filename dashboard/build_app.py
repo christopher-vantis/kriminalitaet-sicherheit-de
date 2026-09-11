@@ -506,7 +506,11 @@ def diagramm_alter_furcht():
             for (g, sex, herkunft), (treffer, n) in zellen.items():
                 if sex != geschlecht or herkunft != mh:
                     continue
-                punkte.append((g + 5, 100 * treffer / n, n))
+                # Leichter Versatz: ohne ihn liegen "mit MH" und "ohne MH"
+                # bei gleichem Alter genau übereinander und der hintere Punkt
+                # ist nur als Sichel zu sehen.
+                versatz = -3.0 if mh == "1" else 3.0
+                punkte.append((g + 5 + versatz, 100 * treffer / n, n))
             if not punkte:
                 continue
             punkte.sort()
@@ -548,7 +552,7 @@ def diagramm_alter_furcht():
                     showlegend=False, hoverinfo="skip",
                 ))
 
-    f.update_xaxes(title="Alter in Jahren", dtick=10, range=[10, 92],
+    f.update_xaxes(title="Alter in Jahren", dtick=10, range=[2, 98],
                    automargin=True)
     f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
                    rangemode="tozero", range=[0, 62], automargin=True)
@@ -1306,6 +1310,10 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .card h3{margin:0 0 6px;font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--ink);
  letter-spacing:-.018em;font-weight:600}
 .card .unter{margin:0 0 16px;font-size:.9rem;color:var(--muted);max-width:78ch;line-height:1.55}
+.html-legende{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 4px;
+ font-size:.83rem;color:var(--text)}
+.html-legende span{display:inline-flex;align-items:center;gap:7px}
+.html-legende i{width:13px;height:13px;border-radius:3px;display:block;flex:0 0 auto}
 .chart{overflow:hidden;min-height:200px}
 .quelle{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
  font-size:.78rem;color:var(--muted);line-height:1.5}
@@ -1538,20 +1546,39 @@ function diagrammeAnpassen(){
   document.querySelectorAll('.js-plotly-plot').forEach(el => {
     if (!el || !el.layout) return;
     try {
+      // Marker auf schmalen Fenstern verkleinern; sonst stoßen die beiden
+      // Herkunftsgruppen trotz seitlichem Versatz aneinander.
+      if (el.data) {
+        el.data.forEach(t => { if (t.marker && t.mode && t.mode.indexOf('markers') >= 0) {
+          Plotly.restyle(el, {'marker.size': schmal ? 19 : 27}, [el.data.indexOf(t)]);
+          if (t.textfont) Plotly.restyle(el, {'textfont.size': schmal ? 14 : 19},
+                                          [el.data.indexOf(t)]);
+        }});
+      }
       // Auf schmalen Fenstern die Legende unter das Diagramm: Sie bricht
       // waagerecht nicht um und lief sonst über den Rand hinaus.
+      // Legende auf schmalen Fenstern aus dem Diagramm herausnehmen: Als
+      // Plotly-Legende überdeckt sie dort Achsentitel und Punkte, weil sie
+      // weder umbricht noch in die Randberechnung eingeht.
       Plotly.relayout(el, {
+        'showlegend': !schmal,
         'font.size': schmal ? 15 : 12.5,
+        // Marker sind im Layout fest gesetzt; auf schmalen Fenstern brauchen
+        // sie weniger Durchmesser, sonst stoßen die beiden Herkunftsgruppen
+        // trotz Versatz aneinander.
         'xaxis.tickfont.size': schmal ? 14 : 12,
         'yaxis.tickfont.size': schmal ? 14 : 12,
         'legend.font.size': schmal ? 14 : 14,
         'legend.orientation': schmal ? 'v' : 'h',
         'legend.x': 0,
-        'legend.y': schmal ? -0.32 : 1.05,
+        'legend.y': schmal ? -0.42 : 1.05,
         'legend.yanchor': schmal ? 'top' : 'bottom',
-        'margin.l': schmal ? 8 : 10,
-        'margin.r': schmal ? 8 : 20,
-        'margin.b': schmal ? 130 : 50,
+        // Links und rechts genug Platz für die Achsentitel: Bei 8 Pixeln
+        // wurde „Anteil mit Unsicherheitsgefühl" abgeschnitten und der
+        // äußerste x-Wert nur halb beschriftet.
+        'margin.l': schmal ? 52 : 10,
+        'margin.r': schmal ? 26 : 20,
+        'margin.b': schmal ? 64 : 50,
         'margin.t': schmal ? 66 : 54,
       });
     } catch (e) { /* Diagramm noch nicht fertig gezeichnet */ }
@@ -1559,8 +1586,36 @@ function diagrammeAnpassen(){
 }
 window.addEventListener('resize', () => {
   clearTimeout(anpassungsTimer);
-  anpassungsTimer = setTimeout(diagrammeAnpassen, 220);
+  anpassungsTimer = setTimeout(() => {
+    diagrammeAnpassen();
+    // Legende mitziehen: Beim Drehen des Geräts wechselt sie zwischen
+    // Diagramm und eigener Zeile.
+    document.querySelectorAll('.js-plotly-plot').forEach((el, i) => {
+      const figur = FIG && FIG[el.dataset.fig] ? FIG[el.dataset.fig] : null;
+      if (figur) htmlLegende(el, figur);
+    });
+  }, 240);
 });
+
+// Ersatzlegende unter dem Diagramm für schmale Fenster.
+function htmlLegende(el, f){
+  const alt = el.parentNode.querySelector('.html-legende');
+  if (alt) alt.remove();
+  if (window.innerWidth >= 720) return;
+  const eintraege = (f.data || []).filter(t => t.showlegend !== false && t.name);
+  if (!eintraege.length) return;
+  const box = document.createElement('div');
+  box.className = 'html-legende';
+  // Das Geschlechtszeichen gehört in die Legende: Frauen und Männer teilen
+  // sich die Farben, unterscheidbar sind sie nur über das Symbol.
+  box.innerHTML = eintraege.map(t => {
+    const farbe = (t.marker && t.marker.color) || (t.line && t.line.color) || '#3f3a35';
+    const symbol = (t.text && t.text.length) ? t.text[0] : '';
+    return '<span><i style="background:' + farbe + '"></i>'
+      + (symbol ? '<b>' + symbol + '</b> ' : '') + t.name + '</span>';
+  }).join('');
+  el.parentNode.insertBefore(box, el.nextSibling);
+}
 
 function zeichne(el){
   if (el.dataset.state) return;
@@ -1574,6 +1629,7 @@ function zeichne(el){
   Plotly.newPlot(el, f.data, lay, KONF).then(() => {
     el.dataset.state = 'fertig';
     diagrammeAnpassen();
+    htmlLegende(el, f);
   })
     .catch(() => { delete el.dataset.state; });
 }
