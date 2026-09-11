@@ -1408,13 +1408,6 @@ def main():
                       flags=re.S | re.I)
         return text
 
-    if sprachtexte.get("en"):
-        html_en = uebersetze(html, sprachtexte["en"])
-        ziel_en = ROOT / "dashboard" / "index-en.html"
-        ziel_en.write_text(html_en.replace("<!--I18N-->", "")
-                           .replace("<!--PLOTLY-->", "<script>" + get_plotlyjs() + "</script>"),
-                           encoding="utf-8")
-        print(f"index-en.html: {ziel_en.stat().st_size/1e6:.2f} MB")
     ziel.write_text(html.replace("<!--PLOTLY-->", "<script>" + get_plotlyjs() + "</script>")
                     .replace("<!--I18N-->", i18n_element), encoding="utf-8")
     print(f"deutschland.html: {ziel.stat().st_size/1e6:.2f} MB")
