@@ -1314,7 +1314,9 @@ def main():
     # aufbauen — diese Struktur ist aufgelöst.
     # ACHTUNG: Wer hier wieder deutschland.html
     # einträgt, überschreibt die Startseite bei jedem Lauf.
-    ziel = ROOT / "dashboard" / "index.html"
+    # Die Deutschland-Fassung ist eine Unterseite. Die Startseite (index.html)
+    # erzeugt build_start.py; sie darf hier nicht überschrieben werden.
+    ziel = ROOT / "dashboard" / "deutschland.html"
     # Zweite Sprachfassung: Die Texte werden hier ersetzt, nicht im Browser.
     # Ein Umschalten per JavaScript scheiterte daran, dass dynamisch erzeugte
     # Ansichten danach neu gerendert wurden; zwei fertige Fassungen sind
@@ -1396,7 +1398,7 @@ def main():
         print(f"index-en.html: {ziel_en.stat().st_size/1e6:.2f} MB")
     ziel.write_text(html.replace("<!--PLOTLY-->", "<script>" + get_plotlyjs() + "</script>")
                     .replace("<!--I18N-->", i18n_element), encoding="utf-8")
-    print(f"index.html: {ziel.stat().st_size/1e6:.2f} MB")
+    print(f"deutschland.html: {ziel.stat().st_size/1e6:.2f} MB")
     return laender, basis
 
 
@@ -1446,6 +1448,10 @@ def baue_html(karte, daten, fig_json, fig_meta):
         <p>Registrierte Kriminalität, Strafverfolgung und das Sicherheitsgefühl der
         Bevölkerung — für die Republik und für jedes Bundesland.</p>
       </div>
+      <nav class="kopf-nav">
+        <a href="index.html">Startseite</a>
+        <a href="schweiz.html">Schweiz</a>
+      </nav>
     </div>
   </header>
 
@@ -1521,6 +1527,14 @@ body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:
  padding:5px 11px;cursor:pointer;transition:background .15s}
 .sprachwahl a:hover{background:rgba(255,255,255,.14)}
 .sprachwahl a.aktiv{background:rgba(255,255,255,.9);color:#16403b}
+/* Quernavigation im Kopfbereich: eigene Zeile unter dem Titelblock, damit sie
+   den Sprachumschalter oben rechts nicht berührt und auf schmalen Fenstern
+   nicht mit dem Titel zusammenstösst. */
+.kopf-nav{flex:1 0 100%;display:flex;gap:16px;justify-content:flex-end;
+ font-size:.8rem;margin-top:-6px}
+.kopf-nav a{color:#b8b2ab;text-decoration:none;white-space:nowrap;
+ transition:color .15s ease}
+.kopf-nav a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .kopf-titel{min-width:260px;flex:1 1 340px}
 .kopf h1{margin:0;font-size:clamp(1.22rem,2.2vw,1.58rem);line-height:1.2;letter-spacing:-.022em}
 .kopf p{margin:3px 0 0;font-size:.82rem;color:#b8b2ab;max-width:72ch}

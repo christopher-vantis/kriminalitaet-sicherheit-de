@@ -43,6 +43,14 @@ body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:
  padding:5px 11px;cursor:pointer;transition:background .15s}
 .sprachwahl a:hover{background:rgba(255,255,255,.14)}
 .sprachwahl a.aktiv{background:rgba(255,255,255,.9);color:#16403b}
+/* Quernavigation im Kopfbereich: eigene Zeile unter dem Titelblock, damit sie
+   den Sprachumschalter oben rechts nicht berührt und auf schmalen Fenstern
+   nicht mit dem Titel zusammenstösst. */
+.kopf-nav{flex:1 0 100%;display:flex;gap:16px;justify-content:flex-end;
+ font-size:.8rem;margin-top:-6px}
+.kopf-nav a{color:#b8b2ab;text-decoration:none;white-space:nowrap;
+ transition:color .15s ease}
+.kopf-nav a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .kopf-titel{min-width:260px;flex:1 1 340px}
 .kopf h1{margin:0;font-size:clamp(1.22rem,2.2vw,1.58rem);line-height:1.2;letter-spacing:-.022em}
 .kopf p{margin:3px 0 0;font-size:.82rem;color:#b8b2ab;max-width:72ch}
