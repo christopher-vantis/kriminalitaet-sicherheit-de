@@ -509,14 +509,23 @@ def diagramme(kantone, basis, zr, fd):
 
     # 8) Deutschland und Schweiz im gleichen Instrument
     de_ess = lies(D / "ess_aggregate.csv") if (D / "ess_aggregate.csv").exists() else []
+    # Nur die Kennzahl "unsicher": Die Aggregatdatei enthält je Jahr auch
+    # "unsicher_hoch" und "viktim". Ohne diesen Filter lägen drei Wertepaare
+    # pro Jahr übereinander und die Linie zackte scheinbar zwischen ihnen.
+    # Die deutsche Aggregatdatei führt unter ebene="zeitreihe" drei Gruppen
+    # (gesamt, viktimisiert, nicht viktimisiert). Gebraucht wird "gesamt".
+    reihe_de = [r for r in de_ess
+                if r["ebene"] == "zeitreihe" and r["gruppe"] == "gesamt"
+                and r["kennzahl"] == "unsicher"]
     f = fig(400)
     for name, reihe2, farbe in (("Schweiz", reihe, TEAL_H1),
-                                ("Deutschland", [r for r in de_ess
-                                                 if r["ebene"] == "zeitreihe"], NEUTRAL)):
-        jj = sorted(int(float(r["jahr"])) for r in reihe2 if z(r["anteil"]) is not None)
-        ww = [z(r["anteil"]) for r in sorted(
-            [r for r in reihe2 if z(r["anteil"]) is not None],
-            key=lambda r: float(r["jahr"]))]
+                                ("Deutschland", reihe_de, NEUTRAL)):
+        sortiert = sorted([r for r in reihe2 if z(r.get("anteil")) is not None],
+                          key=lambda r: float(r["jahr"]))
+        jj = [int(float(r["jahr"])) for r in sortiert]
+        ww = [z(r["anteil"]) for r in sortiert]
+        if not jj:
+            continue
         f.add_trace(go.Scatter(
             x=jj, y=ww, mode="lines+markers", name=name,
             line=dict(color=farbe, width=2.6), marker=dict(size=7, color=farbe),

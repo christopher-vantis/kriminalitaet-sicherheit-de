@@ -1,13 +1,21 @@
-# Kriminalität und Sicherheit in Deutschland
+# Kriminalität und Sicherheit in Deutschland und der Schweiz
 
 Eine Web-App zur Frage, wie registrierte Kriminalität, Strafverfolgung und das
-Sicherheitsgefühl der Bevölkerung in Deutschland zusammenhängen — für die
-Republik insgesamt und für jedes Bundesland.
+Sicherheitsgefühl der Bevölkerung zusammenhängen — für Deutschland und die
+Schweiz, jeweils insgesamt und für jede Region.
 
 **Zur App:** <https://kriminalitaet-sicherheit-de.onrender.com>
 
-Das Repository enthält **eine** Seite. Sie öffnet direkt mit der Deutschlandkarte;
-alles Weitere liegt in Reitern darunter. Es gibt keine Unterseiten.
+Das Repository enthält **drei** Seiten:
+
+| Datei | Inhalt |
+|---|---|
+| `index.html` | Startseite: Titel, kurze Beschreibung, zwei anklickbare Karten (Deutschland links, Schweiz rechts) |
+| `deutschland.html` | Deutschland-Fassung — Karte als Einstieg, alles Weitere in Reitern darunter |
+| `schweiz.html` | Schweizer Fassung — Karte der 26 Kantone als Einstieg, gleicher Aufbau |
+
+Die Startseite ist bewusst leicht (rund 190 KB, kein JavaScript, keine
+Diagramm-Bibliothek): Sie ist eine Tür, keine Auswertung.
 
 ## Was die App zeigt
 
@@ -26,18 +34,35 @@ alles Weitere liegt in Reitern darunter. Es gibt keine Unterseiten.
 
 ## Der inhaltliche Kern
 
-Registrierte Kriminalität und Furcht folgen einander **nicht**. Mecklenburg-Vorpommern
-hat die niedrigste Kriminalitätsbelastung und das höchste gemessene Unsicherheitsgefühl;
-Bayern hat beides niedrig. Über die Zeit ist der stärkste Einzelbefund das Geschlecht:
-Frauen fühlen sich deutlich häufiger unsicher, sind aber nicht häufiger betroffen.
+Registrierte Kriminalität und Furcht folgen einander **nicht** — in keinem der
+beiden Länder.
+
+*Deutschland:* Mecklenburg-Vorpommern hat die niedrigste Kriminalitätsbelastung
+und das höchste gemessene Unsicherheitsgefühl; Bayern hat beides niedrig.
+
+*Schweiz:* Die Zentralschweiz fühlt sich am sichersten, die Nordwestschweiz am
+unsichersten — im Tessin ist die Betroffenheit am höchsten, die Furcht aber
+unterdurchschnittlich. Zwischen 2011 und 2015 fiel die registrierte
+Einbruchshäufigkeit um ein Viertel, während die Furcht vor einem Einbruch von
+25,4 auf 33,1 Prozent **stieg**.
+
+In beiden Ländern ist der stärkste Einzelbefund das Geschlecht: Frauen fühlen
+sich deutlich häufiger unsicher, ohne häufiger betroffen zu sein. Das Niveau
+unterscheidet sich allerdings stark — 2023 fühlen sich in Deutschland 25,0
+Prozent unsicher, in der Schweiz 8,9 Prozent, bei der gleichen Frage im gleichen
+Erhebungsprogramm.
+
 
 ## Datenquellen
 
 | Bereich | Quelle |
 |---|---|
-| Kriminalität | BKA, Polizeiliche Kriminalstatistik 2025 (Länder-Grundtabelle, T01-Zeitreihe) |
+| Kriminalität (CH) | Bundesamt für Statistik, Polizeiliche Kriminalstatistik (STAT-TAB, px-x-1903020100_101), 2009–2025; Wohnbevölkerung (px-x-0102020000_101) |
+| Furcht (CH) | European Social Survey Runden 1–11 (eigene Auswertung); Swiss Crime Survey 2022 (ZHAW/Uni St. Gallen, KKPKS); Schweizerische Sicherheitsbefragung 2015 |
+| Ländervergleich (CH/DE) | Eurostat crim_off_cat, harmonisierte ICCS-Gliederung |
+| Kriminalität (DE) | BKA, Polizeiliche Kriminalstatistik 2025 (Länder-Grundtabelle, T01-Zeitreihe) |
 | Strafverfolgung | Statistisches Bundesamt, Statistischer Bericht Strafverfolgung 2024 |
-| Furcht | European Social Survey, Runden 1–11 (eigene Auswertung) |
+| Furcht (DE) | European Social Survey, Runden 1–11 (eigene Auswertung) |
 | Bevölkerung, Migration | Statistisches Bundesamt / Statistikportal, Zensus 2022, Mikrozensus |
 | Wirtschaft | Arbeitskreis VGR der Länder, 2025 |
 | Arbeitsmarkt | Statistik der Bundesagentur für Arbeit, 2025 |
@@ -50,25 +75,45 @@ Rohdaten und Befragungsdaten liegen nicht in diesem Repository (siehe `.gitignor
 
 ```
 dashboard/
-  index.html      Die App — eine eigenständige Datei. Diagramm-Bibliothek und
-                  Schrift sind eingebettet, sie läuft also auch ohne Netz.
-  build_app.py    erzeugt index.html aus den Auswertungsdateien
-  fonts/          die eingebettete Schrift (IBM Plex Sans)
+  index.html        Startseite (aus build_start.py)
+  deutschland.html  Deutschland-Fassung (aus build_app.py)
+  schweiz.html      Schweizer Fassung (aus build_ch.py)
+  start.html        dieselbe Startseite, unter eigenem Namen
+  build_app.py      erzeugt deutschland.html aus den Auswertungsdateien
+  build_ch.py       erzeugt schweiz.html (nutzt CSS und Schrift von build_app.py)
+  build_start.py    verschiebt die Deutschland-Fassung und baut die Startseite
+  fonts/            die eingebettete Schrift (IBM Plex Sans)
 scripts/          Analyse-Skripte (Python und R), numerisch durchnummeriert
+                  (40–46 = Schweizer Datenpipeline)
 output/           Auswertungsergebnisse als CSV
 docs/             Datenquellen und Methodenhinweise
 ```
 
 ## Selbst bauen
 
+Die Reihenfolge ist wichtig, weil `build_start.py` die Deutschland-Fassung
+verschiebt:
+
 ```bash
 cd dashboard
-python3 build_app.py
+python3 build_app.py     # -> deutschland.html
+python3 build_ch.py      # -> schweiz.html
+python3 build_start.py   # -> index.html (Startseite)
+
+# Schweizer Daten neu erheben (vorher, aus dem Projektverzeichnis)
+python3 scripts/40_ch_pks_bfs.py
+python3 scripts/41_ch_bevoelkerung_bfs.py
+python3 scripts/42_ch_ess_extraktion.py
+python3 scripts/43_ch_geo_svg.py
+python3 scripts/44_ch_kennzahlen.py
+python3 scripts/45_ch_referenzwerte.py
+python3 scripts/46_ch_eurostat.py
 ```
 
-Erzeugt `index.html` (rund 5 MB). Voraussetzungen: Python 3 mit `plotly` und
-`numpy`; für die Analyse-Skripte zusätzlich `pandas`, `statsmodels`, `scipy`
-sowie R mit `lavaan`.
+Voraussetzungen: Python 3 mit `plotly` und `numpy`; für die Analyse-Skripte
+zusätzlich `pandas`, `statsmodels`, `scipy` sowie R mit `lavaan`. `build_ch.py`
+liest `build_app.py` als Modul, damit beide Länderfassungen dasselbe CSS und
+dieselbe Schrift verwenden.
 
 ## Deployment
 
