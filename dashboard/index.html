@@ -4341,7 +4341,7 @@ window.addEventListener('resize', () => {
     // Legende mitziehen: Beim Drehen des Geräts wechselt sie zwischen
     // Diagramm und eigener Zeile.
     document.querySelectorAll('.js-plotly-plot').forEach((el, i) => {
-      const figur = FIG && FIG[el.dataset.fig] ? FIG[el.dataset.fig] : null;
+      const figur = FIGS && FIGS[el.dataset.fig] ? FIGS[el.dataset.fig] : null;
       if (figur) htmlLegende(el, figur);
     });
   }, 240);
