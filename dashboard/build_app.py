@@ -516,10 +516,15 @@ def diagramm_alter_furcht():
             punkte.sort()
             # Kurze Legendenbeschriftung: Die ausgeschriebene Fassung ist
             # breiter als ein Handybildschirm und wird dort abgeschnitten.
-            kurz = "mit MH" if mh == "1" else "ohne MH"
+            # In der Legende nur die Farbbedeutung: Das Geschlecht zeigen die
+            # Symbole ♀/♂ in den Punkten selbst, es zweimal zu nennen wäre
+            # doppelt. Der Hovertext nennt weiterhin beides.
+            legendenname = ("mit Migrationshintergrund" if mh == "1"
+                            else "ohne Migrationshintergrund")
             f.add_trace(go.Scatter(
                 x=[p[0] for p in punkte], y=[p[1] for p in punkte],
-                mode="markers+text", name=f"{name_sex}, {kurz}",
+                mode="markers+text", name=legendenname,
+                showlegend=(geschlecht == "Frau"),
                 marker=dict(size=27, color=farbe, opacity=0.95,
                             line=dict(width=2, color="#ffffff")),
                 text=[symbol] * len(punkte), textposition="middle center",
@@ -547,7 +552,7 @@ def diagramm_alter_furcht():
                 glatt = glatt[::schritt]
                 f.add_trace(go.Scatter(
                     x=glatt[:, 0], y=glatt[:, 1] * 100,
-                    mode="lines", name=f"{name_sex}, {kurz}",
+                    mode="lines", name=legendenname,
                     line=dict(color=farbe, width=2.4), opacity=0.5,
                     showlegend=False, hoverinfo="skip",
                 ))
@@ -1689,9 +1694,7 @@ function htmlLegende(el, f){
   // sich die Farben, unterscheidbar sind sie nur über das Symbol.
   box.innerHTML = eintraege.map(t => {
     const farbe = (t.marker && t.marker.color) || (t.line && t.line.color) || '#3f3a35';
-    const symbol = (t.text && t.text.length) ? t.text[0] : '';
-    return '<span><i style="background:' + farbe + '"></i>'
-      + (symbol ? '<b>' + symbol + '</b> ' : '') + t.name + '</span>';
+    return '<span><i style="background:' + farbe + '"></i>' + t.name + '</span>';
   }).join('');
   el.parentNode.insertBefore(box, el.nextSibling);
 }
