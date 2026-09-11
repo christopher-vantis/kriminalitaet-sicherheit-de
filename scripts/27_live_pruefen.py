@@ -12,7 +12,10 @@ def hole(url, name):
     r = subprocess.run(
         ["chromium", "--headless=new", "--disable-gpu", "--no-sandbox",
          "--virtual-time-budget=25000", "--dump-dom", url],
-        capture_output=True, text=True, timeout=180)
+        capture_output=True, text=True, timeout=180,
+        # Ohne feste Kodierung kommen Umlaute je nach Locale falsch an und
+        # Textprüfungen schlagen fehl, obwohl die Seite stimmt.
+        encoding="utf-8", errors="replace")
     (T / name).write_text(r.stdout, encoding="utf-8")
     return r.stdout
 
