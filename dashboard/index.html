@@ -3977,6 +3977,8 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .mk-g{pointer-events:all}
 .lbl text{font-size:23px;font-weight:600;fill:#12100e;pointer-events:none}
 .legende{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.legende .kenn-hinweis{flex-basis:100%;margin-top:9px;padding-top:9px;
+ border-top:1px solid var(--line);color:var(--text);font-size:.83rem;line-height:1.5}
 .legende .stufen{display:flex;gap:3px}
 .legende .stufen i{width:26px;height:11px;border-radius:3px;display:block}
 .rank-gruppe{margin-bottom:12px}
@@ -4150,23 +4152,56 @@ const nf = (v, d = 0) => (v === null || v === undefined || isNaN(v)) ? '—'
 const pct = (v, d = 1) => (v === null || v === undefined) ? '—' : nf(v, d) + ' %';
 
 /* ---------- Karte einfärben ---------- */
+// Jede Kennzahl mit einer Einordnung: was der Wert bedeutet, worauf er sich
+// bezieht und woher er stammt. Ohne diese Angabe ist eine farbige Karte nicht
+// lesbar — dieselbe Zahl bedeutet je nach Bezugsgröße etwas anderes.
 const KENNZAHLEN = {
   hz:      {label:'Kriminalitätsbelastung', kurz:'Belastung', einheit:0,
-            wert:l => ((l.kriminalitaet['Straftaten insgesamt']||{}).hz)},
+            wert:l => ((l.kriminalitaet['Straftaten insgesamt']||{}).hz),
+            hinweis:'Registrierte Straftaten je 100.000 Einwohner im Jahr 2025. '
+              + 'Die Umrechnung auf die Einwohnerzahl macht Länder '
+              + 'unterschiedlicher Größe vergleichbar. Gezählt wird, was der '
+              + 'Polizei bekannt geworden ist — nicht, was tatsächlich passiert ist.'},
   furcht:  {label:'Unsicherheitsgefühl', kurz:'Furcht', einheit:1,
-            wert:l => l.furcht.unsicher},
+            wert:l => l.furcht.unsicher,
+            hinweis:'Anteil der Befragten, die sich nachts im eigenen Wohngebiet '
+              + 'unsicher fühlen. Aus dem European Social Survey (Runden 1–11, '
+              + '2002–2023, Deutschland, gewichtet). Je Bundesland 121 bis 3.332 '
+              + 'Befragte; Länder mit weniger als 300 sind in der Karte grau.'},
   aq:      {label:'Aufklärungsquote', kurz:'Aufklärung', einheit:1,
-            wert:l => ((l.kriminalitaet['Straftaten insgesamt']||{}).aq)},
+            wert:l => ((l.kriminalitaet['Straftaten insgesamt']||{}).aq),
+            hinweis:'Anteil der registrierten Fälle, die die Polizei als '
+              + 'aufgeklärt meldet (2025). Eine hohe Quote heißt nicht wenig '
+              + 'Kriminalität: Sie kann auch bedeuten, dass mehr Fälle angezeigt '
+              + 'werden, die leicht aufzuklären sind.'},
   bip:     {label:'BIP je Einwohner', kurz:'Wirtschaftskraft', einheit:0,
-            wert:l => l.bip_je_ew},
+            wert:l => l.bip_je_ew,
+            hinweis:'Bruttoinlandsprodukt je Einwohner in Euro (2024), '
+              + 'Arbeitskreis Volkswirtschaftliche Gesamtrechnungen der Länder. '
+              + 'Ein Maß für die Wirtschaftsleistung, nicht für das Einkommen '
+              + 'der Haushalte.'},
   alq:     {label:'Arbeitslosenquote', kurz:'Arbeitslosigkeit', einheit:1,
-            wert:l => l.alq},
+            wert:l => l.alq,
+            hinweis:'Anteil der registrierten Arbeitslosen an allen '
+              + 'Erwerbspersonen (2025), Statistik der Bundesagentur für Arbeit. '
+              + 'Bezogen auf alle zivilen Erwerbspersonen.'},
   mh:      {label:'Migrationshintergrund', kurz:'Migrationsanteil',
-            einheit:1, wert:l => l.mh_anteil},
+            einheit:1, wert:l => l.mh_anteil,
+            hinweis:'Anteil der Bevölkerung mit Migrationshintergrund '
+              + '(Mikrozensus). Schließt eingebürgerte Deutsche, Spätaussiedler '
+              + 'und ihre Nachkommen ein — deshalb höher als der '
+              + 'Ausländeranteil.'},
   ausland: {label:'Ausländeranteil', kurz:'Ausländeranteil', einheit:1,
-            wert:l => l.auslaenderanteil},
+            wert:l => l.auslaenderanteil,
+            hinweis:'Anteil der Personen ohne deutsche Staatsangehörigkeit '
+              + '(Zensus 2022). Nur die Staatsangehörigkeit, nicht die Herkunft. '
+              + 'Liegt deutlich unter dem Migrationsanteil.'},
   dichte:  {label:'Bevölkerungsdichte', kurz:'Dichte', einheit:0,
-            wert:l => l.dichte},
+            wert:l => l.dichte,
+            hinweis:'Einwohner je Quadratkilometer, berechnet aus '
+              + 'Bevölkerungszahl und Fläche (2025). Ein Maß für die '
+              + 'Besiedlung — Stadtstaaten liegen um ein Vielfaches höher als '
+              + 'Flächenländer.'},
 };
 const // Fünf Stufen, alle hell genug für schwarze Schrift ohne Rand.
 // Die dunkelste Stufe hat gegen Schwarz noch 5,1:1 Kontrast.
@@ -4207,7 +4242,9 @@ function karteFaerben(kennzahl){
     leg.innerHTML = '<span>niedrig ' + nf(lo, k.einheit) + '</span><span class="stufen">'
       + STUFEN.map(c => '<i style="background:' + c + '"></i>').join('')
       + '</span><span>hoch ' + nf(hi, k.einheit) + '</span>'
-      + '<span style="margin-left:6px">(' + k.kurz + ', Stufen nach Rang)</span>';
+      + '<span style="margin-left:6px">(' + k.kurz + ', Stufen nach Rang)</span>'
+      // Einordnung der Kennzahl: was der Wert bedeutet und woher er stammt.
+      + (k.hinweis ? '<span class="kenn-hinweis">' + k.hinweis + '</span>' : '');
   }
 }
 
