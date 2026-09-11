@@ -27,6 +27,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.offline import get_plotlyjs
+from plotly.subplots import make_subplots
 
 import build_app as DE          # CSS, Schrift, gemeinsames Layout
 
@@ -223,30 +224,47 @@ def _fmt(v, nachkomma=0, einheit=""):
     return f"{v:,.{nachkomma}f}".replace(",", "'") + einheit
 
 
-def werte_senkrecht(f, x, y, einheit="", nachkomma=0, farbe=None, oben=True):
-    """Schreibt die Werte über die senkrechten Balken."""
-    f.add_trace(go.Scatter(
-        x=list(x), y=list(y), mode="text",
-        text=[_fmt(v, nachkomma, einheit) for v in y],
-        textposition="top center" if oben else "bottom center",
-        textfont=dict(size=11.5, color=farbe or INK, family=FONT),
-        showlegend=False, hoverinfo="skip"))
+def balken(f, kategorien, werte, farben, waagerecht=False, einheit="",
+           nachkomma=0, name=None, textposition="outside", hover=None,
+           mit_werten=True, textfont_size=11.5, **kw):
+    """Zeichnet Balken mit den Werten direkt am Balken.
 
-
-def werte_waagerecht(f, x, y, einheit="", nachkomma=0, farbe=None):
-    """Schreibt die Werte rechts neben die waagerechten Balken.
+    Die Werte stehen als Text AUF der Balkenspur, nicht als eigene Datenreihe.
+    Vorher lagen sie in einer zweiten Spur; die tauchte ohne eigenen Namen als
+    "trace 0" in der Legende auf und war für die Leserinnen und Leser sinnlos.
 
     Args:
         f: Figur.
-        x: die Zahlen (bestimmen die Balkenlänge).
-        y: die Kategorien.
+        kategorien: Beschriftung je Balken (bei waagerechten Balken die y-Achse).
+        werte: die Zahlen.
+        farben: eine Farbe oder eine Liste je Balken.
+        waagerecht: waagerechte Balken.
+        einheit: Suffix am Wert, etwa " %".
+        nachkomma: Nachkommastellen des Werts.
+        name: Name für die Legende. None lässt die Spur aus der Legende heraus.
+        textposition: Position der Werte am Balken.
+        hover: eigener Hinweistext, sonst ein Standard.
+        mit_werten: False blendet die Zahlen am Balken aus.
+
+    Returns:
+        None
     """
-    f.add_trace(go.Scatter(
-        x=list(x), y=list(y), mode="text",
-        text=[_fmt(v, nachkomma, einheit) for v in x],
-        textposition="middle right",
-        textfont=dict(size=11.5, color=farbe or INK, family=FONT),
-        showlegend=False, hoverinfo="skip"))
+    texte = [_fmt(v, nachkomma, einheit) for v in werte] if mit_werten else None
+    gemeinsam = dict(
+        marker_color=farben, name=name, text=texte, textposition=textposition,
+        cliponaxis=False,
+        textfont=dict(size=textfont_size, color=INK, family=FONT),
+        showlegend=name is not None)
+    if waagerecht:
+        f.add_trace(go.Bar(
+            x=list(werte), y=list(kategorien), orientation="h",
+            hovertemplate=hover or ("%{y}: %{x:,.0f}<extra></extra>"),
+            **gemeinsam, **kw))
+    else:
+        f.add_trace(go.Bar(
+            x=list(kategorien), y=list(werte),
+            hovertemplate=hover or ("%{x}: %{y:,.0f}<extra></extra>"),
+            **gemeinsam, **kw))
 
 
 def diagramme(kantone, basis, zr, fd):
@@ -263,6 +281,7 @@ def diagramme(kantone, basis, zr, fd):
     """
     figs = []
     ess, ref, eu = fd["ess"], fd["ref"], fd["eu"]
+    FARBEN = [TEAL_H1, UEBER, "#6d28d9", TEAL_H2, NEUTRAL, "#8b8378"]
 
     def ref_werte(dimension, jahr=None, merkmal=None, auspraegung=None):
         out = []
@@ -278,20 +297,28 @@ def diagramme(kantone, basis, zr, fd):
             out.append(r)
         return out
 
+    def kantonale_reihe(schluessel):
+        """Häufigkeitszahl aller Kantone für ein Delikt (aktuelles Jahr)."""
+        werte = []
+        for k in kantone.values():
+            d = k["delikte"].get(schluessel)
+            if d and d.get("hz"):
+                werte.append(d["hz"])
+        return sorted(werte)
+
     # ------------------------------------------------ Kriminalität
     # 1) Häufigkeitszahl je Kanton
     daten = sorted(((k["hz"], k["name"], k["kuerzel"]) for k in kantone.values()),
                    key=lambda t: t[0])
-    f = fig(760)
-    f.add_trace(go.Bar(
-        x=[d[0] for d in daten], y=[f"{d[1]} ({d[2]})" for d in daten],
-        orientation="h",
-        marker_color=[UEBER if d[0] > basis["hz"] else UNTER for d in daten],
-        hovertemplate="%{y}: %{x:,.0f} Fälle je 100.000<extra></extra>"))
-    werte_waagerecht(f, [d[0] for d in daten],
-                     [f"{d[1]} ({d[2]})" for d in daten])
-    f.update_xaxes(title="Fälle je 100.000 Einwohner", range=[0, max(d[0] for d in daten) * 1.16])
-    f.update_yaxes(automargin=True, tickfont=dict(size=11.5), ticks="outside", ticklen=6)
+    f = fig(780)
+    balken(f, [f"{d[1]} ({d[2]})" for d in daten], [d[0] for d in daten],
+           [UEBER if d[0] > basis["hz"] else UNTER for d in daten],
+           waagerecht=True, textposition="outside",
+           hover="%{y}: %{x:,.0f} Fälle je 100.000<extra></extra>")
+    f.update_xaxes(title="Fälle je 100.000 Einwohner",
+                   range=[0, max(d[0] for d in daten) * 1.14])
+    f.update_yaxes(automargin=True, tickfont=dict(size=11.5),
+                   ticks="outside", ticklen=6)
     figs.append((
         "ch_hz", "Kriminalitätsbelastung je Kanton",
         f"Registrierte Straftaten nach Strafgesetzbuch je 100.000 Einwohner, {basis['jahr']}. "
@@ -312,20 +339,20 @@ def diagramme(kantone, basis, zr, fd):
     # 2) Aufklärungsquote je Kanton
     daten = sorted(((k["aq"], k["name"], k["kuerzel"]) for k in kantone.values()),
                    key=lambda t: t[0])
-    f = fig(760)
-    f.add_trace(go.Bar(
-        x=[d[0] for d in daten], y=[f"{d[1]} ({d[2]})" for d in daten],
-        orientation="h",
-        marker_color=[UNTER if d[0] >= basis["aq"] else NEUTRAL for d in daten],
-        hovertemplate="%{y}: %{x:.1f} %<extra></extra>"))
-    werte_waagerecht(f, [d[0] for d in daten],
-                     [f"{d[1]} ({d[2]})" for d in daten], einheit=" %", nachkomma=1)
-    f.update_xaxes(title="aufgeklärte Fälle in Prozent", range=[0, 62])
-    f.update_yaxes(automargin=True, tickfont=dict(size=11.5), ticks="outside", ticklen=6)
+    f = fig(780)
+    balken(f, [f"{d[1]} ({d[2]})" for d in daten], [d[0] for d in daten],
+           [UNTER if d[0] >= basis["aq"] else NEUTRAL for d in daten],
+           waagerecht=True, einheit=" %", nachkomma=1, textposition="outside",
+           hover="%{y}: %{x:.1f} %<extra></extra>")
+    f.update_xaxes(title="aufgeklärte Fälle in Prozent",
+                   range=[0, max(d[0] for d in daten) * 1.14])
+    f.update_yaxes(automargin=True, tickfont=dict(size=11.5),
+                   ticks="outside", ticklen=6)
     figs.append((
         "ch_aq", "Aufklärungsquote je Kanton",
         f"Anteil der registrierten Fälle, den die Polizei als aufgeklärt meldet, "
-        f"{basis['jahr']}. Schweizer Mittel: {_fmt(basis['aq'], 1, ' %')}.",
+        f"{basis['jahr']}. Schweizer Mittel: {_fmt(basis['aq'], 1, ' %')}. Petrol steht "
+        "für Kantone über dem Mittel, Grau für Kantone darunter.",
         f, "BFS, Polizeiliche Kriminalstatistik (STAT-TAB), eigene Berechnung",
         "Einordnung: Die Quoten streuen zwischen rund 20 und 55 Prozent. Eine hohe "
         "Quote bedeutet nicht wenig Kriminalität — sie kann auch heissen, dass viele "
@@ -337,7 +364,7 @@ def diagramme(kantone, basis, zr, fd):
 
     # 3) Zeitreihe: Entwicklung nach Deliktsgruppen, indexiert
     jahre = [int(r["jahr"]) for r in zr]
-    start = jahre[0]
+    start_jahr = jahre[0]
     reihen = [
         ("hz_stgb", "Straftaten insgesamt", TEAL_H1),
         ("hz_diebstahl", "Diebstahl", TEAL_H2),
@@ -345,30 +372,34 @@ def diagramme(kantone, basis, zr, fd):
         ("hz_leib_leben", "Leib und Leben", "#6d28d9"),
         ("hz_cyberbetrug", "Betrug mit Datenanlagen", NEUTRAL),
     ]
-    f = fig(430)
+    f = fig(440)
     for feld, name, farbe in reihen:
         werte = [z(r[feld]) for r in zr]
         basiswert = werte[0]
         f.add_trace(go.Scatter(
             x=jahre, y=[None if v is None else 100 * v / basiswert for v in werte],
             mode="lines+markers", name=name,
-            line=dict(color=farbe, width=2.4), marker=dict(size=7, color=farbe),
+            line=dict(color=farbe, width=2.4),
+            marker=dict(size=7, color=farbe, line=dict(color="#ffffff", width=1)),
             hovertemplate=name + " %{x}: Index %{y:.0f}<extra></extra>"))
-    f.update_yaxes(title=f"Index ({start} = 100)", ticksuffix="")
-    f.update_xaxes(title="Jahr", dtick=2)
+    f.update_yaxes(title=f"Index ({start_jahr} = 100)")
+    f.update_xaxes(title="Jahr", dtick=2,
+                   range=[start_jahr - 0.6, jahre[-1] + 0.6])
     figs.append((
         "ch_gruppen_zr", "Was die Gesamtzahl verdeckt",
-        f"Registrierte Fälle je Deliktsgruppe, {start} = 100. Die Summe bewegt sich "
+        f"Registrierte Fälle je Deliktsgruppe, {start_jahr} = 100. Die Summe bewegt sich "
         "kaum, die Teile laufen in verschiedene Richtungen.",
         f, "BFS, Polizeiliche Kriminalstatistik (STAT-TAB), eigene Berechnung",
         "Einordnung: Die Gesamtzahl der registrierten Straftaten liegt 2025 nur "
         "9 Prozent über dem Stand von 2009 — dazwischen lag ein Rückgang um mehr "
         "als ein Drittel und ein Wiederanstieg. Einbruchdiebstahl hat sich in "
-        "diesem Zeitraum fast halbiert. Aussagen über «die Kriminalität» ohne "
-        "Nennung der Deliktsgruppe sind deshalb nicht interpretierbar."))
+        "diesem Zeitraum fast halbiert. Der steilste Anstieg steht beim Betrug mit "
+        "Datenanlagen; er beginnt auf sehr tiefem Niveau, weshalb der Index dort "
+        "am stärksten ausschlägt. Aussagen über «die Kriminalität» ohne Nennung "
+        "der Deliktsgruppe sind deshalb nicht interpretierbar."))
 
     # 4) Häufigkeitszahl und Aufklärungsquote der Schweiz
-    f = fig(400)
+    f = fig(410)
     f.add_trace(go.Scatter(
         x=jahre, y=[z(r["hz_stgb"]) for r in zr], mode="lines+markers",
         name="Häufigkeitszahl", line=dict(color=TEAL_H1, width=2.6),
@@ -380,14 +411,17 @@ def diagramme(kantone, basis, zr, fd):
         marker=dict(size=7, color=UEBER), yaxis="y2",
         hovertemplate="%{x}: %{y:.1f} % aufgeklärt<extra></extra>"))
     f.update_layout(
-        yaxis=dict(title="Fälle je 100.000 Einwohner", gridcolor=GRID),
+        yaxis=dict(title="Fälle je 100.000 Einwohner", gridcolor=GRID,
+                   range=[4200, 8600]),
         yaxis2=dict(title="Aufklärungsquote", overlaying="y", side="right",
-                    tickformat=".0f", ticksuffix=" %", showgrid=False))
+                    tickformat=".0f", ticksuffix=" %", showgrid=False,
+                    range=[22, 47]))
     f.update_xaxes(title="Jahr", dtick=2)
     figs.append((
         "ch_zeitreihe", "Registrierte Straftaten und Aufklärung in der Schweiz",
         "Häufigkeitszahl und Aufklärungsquote nach Strafgesetzbuch, "
-        f"{start} bis {jahre[-1]}. Zwei verschiedene Masse auf zwei Achsen.",
+        f"{start_jahr} bis {jahre[-1]}. Zwei verschiedene Masse auf zwei Achsen — "
+        "die Höhen sind nur innerhalb einer Achse vergleichbar.",
         f, "BFS, Polizeiliche Kriminalstatistik (STAT-TAB), eigene Berechnung",
         "Einordnung: Die Belastung stieg bis 2012, fiel dann acht Jahre lang und "
         "steigt seit 2021 wieder. Die Aufklärungsquote stieg über denselben "
@@ -397,69 +431,100 @@ def diagramme(kantone, basis, zr, fd):
         "weil die BFS-Polizeistatistik erst dann gesamtschweizerisch "
         "vereinheitlicht wurde. Davor sind die Kantonsdaten nicht vergleichbar."))
 
-    # 5) Streuung der Kantone nach Delikt
-    felder = [("hz_diebstahl", "Diebstahl"), ("hz_einbruch", "Einbruchdiebstahl"),
-              ("hz_leib_leben", "Leib und Leben"), ("hz_raub", "Raub"),
-              ("hz_sachbeschaedigung", "Sachbeschädigung"),
-              ("hz_cyberbetrug", "Betrug mit Datenanlagen")]
-    f = fig(400)
-    for i, (feld, name) in enumerate(felder):
-        werte = [z(r[feld]) for r in zr if z(r[feld]) is not None]
-        if not werte:
-            continue
+    # 5) Wie weit die Kantone bei einem Delikt auseinanderliegen
+    #    Je Delikt ein Punkt pro Kanton, dazu die Box. Waagerecht, weil die
+    #    Deliktnamen lang sind; logarithmische Achse mit ausgeschriebenen
+    #    Marken, weil Plotly sonst Dutzende Zwischenmarken übereinander setzt.
+    delikte_kurz = [
+        ("Diebstahl", "Diebstahl (Art. 139)"),
+        ("Einbruchdiebstahl", "Einbruchdiebstahl (Art. 139)"),
+        ("Sachbeschädigung", "Sachbeschädigung (Art. 144)"),
+        ("Leib und Leben", "Straftaten gegen Leib und Leben (1. Titel)"),
+        ("Betrug mit Datenanlagen",
+         "Betrug und betrügerischer Missbrauch einer Datenanlage"),
+        ("Raub", "Raub (Art. 140)"),
+    ]
+    reihen_k = [(kurz, kantonale_reihe(schluessel))
+                for kurz, schluessel in delikte_kurz]
+    reihen_k = [(k, w) for k, w in reihen_k if w]
+    reihen_k.sort(key=lambda t: t[1][len(t[1]) // 2])
+    f = fig(470)
+    for i, (kurz, werte) in enumerate(reihen_k):
         f.add_trace(go.Box(
-            x=[name] * len(werte), y=werte, name=name,
-            marker_color=[TEAL_H1, UEBER, "#6d28d9", TEAL_H2, NEUTRAL, "#8b8378"][i],
-            boxpoints=False, width=0.5,
-            hovertemplate=name + "<br>%{y:,.0f} je 100.000<extra></extra>"))
-    f.update_yaxes(title="Fälle je 100.000 Einwohner", type="log")
-    f.update_layout(showlegend=False)
-    f.update_xaxes(tickangle=-20, automargin=True)
+            x=werte, name=kurz, orientation="h",
+            marker_color=FARBEN[i % len(FARBEN)],
+            boxpoints="all", jitter=0.55, pointpos=0,
+            marker=dict(size=5.5, opacity=.75),
+            fillcolor="rgba(255,255,255,0)", line=dict(width=2),
+            showlegend=False, hoverinfo="skip"))
+    f.update_xaxes(
+        title="Fälle je 100.000 Einwohner (logarithmische Skala)",
+        type="log",
+        tickvals=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000],
+        ticktext=["1", "2", "5", "10", "20", "50", "100", "200", "500",
+                  "1'000", "2'000", "5'000", "10'000"])
+    f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
     figs.append((
         "ch_streuung", "Wie weit die Kantone auseinanderliegen",
-        "Häufigkeitszahl der Schweiz je Delikt, 2009 bis 2025. Die Boxen zeigen die "
-        "Spanne zwischen dem 25. und 75. Prozent der Jahre; logarithmische Skala, "
-        "weil die Delikte um mehr als den Faktor 100 auseinanderliegen.",
+        f"Jeder Punkt ist ein Kanton, {basis['jahr']}. Die Box fasst die 26 "
+        "Kantonswerte zusammen; die Linie darin ist der mittlere Wert.",
         f, "BFS, Polizeiliche Kriminalstatistik (STAT-TAB), eigene Berechnung",
-        "Einordnung: Diese Darstellung zeigt die Schweiz als Ganzes über die Zeit. "
-        "Die Streuung zwischen den Kantonen ist deutlich grösser als die Streuung "
-        "zwischen den Jahren: Einzelne Kantone liegen beim Einbruch um ein "
-        "Vielfaches über dem Mittel. Regionale Vergleiche sind deshalb "
-        "aussagekräftiger als Zeitvergleiche — aber nur mit dem Nenner im Kopf."))
+        "Einordnung: Der Abstand zwischen den Kantonen ist grösser als der "
+        "Abstand zwischen den Jahren. Beim Einbruchdiebstahl etwa liegt der "
+        "tiefste Kanton beim Zehnfachen des tiefsten Werts der übrigen — "
+        "die Spanne reicht über mehr als eine Zehnerpotenz. Beim Raub und beim "
+        "Diebstahl liegen die Kantone enger zusammen. Regionale Vergleiche sind "
+        "deshalb aussagekräftiger als Zeitvergleiche, aber nur mit dem Nenner im "
+        "Kopf: Die Häufigkeitszahl teilt durch die wohnhafte Bevölkerung, nicht "
+        "durch die anwesenden Menschen."))
 
     # 6) Deutschland und Schweiz im harmonisierten Vergleich
-    auswahl = ["Wohnungseinbruch", "Diebstahl", "Raub", "Vorsätzliche Tötung (vollendet)"]
-    farb_de, farb_ch = NEUTRAL, TEAL_H1
-    f = fig(430)
-    for name in auswahl:
-        reihe = [(int(r["jahr"]), z(r["de_rate"]), z(r["ch_rate"]))
-                 for r in eu if r["delikt"] == name]
+    #    Vier Felder statt einer Sammelgrafik: Auf einer gemeinsamen
+    #    logarithmischen Achse lagen Werte zwischen 0,5 und 2'000 übereinander
+    #    und die Achsenbeschriftung war nicht mehr lesbar.
+    panels = ["Wohnungseinbruch", "Diebstahl", "Raub",
+              "Vorsätzliche Tötung (vollendet)"]
+    f = make_subplots(rows=2, cols=2, subplot_titles=panels,
+                      horizontal_spacing=0.10, vertical_spacing=0.20)
+    f.update_layout(**BASE, height=600)
+    for i, delikt in enumerate(panels):
+        r, c = divmod(i, 2)
+        r += 1
+        c += 1
+        reihe = [(int(x["jahr"]), z(x["de_rate"]), z(x["ch_rate"]))
+                 for x in eu if x["delikt"] == delikt]
         reihe = [x for x in reihe if x[1] is not None and x[2] is not None]
         if not reihe:
             continue
         xs = [x[0] for x in reihe]
-        f.add_trace(go.Scatter(
-            x=xs, y=[x[1] for x in reihe], mode="lines+markers",
-            name=name + " — Deutschland", line=dict(color=farb_de, width=2),
-            marker=dict(size=6, color=farb_de, symbol="circle-open", line=dict(width=2)),
-            legendgroup=name, hovertemplate=name + " DE %{x}: %{y:,.1f}<extra></extra>"))
-        f.add_trace(go.Scatter(
-            x=xs, y=[x[2] for x in reihe], mode="lines+markers",
-            name=name + " — Schweiz", line=dict(color=farb_ch, width=2),
-            marker=dict(size=6, color=farb_ch, symbol="circle"),
-            legendgroup=name, hovertemplate=name + " CH %{x}: %{y:,.1f}<extra></extra>"))
-    f.update_yaxes(title="registrierte Fälle je 100.000 Einwohner", type="log")
-    f.update_xaxes(title="Jahr", dtick=2)
+        for name, idx, farbe, symbol in (("Deutschland", 1, NEUTRAL, "circle-open"),
+                                         ("Schweiz", 2, TEAL_H1, "circle")):
+            f.add_trace(go.Scatter(
+                x=xs, y=[x[idx] for x in reihe], mode="lines+markers",
+                name=name, legendgroup=name, showlegend=(i == 0),
+                line=dict(color=farbe, width=2.2),
+                marker=dict(size=6.5, color=farbe, symbol=symbol,
+                            line=dict(width=2, color=farbe)),
+                hovertemplate=name + " %{x}: %{y:,.1f}<extra></extra>"),
+                row=r, col=c)
+        f.update_xaxes(title_text="Jahr", dtick=4, gridcolor=GRID,
+                       linecolor=GRID, row=r, col=c)
+        f.update_yaxes(title_text="je 100.000 Einwohner", gridcolor=GRID,
+                       linecolor=GRID, row=r, col=c)
+    for an in f.layout.annotations:
+        an.font.size = 12.5
     figs.append((
         "ch_eurostat", "Deutschland und die Schweiz, gleich gemessen",
         "Registrierte Fälle je 100.000 Einwohner nach der harmonisierten "
-        "Deliktgliederung von Eurostat (ICCS). Punkte mit offenem Rand: Deutschland, "
-        "gefüllte Punkte: Schweiz. Logarithmische Skala.",
+        "Deliktgliederung von Eurostat (ICCS). Punkte mit offenem Rand: "
+        "Deutschland, gefüllte Punkte: Schweiz. Jedes Feld hat eine eigene "
+        "Höhenachse — die vier Delikte liegen um mehr als den Faktor 100 "
+        "auseinander.",
         f, "Eurostat crim_off_cat (Datenstand 2026), eigene Darstellung",
         "Einordnung: Wohnungseinbruch ist in der Schweiz etwa dreimal so häufig wie "
         "in Deutschland (2024: 308 gegen 94 je 100.000 Einwohner), während Raub und "
         "Tötungsdelikte in Deutschland häufiger registriert werden. Beim Diebstahl "
-        "insgesamt liegen beide Länder 2024 nahe beieinander (CH 1'966, DE 1'377). "
+        "insgesamt liegen beide Länder 2024 näher beieinander (CH 1'966, DE 1'377). "
         "Grenzen: Die Umlage auf die ICCS-Kategorien bleibt eine Umrechnung der "
         "nationalen Statistiken; die Erfassungspraxis unterscheidet sich weiterhin, "
         "und die Anzeigequote für Einbruch ist in beiden Ländern hoch, die für "
@@ -472,54 +537,51 @@ def diagramme(kantone, basis, zr, fd):
     # 7) Unsicherheitsgefühl im Zeitverlauf (ESS Schweiz)
     reihe = [r for r in ess if r["ebene"] == "gesamt"
              and r["kennzahl"] == "unsicher"]
-    j, w, lo, hi, n = [], [], [], [], []
-    for r in sorted(reihe, key=lambda r: float(r["jahr"])):
-        j.append(int(float(r["jahr"])))
-        w.append(z(r["anteil"]))
-        lo.append(z(r["ki_lo"]))
-        hi.append(z(r["ki_hi"]))
-        n.append(int(float(r["n"])))
-    f = fig(400)
+    reihe = sorted(reihe, key=lambda r: float(r["jahr"]))
+    j = [int(float(r["jahr"])) for r in reihe]
+    w = [z(r["anteil"]) for r in reihe]
+    lo = [z(r["ki_lo"]) for r in reihe]
+    hi = [z(r["ki_hi"]) for r in reihe]
+    n = [int(float(r["n"])) for r in reihe]
+    f = fig(410)
     f.add_trace(go.Scatter(x=j + j[::-1], y=hi + lo[::-1], fill="toself",
-                           fillcolor="rgba(15,118,110,.13)", line=dict(width=0),
+                           fillcolor="rgba(15,118,110,.14)", line=dict(width=0),
                            name="95-%-Intervall", hoverinfo="skip"))
     f.add_trace(go.Scatter(
-        x=j, y=w, mode="lines+markers", name="Schweiz",
+        x=j, y=w, mode="lines+markers", name="Unsicherheitsgefühl",
         line=dict(color=TEAL_H1, width=2.6), marker=dict(size=8, color=TEAL_H1),
         customdata=n,
         hovertemplate="%{x}: %{y:.1f} % unsicher<br>n = %{customdata:,}<extra></extra>"))
-    f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %")
+    f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
+                   range=[6, 20])
     f.update_xaxes(title="Jahr", dtick=2)
     figs.append((
         "ch_ess", "Unsicherheitsgefühl im Zeitverlauf",
         "«Wie sicher fühlen Sie sich, wenn Sie nach Einbruch der Dunkelheit allein "
         "in Ihrer Wohngegend zu Fuss unterwegs sind?» Anteil «etwas unsicher» und "
         "«sehr unsicher», Schweizer Wohnbevölkerung ab 15 Jahren, gewichtet. "
-        "European Social Survey, Runden 1–11.",
+        "European Social Survey, Runden 1–11. Die Fläche ist das 95-%-Intervall.",
         f, "ESS Runden 1–11, eigene Berechnung (Gewichtung pspwght)",
         "Einordnung: Das Unsicherheitsgefühl in der Schweiz ist von 16,1 Prozent "
         "(2002) auf 8,9 Prozent (2023) gefallen — fast eine Halbierung. Das ist der "
         "stärkste Unterschied zur deutschen Entwicklung: In Deutschland liegt der "
         "Wert 2023 mit 25,0 Prozent höher als 2002 (26,2 Prozent), also praktisch "
-        "unverändert. Grenzen: Die Balken sind 95-%-Intervalle als "
-        "Normalapproximation ohne Designeffekt; das echte Intervall ist wegen der "
-        "Klumpung der Stichprobe etwas breiter. Die Runden sind unabhängige "
-        "Stichproben, kein Panel — ein Absinken kann daher auch ein "
-        "Zusammensetzungseffekt der Befragten sein."))
+        "unverändert. Grenzen: Das Intervall ist eine Normalapproximation ohne "
+        "Designeffekt; das echte Intervall ist wegen der Klumpung der Stichprobe "
+        "etwas breiter. Die Runden sind unabhängige Stichproben, kein Panel — ein "
+        "Absinken kann daher auch ein Zusammensetzungseffekt der Befragten sein."))
 
     # 8) Deutschland und Schweiz im gleichen Instrument
     de_ess = lies(D / "ess_aggregate.csv") if (D / "ess_aggregate.csv").exists() else []
-    # Nur die Kennzahl "unsicher": Die Aggregatdatei enthält je Jahr auch
-    # "unsicher_hoch" und "viktim". Ohne diesen Filter lägen drei Wertepaare
-    # pro Jahr übereinander und die Linie zackte scheinbar zwischen ihnen.
     # Die deutsche Aggregatdatei führt unter ebene="zeitreihe" drei Gruppen
     # (gesamt, viktimisiert, nicht viktimisiert). Gebraucht wird "gesamt".
     reihe_de = [r for r in de_ess
                 if r["ebene"] == "zeitreihe" and r["gruppe"] == "gesamt"
                 and r["kennzahl"] == "unsicher"]
-    f = fig(400)
-    for name, reihe2, farbe in (("Schweiz", reihe, TEAL_H1),
-                                ("Deutschland", reihe_de, NEUTRAL)):
+    f = fig(410)
+    for name, reihe2, farbe, symbol in (("Schweiz", reihe, TEAL_H1, "circle"),
+                                        ("Deutschland", reihe_de, NEUTRAL,
+                                         "circle-open")):
         sortiert = sorted([r for r in reihe2 if z(r.get("anteil")) is not None],
                           key=lambda r: float(r["jahr"]))
         jj = [int(float(r["jahr"])) for r in sortiert]
@@ -528,14 +590,18 @@ def diagramme(kantone, basis, zr, fd):
             continue
         f.add_trace(go.Scatter(
             x=jj, y=ww, mode="lines+markers", name=name,
-            line=dict(color=farbe, width=2.6), marker=dict(size=7, color=farbe),
+            line=dict(color=farbe, width=2.6),
+            marker=dict(size=7.5, color=farbe, symbol=symbol,
+                        line=dict(width=2, color=farbe)),
             hovertemplate=name + " %{x}: %{y:.1f} %<extra></extra>"))
-    f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %")
+    f.update_yaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
+                   range=[0, 30])
     f.update_xaxes(title="Jahr", dtick=2)
     figs.append((
         "ch_vgl", "Zwei Länder, dieselbe Frage",
         "Unsicherheitsgefühl in der Schweiz und in Deutschland, dieselbe Frage, "
-        "dasselbe Erhebungsprogramm. Deutschland fehlt in Runde 10 (2020).",
+        "dasselbe Erhebungsprogramm. Deutschland fehlt in Runde 10 (2020), "
+        "deshalb die Lücke zwischen 2018 und 2023.",
         f, "ESS Runden 1–11, eigene Berechnung (Gewichtung pspwght)",
         "Einordnung: In beiden Ländern sinkt die Unsicherheit zwischen 2002 und "
         "2023, aber das Niveau liegt durchgehend um 12 bis 18 Prozentpunkte "
@@ -548,21 +614,18 @@ def diagramme(kantone, basis, zr, fd):
         "Einschätzung in der eigenen Wohngegend bei Dunkelheit, nicht Furcht "
         "vor einzelnen Delikten."))
 
-    # 9) Sicherheit in den Befragungen der Schweiz
-    f = fig(400)
-    punkte = [(1989, 46.0, "frühere Befragungen"), (1996, 29.0, "frühere Befragungen"),
-              (2011, 25.4, "Sicherheitsbefragung"), (2015, 33.1, "Sicherheitsbefragung")]
+    # 9) Furcht vor Einbruch und Unsicherheit auf der Strasse
+    f = fig(410)
     f.add_trace(go.Scatter(
-        x=[p[0] for p in punkte if p[2] == "frühere Befragungen"],
-        y=[p[1] for p in punkte if p[2] == "frühere Befragungen"],
-        mode="markers+lines", name="Furcht vor Einbruch (andere Instrumente)",
+        x=[1989, 1996], y=[46.0, 29.0], mode="lines+markers",
+        name="Furcht vor Einbruch, frühere Befragungen",
         line=dict(color=NEUTRAL, width=2, dash="dot"),
-        marker=dict(size=8, color=NEUTRAL, symbol="circle-open", line=dict(width=2)),
+        marker=dict(size=8, color=NEUTRAL, symbol="circle-open",
+                    line=dict(width=2)),
         hovertemplate="%{x}: %{y:.1f} %<extra></extra>"))
     f.add_trace(go.Scatter(
-        x=[p[0] for p in punkte if p[2] == "Sicherheitsbefragung"],
-        y=[p[1] for p in punkte if p[2] == "Sicherheitsbefragung"],
-        mode="markers+lines", name="Furcht vor Einbruch (Sicherheitsbefragung 2011/2015)",
+        x=[2011, 2015], y=[25.4, 33.1], mode="lines+markers",
+        name="Furcht vor Einbruch, Sicherheitsbefragung",
         line=dict(color=UEBER, width=2.6),
         marker=dict(size=9, color=UEBER),
         hovertemplate="%{x}: %{y:.1f} %<extra></extra>"))
@@ -571,17 +634,18 @@ def diagramme(kantone, basis, zr, fd):
     us22 = sum(float(r["wert_prozent"]) for r in cs22
                if r["auspraegung"] in ("etwas unsicher", "sehr unsicher"))
     f.add_trace(go.Scatter(
-        x=[1996, 2000, 2011, 2015, 2022], y=[17.0, 22.0, 15.4, 14.7, round(us22, 1)],
-        mode="markers+lines", name="Unsicher zu Fuss nach Dunkelheit",
+        x=[u[0] for u in uns] + [2022], y=[u[1] for u in uns] + [round(us22, 1)],
+        mode="lines+markers", name="Unsicher zu Fuss nach Dunkelheit",
         line=dict(color=TEAL_H1, width=2.6), marker=dict(size=9, color=TEAL_H1),
         hovertemplate="%{x}: %{y:.1f} %<extra></extra>"))
-    f.update_yaxes(title="Anteil der Befragten", ticksuffix=" %")
-    f.update_xaxes(title="Jahr", dtick=5)
+    f.update_yaxes(title="Anteil der Befragten", ticksuffix=" %", range=[0, 50])
+    f.update_xaxes(title="Jahr", dtick=5, range=[1986, 2026])
     figs.append((
         "ch_befragungen", "Furcht vor Einbruch und Unsicherheit auf der Strasse",
-        "Zwei Masse aus den Schweizer Bevölkerungsbefragungen. Die Furcht vor einem "
-        "Einbruch in den nächsten zwölf Monaten wurde 2022 nicht mehr erfragt; der "
-        "letzte Punkt stammt von 2015.",
+        "Zwei Masse aus den Schweizer Bevölkerungsbefragungen, auf einer Achse. "
+        "Die Furcht vor einem Einbruch wurde 2022 nicht mehr erfragt; der letzte "
+        "Punkt dieser Reihe stammt von 2015. Die drei Reihen stammen aus "
+        "verschiedenen Erhebungen und sind nur als Grössenordnung vergleichbar.",
         f, "Swiss Crime Survey 2022 (Kap. 2.3, Tab. 81/82); Schweizerische "
            "Sicherheitsbefragung 2015 (Kap. 4.1.1, Tab. 87); ältere ICVS-Werte nach "
            "SKP-Info 3/2017",
@@ -595,29 +659,24 @@ def diagramme(kantone, basis, zr, fd):
         "eingezeichnet — der Rückgang über vier Jahrzehnte ist aber in allen "
         "Quellen sichtbar."))
 
-    # 10) Einbruchdiebstahl: Fälle und Furcht nebeneinander
-    f = fig(400)
+    # 10) Einbruchdiebstahl: registrierte Fälle
     einb = [(int(r["jahr"]), z(r["faelle_einbruch"])) for r in zr]
-    f.add_trace(go.Bar(
-        x=[e[0] for e in einb], y=[e[1] for e in einb], name="registrierte Fälle",
-        marker_color=TEAL_H3,
-        hovertemplate="%{x}: %{y:,.0f} registrierte Einbruchdiebstähle<extra></extra>"))
-    f.add_trace(go.Scatter(
-        x=[2011, 2015], y=[None, None], mode="markers", showlegend=False,
-        hoverinfo="skip"))
+    f = fig(410)
+    balken(f, [e[0] for e in einb], [e[1] for e in einb], TEAL_H3,
+           textfont_size=9.5,
+           hover="%{x}: %{y:,.0f} registrierte Einbruchdiebstähle<extra></extra>")
     f.update_yaxes(title="registrierte Fälle (StGB, Tatort Schweiz)")
     f.update_xaxes(title="Jahr", dtick=2)
     f.update_layout(bargap=0.35)
     figs.append((
         "ch_einbruch", "Einbruchdiebstahl: registrierte Fälle",
         "Polizeilich registrierte Einbruchdiebstähle nach Strafgesetzbuch, "
-        "Schweiz, 2009 bis 2025. Zum Vergleich mit der Furcht siehe das "
-        "vorhergehende Diagramm.",
+        "Schweiz, 2009 bis 2025. Die Werte stehen beim Überfahren des Balkens.",
         f, "BFS, Polizeiliche Kriminalstatistik (STAT-TAB), eigene Berechnung",
-        "Einordnung: Die registrierten Einbruchdiebstähle fielen von 52'000 "
+        "Einordnung: Die registrierten Einbruchdiebstähle fielen von rund 52'000 "
         "(2012) auf rund 21'000 (2021) — ein Rückgang um rund 60 Prozent — und "
-        "steigen seither wieder auf 32'000 (2025). Die Furcht vor Einbruch hat "
-        "sich in einem Teil dieses Zeitraums in die Gegenrichtung bewegt. "
+        "steigen seither wieder auf rund 32'000 (2025). Die Furcht vor Einbruch "
+        "hat sich in einem Teil dieses Zeitraums in die Gegenrichtung bewegt. "
         "Grenzen: Registrierte Fälle hängen von der Anzeigebereitschaft ab. Im "
         "Crime Survey 2022 geben 75,1 Prozent der Betroffenen an, den Einbruch "
         "angezeigt zu haben, 2015 waren es 86,6 Prozent — die Anzeigebereitschaft "
@@ -625,24 +684,20 @@ def diagramme(kantone, basis, zr, fd):
         "ein Rückgang der Anzeigen sein."))
 
     # 11) Unsicherheit nach Bevölkerungsgruppen (ESS, gepoolt)
-    gruppen = [("Geschlecht", "Frau"), ("Geschlecht", "Mann")]
-    auswahl_g = []
+    alle = []
     for r in ess:
-        if r["ebene"] == "geschlecht" and r["kennzahl"] == "unsicher":
-            auswahl_g.append((r["gruppe"], z(r["anteil"]), z(r["ki_lo"]),
-                              z(r["ki_hi"]), int(float(r["n"]))))
-    alter = [(r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), z(r["ki_hi"]),
-              int(float(r["n"]))) for r in ess if r["ebene"] == "alter_gr"
-             and r["kennzahl"] == "unsicher"]
-    stadt = [(r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), z(r["ki_hi"]),
-              int(float(r["n"]))) for r in ess if r["ebene"] == "stadt_land"
-             and r["kennzahl"] == "unsicher"]
-    alle = auswahl_g + alter + stadt
+        if r["kennzahl"] != "unsicher":
+            continue
+        if r["ebene"] in ("geschlecht", "alter_gr", "stadt_land"):
+            alle.append((r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), z(r["ki_hi"]),
+                         int(float(r["n"]))))
     alle = [a for a in alle if a[1] is not None]
     alle.sort(key=lambda a: a[1])
-    f = fig(430)
+    f = fig(460)
     f.add_trace(go.Scatter(
-        x=[a[1] for a in alle], y=[a[0] for a in alle], mode="markers",
+        x=[a[1] for a in alle], y=[a[0] for a in alle], mode="markers+text",
+        text=[_fmt(a[1], 1, " %") for a in alle], textposition="middle right",
+        textfont=dict(size=11, color=INK, family=FONT),
         marker=dict(size=9, color=TEAL_H1),
         error_x=dict(type="data", symmetric=False,
                      array=[a[3] - a[1] for a in alle],
@@ -653,14 +708,17 @@ def diagramme(kantone, basis, zr, fd):
         showlegend=False))
     mittel_alle = float(np.mean([a[1] for a in alle]))
     f.add_vline(x=mittel_alle, line=dict(color=UEBER, width=1.6, dash="dash"))
-    f.add_annotation(x=mittel_alle, y=-0.6, yref="paper", text="Mittel der Gruppen",
-                     showarrow=False, font=dict(size=11, color=UEBER), xanchor="left")
-    f.update_xaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %")
+    f.add_annotation(x=mittel_alle, y=1.0, yref="paper", yanchor="bottom",
+                     xanchor="left", showarrow=False, text="Mittel der Gruppen",
+                     font=dict(size=11, color=UEBER),
+                     bgcolor="rgba(255,255,255,.92)")
+    f.update_xaxes(title="Anteil mit Unsicherheitsgefühl", ticksuffix=" %",
+                   range=[0, max(a[3] for a in alle) * 1.18])
     f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
     figs.append((
         "ch_gruppen", "Wer sich unsicher fühlt",
         "Unsicherheitsgefühl nach Bevölkerungsgruppen, Runden 1–11 gepoolt "
-        "(2002 bis 2023). Strichlein: 95-%-Intervall. Fallzahlen zwischen "
+        "(2002 bis 2023). Kurze Linie: 95-%-Intervall. Fallzahlen zwischen "
         "831 und 9'633 je Gruppe.",
         f, "ESS Runden 1–11, eigene Berechnung (Gewichtung pspwght)",
         "Einordnung: Der Unterschied zwischen Frauen (21,2 Prozent) und Männern "
@@ -668,7 +726,7 @@ def diagramme(kantone, basis, zr, fd):
         "Deutschland (dort 37,5 gegen 12,2 Prozent, aber auf höherem Niveau). "
         "Frauen fürchten sich deutlich häufiger, ohne häufiger betroffen zu sein: "
         "Die Viktimisierungsrate liegt bei Frauen mit 17,9 Prozent sogar leicht "
-        "unter der der Männer (17,3 Prozent, Unterschied im Rahmen der "
+        "über der der Männer (17,3 Prozent, Unterschied im Rahmen der "
         "Zufallsschwankung). Auch die Altersstruktur ist umgekehrt zur "
         "Opferbelastung: Am unsichersten sind die über 75-Jährigen, am häufigsten "
         "betroffen die 16- bis 29-Jährigen. Grenzen: Die Gruppen sind gepoolt "
@@ -677,37 +735,49 @@ def diagramme(kantone, basis, zr, fd):
         "Unterschiede können sich gegenseitig erklären."))
 
     # 12) Grossregionen
-    reg = [(r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), int(float(r["n"])))
-           for r in ess if r["ebene"] == "grossregion" and r["kennzahl"] == "unsicher"]
+    reg = []
+    for r in ess:
+        if r["ebene"] == "grossregion" and r["kennzahl"] == "unsicher":
+            reg.append((r["gruppe"], z(r["anteil"]), z(r["ki_lo"]), z(r["ki_hi"]),
+                        int(float(r["n"]))))
     reg = sorted([r for r in reg if r[1] is not None], key=lambda r: r[1])
     regv = {r["gruppe"]: z(r["anteil"]) for r in ess
             if r["ebene"] == "grossregion" and r["kennzahl"] == "viktim"}
-    f = fig(400)
+    mittel_reg = float(np.mean([r[1] for r in reg]))
+    f = fig(420)
     f.add_trace(go.Bar(
         x=[r[1] for r in reg], y=[r[0] for r in reg], orientation="h",
-        name="Unsicherheitsgefühl",
-        marker_color=[UEBER if r[1] > np.mean([x[1] for x in reg]) else UNTER
-                      for r in reg],
-        error_x=dict(type="data", symmetric=False, array=[r[1] - r[2] for r in reg],
-                     arrayminus=[0] * len(reg), color=SLATE, thickness=1.4, width=0),
+        marker_color=[UEBER if r[1] > mittel_reg else UNTER for r in reg],
+        showlegend=False, cliponaxis=False,
+        error_x=dict(type="data", symmetric=False,
+                     array=[r[3] - r[1] for r in reg],
+                     arrayminus=[r[1] - r[2] for r in reg],
+                     color=SLATE, thickness=1.4, width=0),
         hovertemplate="%{y}: %{x:.1f} %<extra></extra>"))
-    werte_waagerecht(f, [r[1] for r in reg], [r[0] for r in reg],
-                     einheit=" %", nachkomma=1)
-    f.update_xaxes(title="Anteil mit Unsicherheitsgefühl (ESS 2010–2023, gepoolt)",
-                   ticksuffix=" %", range=[0, max(r[1] for r in reg) * 1.3])
+    # Werte erst HINTER dem Intervall: sonst läuft die Intervalllinie mitten
+    # durch die Zahl und beides ist nicht mehr lesbar.
+    f.add_trace(go.Scatter(
+        x=[r[3] for r in reg], y=[r[0] for r in reg], mode="text",
+        text=[_fmt(r[1], 1, " %") for r in reg], textposition="middle right",
+        textfont=dict(size=11.5, color=INK, family=FONT),
+        showlegend=False, hoverinfo="skip"))
+    f.update_xaxes(
+        title="Anteil mit Unsicherheitsgefühl (ESS 2010–2023, gepoolt)",
+        ticksuffix=" %", range=[0, max(r[3] for r in reg) * 1.14])
     f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
     figs.append((
         "ch_regionen", "Unsicherheitsgefühl nach Grossregion",
         "Sieben Grossregionen, Runden 5–11 gepoolt (2010 bis 2023). Die "
         "Regionalkennung wird erst ab Runde 5 vergeben. Fallzahlen je Region: "
-        "362 bis 2'501.",
+        "362 bis 2'501. Die kurze Linie ist das 95-%-Intervall.",
         f, "ESS Runden 5–11, eigene Berechnung (Gewichtung pspwght)",
         "Einordnung: Die Zentralschweiz liegt mit 8,3 Prozent am tiefsten, die "
         "Nordwestschweiz mit 14,8 Prozent am höchsten — der Abstand entspricht "
         "etwa dem zwischen Bayern und Nordrhein-Westfalen im deutschen Vergleich. "
-        "Die Viktimisierungsrate folgt dieser Reihenfolge nicht: Im Tessin liegt "
-        f"sie bei {regv.get('Tessin', float('nan')):.1f} Prozent und damit am "
-        "höchsten, während das Unsicherheitsgefühl dort mit 9,8 Prozent "
+        "Auffällig sind die breiten Intervalle: Bei 362 Befragten im Tessin "
+        "reicht das Intervall über mehr als sechs Prozentpunkte. Die "
+        "Viktimisierungsrate folgt dieser Reihenfolge nicht: Im Tessin liegt "
+        "sie am höchsten, während das Unsicherheitsgefühl dort "
         "unterdurchschnittlich ist. Genau diese Entkopplung zeigt sich auch in "
         "Deutschland. Grenzen: Der Wert gilt für die Grossregion, nicht für den "
         "einzelnen Kanton. Die Karte färbt deshalb alle Kantone einer Region "
@@ -722,30 +792,43 @@ def diagramme(kantone, basis, zr, fd):
         paare.setdefault(r["merkmal"], {})[int(r["jahr"])] = float(r["wert_prozent"])
     paare = {k: v for k, v in paare.items() if 2015 in v and 2022 in v}
     paare = dict(sorted(paare.items(), key=lambda kv: kv[1][2015]))
-    f = fig(430)
+    f = fig(460)
     ys = list(paare)
-    for x0, x1 in ((2015, 2022),):
+    for i, k in enumerate(ys):
+        f.add_shape(type="line", x0=paare[k][2015], x1=paare[k][2022],
+                    y0=i, y1=i, line=dict(color="#8B95A5", width=1.8))
+    # Nur der Wert von 2022 steht als Zahl neben dem Punkt. Beide Jahre zu
+    # beschriften ging nicht auf: Wo die beiden Werte dicht beieinander liegen
+    # (etwa 14,2 und 13,5 Prozent), lagen die Zahlen übereinander. Der Wert von
+    # 2015 steht im Hinweistext, die Richtung zeigt die Verbindungslinie.
+    for jahr, farbe in ((2015, TEAL_H3), (2022, TEAL_H1)):
         f.add_trace(go.Scatter(
-            x=[paare[k][x0] for k in ys], y=ys, mode="markers",
-            name=str(x0), marker=dict(size=10, color=TEAL_H3,
-                                      line=dict(color="#ffffff", width=1.5)),
-            hovertemplate="%{y}<br>" + str(x0) + ": %{x:.1f} %<extra></extra>"))
-        f.add_trace(go.Scatter(
-            x=[paare[k][x1] for k in ys], y=ys, mode="markers",
-            name=str(x1), marker=dict(size=10, color=TEAL_H1,
-                                      line=dict(color="#ffffff", width=1.5)),
-            hovertemplate="%{y}<br>" + str(x1) + ": %{x:.1f} %<extra></extra>"))
-        for i, k in enumerate(ys):
-            f.add_shape(type="line", x0=paare[k][x0], x1=paare[k][x1], y0=i, y1=i,
-                        line=dict(color="#8B95A5", width=1.6))
+            x=[paare[k][jahr] for k in ys], y=ys, mode="markers",
+            name=str(jahr),
+            marker=dict(size=10, color=farbe,
+                        line=dict(color="#ffffff", width=1.5)),
+            hovertemplate="%{y}<br>" + str(jahr) + ": %{x:.1f} %<extra></extra>"))
+    # Die Zahl steht rechts vom weiter aussen liegenden der beiden Punkte. Stand
+    # sie am 2022-Punkt, lief sie bei rückläufigen Werten über den 2015-Punkt.
+    # Der Wert steht mit festem Abstand rechts vom weiter aussen liegenden der
+    # beiden Punkte. "middle right" allein setzte den Text ohne Abstand direkt
+    # an den Punkt, sodass die Verbindungslinie in die Zahl hineinlief.
+    f.add_trace(go.Scatter(
+        x=[max(paare[k][2015], paare[k][2022]) + 0.6 for k in ys], y=ys,
+        mode="text",
+        text=[_fmt(paare[k][2022], 1) for k in ys], textposition="middle right",
+        textfont=dict(size=10.5, color=MUTED, family=FONT),
+        showlegend=False, hoverinfo="skip"))
     f.update_xaxes(title="Anteil der Befragten, die das Verhalten nennen",
-                   ticksuffix=" %")
+                   ticksuffix=" %",
+                   range=[0, max(max(v[2015], v[2022]) for v in paare.values()) * 1.24])
     f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
-    f.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0))
     figs.append((
         "ch_vermeidung", "Was Menschen tun, um nicht Opfer zu werden",
         "Vermeidungsverhalten abends nach 20 Uhr, Schweizer Wohnbevölkerung. "
-        "Mehrfachantworten möglich, deshalb summieren sich die Werte nicht auf 100.",
+        "Die Zahl neben jeder Zeile ist der Wert von 2022; der Wert von 2015 "
+        "steht beim Überfahren der Punkte. Mehrfachantworten möglich, deshalb "
+        "summieren sich die Werte nicht auf 100.",
         f, "Swiss Crime Survey 2022, Kap. 2.3, Tabelle 83",
         "Einordnung: Das häufigste Verhalten ist, gewissen Leuten aus dem Weg zu "
         "gehen (25,3 Prozent), gefolgt vom Meiden von Unterführungen (23,5 "
@@ -766,19 +849,23 @@ def diagramme(kantone, basis, zr, fd):
         if r["dimension"] == "anzeigerate":
             anzeige[r["merkmal"]] = float(r["wert_prozent"])
     gemeinsam = [k for k in anzeige if k in praev and 2022 in praev[k]]
-    gemeinsam.sort(key=lambda k: -anzeige[k])
-    f = fig(400)
-    f.add_trace(go.Bar(
-        x=[praev[k][2022] for k in gemeinsam], y=gemeinsam, orientation="h",
-        name="im letzten Jahr betroffen", marker_color=TEAL_H3,
-        hovertemplate="%{y}: %{x:.1f} %<extra></extra>"))
-    f.add_trace(go.Bar(
-        x=[anzeige[k] for k in gemeinsam], y=gemeinsam, orientation="h",
-        name="davon bei der Polizei angezeigt", marker_color=TEAL_H1,
-        hovertemplate="%{y}: %{x:.1f} %<extra></extra>"))
-    f.update_xaxes(title="Anteil der Befragten", ticksuffix=" %")
+    gemeinsam.sort(key=lambda k: anzeige[k])
+    f = fig(430)
+    balken(f, gemeinsam, [praev[k][2022] for k in gemeinsam], TEAL_H3,
+           waagerecht=True, einheit=" %", nachkomma=1,
+           name="im letzten Jahr betroffen",
+           textposition="outside",
+           hover="%{y}: %{x:.1f} %<extra></extra>")
+    balken(f, gemeinsam, [anzeige[k] for k in gemeinsam], TEAL_H1,
+           waagerecht=True, einheit=" %", nachkomma=1,
+           name="davon bei der Polizei angezeigt",
+           textposition="outside",
+           hover="%{y}: %{x:.1f} %<extra></extra>")
+    f.update_xaxes(title="Anteil der Befragten", ticksuffix=" %",
+                   range=[0, max(max(praev[k][2022], anzeige[k])
+                                 for k in gemeinsam) * 1.30])
     f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
-    f.update_layout(barmode="group", legend=dict(orientation="h", y=1.06, x=0))
+    f.update_layout(barmode="group")
     figs.append((
         "ch_anzeige", "Vom Vorfall zur Anzeige",
         "Einjahresprävalenz und Anzeigerate 2022 nach Delikt. Gerechnet auf alle "
@@ -796,30 +883,31 @@ def diagramme(kantone, basis, zr, fd):
     # ------------------------------------------------ Strafverfolgung
     # 15) Aufklärungsquote nach Delikt
     letzte = zr[-1]
-    aq_felder = [("aq_stgb", "Straftaten insgesamt"), ("aq_diebstahl", "Diebstahl"),
-                 ("aq_einbruch", "Einbruchdiebstahl"), ("aq_leib_leben", "Leib und Leben"),
-                 ("aq_raub", "Raub"), ("aq_sachbeschaedigung", "Sachbeschädigung"),
+    aq_felder = [("aq_stgb", "Straftaten insgesamt"),
+                 ("aq_diebstahl", "Diebstahl"),
+                 ("aq_einbruch", "Einbruchdiebstahl"),
+                 ("aq_leib_leben", "Leib und Leben"),
+                 ("aq_raub", "Raub"),
+                 ("aq_sachbeschaedigung", "Sachbeschädigung"),
                  ("aq_vergewaltigung", "Vergewaltigung"),
                  ("aq_cyberbetrug", "Betrug mit Datenanlagen")]
-    aq = [(name, z(letzte[feld])) for feld, name in aq_felder if z(letzte[feld]) is not None]
+    aq = [(name, z(letzte[feld])) for feld, name in aq_felder
+          if z(letzte[feld]) is not None]
     aq.sort(key=lambda t: t[1])
-    f = fig(400)
-    f.add_trace(go.Bar(
-        x=[a[1] for a in aq], y=[a[0] for a in aq], orientation="h",
-        marker_color=TEAL_H1,
-        hovertemplate="%{y}: %{x:.1f} % aufgeklärt<extra></extra>"))
-    werte_waagerecht(f, [a[1] for a in aq], [a[0] for a in aq],
-                     einheit=" %", nachkomma=1)
+    f = fig(420)
+    balken(f, [a[0] for a in aq], [a[1] for a in aq], TEAL_H1, waagerecht=True,
+           einheit=" %", nachkomma=1, textposition="outside",
+           hover="%{y}: %{x:.1f} % aufgeklärt<extra></extra>")
     f.update_xaxes(title="aufgeklärte Fälle in Prozent", ticksuffix=" %",
-                   range=[0, max(a[1] for a in aq) * 1.25])
+                   range=[0, max(a[1] for a in aq) * 1.16])
     f.update_yaxes(automargin=True, ticks="outside", ticklen=6)
     figs.append((
         "ch_aq_delikt", "Aufgeklärt wird vor allem, was leicht zu klären ist",
         f"Aufklärungsquote nach Delikt, Schweiz {letzte['jahr']}.",
         f, "BFS, Polizeiliche Kriminalstatistik (STAT-TAB), eigene Berechnung",
-        "Einordnung: Zwischen dem Recht gut aufzuklärenden Bereich Leib und Leben "
-        "und dem Einbruchdiebstahl liegt ein Faktor von mehr als vier. Das ist "
-        "kein Hinweis auf unterschiedlich gute Polizeiarbeit, sondern auf "
+        "Einordnung: Zwischen dem gut aufzuklärenden Bereich Leib und Leben und "
+        "dem Einbruchdiebstahl liegt ein Faktor von mehr als vier. Das ist kein "
+        "Hinweis auf unterschiedlich gute Polizeiarbeit, sondern auf "
         "unterschiedliche Ermittlungsansätze: Bei Körperverletzung ist die "
         "beschuldigte Person oft bekannt, beim Einbruch selten. Grenzen: Die "
         "Quote bezieht sich auf Fälle, nicht auf Personen; ein Fall mit mehreren "
@@ -1146,8 +1234,13 @@ function diagrammeAnpassen(){
   document.querySelectorAll('.js-plotly-plot').forEach(el => {
     if (!el || !el.layout) return;
     try {
+      // Legende nur, wenn es etwas zu erklären gibt. Eine einzelne Datenreihe
+      // ohne eigenen Namen hiesse in der Legende "trace 0" — eine Beschriftung,
+      // die niemandem etwas sagt. Früher stand sie über fast jedem Diagramm.
+      const fg = FIGS[el.dataset.fig];
+      const benannt = fg ? (fg.data || []).filter(t => t.name && t.showlegend !== false).length : 0;
       Plotly.relayout(el, {
-        'showlegend': !schmal,
+        'showlegend': !schmal && benannt > 1,
         'font.size': schmal ? 15 : 12.5,
         'xaxis.tickfont.size': schmal ? 14 : 12,
         'yaxis.tickfont.size': schmal ? 14 : 12,
