@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build_app.py — Kriminalität und Sicherheit in Deutschland (Bundesland-App)
+build_app.py — Die (un)berechtigte Furcht vor Kriminalität in Deutschland
 ============================================================================
 Baut eine Webapp als einzelne HTML-Datei: Deutschlandkarte (klickbar),
 Bundes-Kennzahlen, Kriminalität, Furcht, Demografie und Wirtschaft — und für
@@ -647,48 +647,40 @@ def diagramm_skid_orte():
 
 
 def diagramm_pmk():
-    """Politisch motivierte Kriminalität: Gesamtaufkommen und Gewalttaten.
+    """Politisch motivierte Kriminalität nach Phänomenbereich.
 
-    Zwei Felder nebeneinander, weil der Unterschied die eigentliche Aussage ist:
-    Das Gesamtaufkommen hat sich seit 2016 mehr als verdoppelt, die Zahl der
-    Gewalttaten blieb im selben Zeitraum praktisch unverändert.
+    Warum je Bereich ein eigenes Feld: Die Bereiche unterscheiden sich um mehr
+    als das Zwanzigfache (rechts 42.544 Fälle, religiöse Ideologie 1.983). In
+    einem gemeinsamen Maßstab sind die kleinen Bereiche unsichtbar, auf einer
+    logarithmischen Achse kann sie niemand lesen. Deshalb sechs kleine Felder
+    mit je eigener linearer Skala — der Vergleich läuft innerhalb eines Feldes
+    (Verlauf) und nicht über die Felder hinweg.
 
     Returns:
-        plotly.graph_objects.Figure: Figur mit zwei Feldern.
+        plotly.graph_objects.Figure | None
     """
     pfad = OUT / "pmk_zeitreihe.csv"
     if not pfad.exists():
         return None
     daten = lies(pfad, delim=";")
-    namen = {
-        "rechts": "rechts",
-        "links": "links",
-        "sonstige_zuordnung": "sonstige Zuordnung",
-        "auslaendische_ideologie": "ausländische Ideologie",
-        "religioese_ideologie": "religiöse Ideologie",
-    }
-    # Fünf Serien brauchen fünf unterscheidbare Farben, die alle auf Weiß
-    # sichtbar sind. Die frühere Palette nutzte drei Helligkeitsstufen desselben
-    # Tones — die beiden hellen lagen bei rund 1,5:1 und waren kaum zu sehen.
-    # Jetzt: zwei Petroltöne, ein neutrales Grau und zwei Ockertöne.
-    # Kontrast gegen Weiß: 9,4 / 4,2 / 5,1 / 6,3 / 3,4.
-    farben = {
-        "rechts": "#0b4f49",
-        "links": "#2d8c82",
-        "sonstige_zuordnung": "#6b645e",
-        "auslaendische_ideologie": "#8a5305",
-        "religioese_ideologie": "#b8860b",
-    }
+
+    bereiche = [
+        ("gesamt", "Alle Bereiche zusammen"),
+        ("rechts", "rechts"),
+        ("links", "links"),
+        ("sonstige_zuordnung", "sonstige Zuordnung"),
+        ("auslaendische_ideologie", "ausländische Ideologie"),
+        ("religioese_ideologie", "religiöse Ideologie"),
+    ]
 
     f = make_subplots(
-        rows=1, cols=2, horizontal_spacing=0.1,
-        subplot_titles=("Alle politisch motivierten Straftaten",
-                        "Davon Gewalttaten"),
+        rows=2, cols=3, horizontal_spacing=0.09, vertical_spacing=0.19,
+        subplot_titles=[t for _, t in bereiche],
     )
-    for spalte, art in ((1, "gesamt"), (2, "gewalt")):
-        for feld in ("rechts", "links", "sonstige_zuordnung",
-                     "auslaendische_ideologie", "religioese_ideologie"):
-            klein = feld in ("auslaendische_ideologie", "religioese_ideologie")
+    for i, (feld, titel) in enumerate(bereiche):
+        zeile, spalte = divmod(i, 3)
+        for art, name, farbe, strich in (("gesamt", "alle Straftaten", "#0b4f49", "solid"),
+                                         ("gewalt", "davon Gewalttaten", "#b8860b", "dot")):
             reihe = sorted(
                 (int(float(r["jahr"])), z(r["faelle"]))
                 for r in daten
@@ -697,33 +689,106 @@ def diagramm_pmk():
                 continue
             f.add_trace(go.Scatter(
                 x=[j for j, _ in reihe], y=[w for _, w in reihe],
-                mode="lines+markers", name=namen[feld],
-                line=dict(color=farben[feld], width=2.2 if klein else 3.0,
-                          dash="dot" if klein else "solid"),
-                marker=dict(size=5 if klein else 6.5, color=farben[feld]),
-                legendgroup=feld, showlegend=(spalte == 1),
-                hovertemplate="%{y:,.0f} Fälle im Jahr %{x}<extra>"
-                              + namen[feld] + "</extra>",
-            ), row=1, col=spalte)
+                mode="lines+markers", name=name,
+                line=dict(color=farbe, width=2.4, dash=strich),
+                # Kleine Marker: Bei 10 Werten je Linie reicht ein Punkt als
+                # Hinweis auf den Messwert, große Punkte verdecken die Linie.
+                marker=dict(size=3.6, color=farbe),
+                legendgroup=name, showlegend=(i == 0),
+                hovertemplate="%{y:,.0f} Fälle im Jahr %{x}<extra>" + name + "</extra>",
+            ), row=zeile + 1, col=spalte + 1)
+        f.update_yaxes(rangemode="tozero", automargin=True, tickformat=",.0f",
+                       ticksuffix="", row=zeile + 1, col=spalte + 1)
+        f.update_xaxes(automargin=True, dtick=4, tickfont=dict(size=11),
+                       row=zeile + 1, col=spalte + 1)
 
-    # Beide Felder haben eine eigene Skala (links bis rund 86.000, rechts bis
-    # rund 4.200 Fälle). Das steht im Untertitel, damit die Höhen nicht
-    # fälschlich miteinander verglichen werden.
-    f.update_yaxes(rangemode="tozero", automargin=True, title="", row=1, col=1)
-    f.update_yaxes(rangemode="tozero", automargin=True, title="", row=1, col=2)
-    f.update_xaxes(automargin=True, dtick=2)
-    # Grundlayout übernehmen und die abweichenden Werte einzeln ersetzen —
-    # sonst kollidieren Schlüssel wie "margin" aus BASE mit den eigenen.
     layout = dict(BASE)
-    layout.update(
-        height=420,
-        margin=dict(l=10, r=20, t=64, b=50),
-        legend=dict(orientation="h", yanchor="bottom", y=1.16, x=0,
-                    xanchor="left", font=dict(size=14),
-                    itemsizing="constant", itemwidth=30,
-                    tracegroupgap=14),
-        hovermode="x unified",
-    )
+    layout.update(height=560, showlegend=True,
+                  margin=dict(l=10, r=18, t=76, b=42),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.075, x=0,
+                              xanchor="left", font=dict(size=14),
+                              itemsizing="constant", itemwidth=30),
+                  hovermode="closest")
+    f.update_layout(**layout)
+    return f
+
+
+def diagramm_skid_delikte():
+    """Wovor sich Deutschland fürchtet (SKiD 2024).
+
+    Gegenübergestellt: die Furcht vor einem Delikt und die Einschätzung, selbst
+    Opfer zu werden. Die Lücke zwischen beiden ist die eigentliche Aussage —
+    gefürchtet wird mehr, als für wahrscheinlich gehalten wird.
+
+    Returns:
+        plotly.graph_objects.Figure | None
+    """
+    pfad = OUT / "skid_furcht.csv"
+    if not pfad.exists():
+        return None
+    daten = [r for r in lies(pfad, delim=";") if r["art"] == "delikt"]
+    daten.sort(key=lambda r: float(r["wert_1"]))
+    namen = [r["bezeichnung"] for r in daten]
+    furcht = [float(r["wert_1"]) for r in daten]
+    risiko = [float(r["wert_2"]) for r in daten]
+
+    f = fig(430)
+    f.add_trace(go.Bar(y=namen, x=furcht, orientation="h", name="Furcht",
+                       marker_color="#0b4f49",
+                       text=[f"{w:.1f}" for w in furcht], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"),
+                       cliponaxis=False,
+                       hovertemplate="%{y}: %{x:.1f} %<extra>Furcht</extra>"))
+    f.add_trace(go.Bar(y=namen, x=risiko, orientation="h",
+                       name="Einschätzung, selbst Opfer zu werden",
+                       marker_color="#b8860b",
+                       text=[f"{w:.1f}" for w in risiko], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"),
+                       cliponaxis=False,
+                       hovertemplate="%{y}: %{x:.1f} %<extra>Risikoeinschätzung</extra>"))
+    f.update_layout(barmode="group", bargap=0.28, bargroupgap=0.08)
+    f.update_xaxes(title="Anteil der Befragten", ticksuffix=" %", range=[0, 60])
+    f.update_yaxes(automargin=True, tickfont=dict(size=13, color="#12100e"))
+    layout = dict(BASE)
+    layout.update(height=430, margin=dict(l=10, r=20, t=54, b=50),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
+                              xanchor="left", font=dict(size=14),
+                              itemsizing="constant"))
+    f.update_layout(**layout)
+    return f
+
+
+def diagramm_skid_orte():
+    """Sicherheitsgefühl nach Situation, tagsüber und nachts (SKiD 2024)."""
+    pfad = OUT / "skid_furcht.csv"
+    if not pfad.exists():
+        return None
+    daten = [r for r in lies(pfad, delim=";") if r["art"] == "ort"]
+    daten.sort(key=lambda r: float(r["wert_2"]))
+    namen = [r["bezeichnung"] for r in daten]
+    tag = [float(r["wert_1"]) for r in daten]
+    nacht = [float(r["wert_2"]) for r in daten]
+
+    f = fig(430)
+    f.add_trace(go.Bar(y=namen, x=tag, orientation="h", name="tagsüber",
+                       marker_color="#0b4f49",
+                       text=[f"{w:.1f}" for w in tag], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"), cliponaxis=False,
+                       hovertemplate="%{y}: %{x:.1f} %<extra>tagsüber</extra>"))
+    f.add_trace(go.Bar(y=namen, x=nacht, orientation="h", name="nachts",
+                       marker_color="#b8860b",
+                       text=[f"{w:.1f}" for w in nacht], textposition="outside",
+                       textfont=dict(size=12, color="#12100e"), cliponaxis=False,
+                       hovertemplate="%{y}: %{x:.1f} %<extra>nachts</extra>"))
+    f.update_layout(barmode="group", bargap=0.28, bargroupgap=0.08)
+    f.update_xaxes(title="Anteil, der sich sicher fühlt", ticksuffix=" %",
+                   range=[0, 105])
+    f.update_yaxes(automargin=True, tickfont=dict(size=13, color="#12100e"))
+    layout = dict(BASE)
+    layout.update(height=430, margin=dict(l=10, r=20, t=54, b=50),
+                  legend=dict(orientation="h", yanchor="bottom", y=1.06, x=0,
+                              xanchor="left", font=dict(size=14),
+                              itemsizing="constant"))
     f.update_layout(**layout)
     return f
 
@@ -1130,7 +1195,7 @@ def baue_html(karte, daten, fig_json, fig_meta):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#12100e">
-<title>Kriminalität und Sicherheit in Deutschland — Bundesländer</title>
+<title>Die (un)berechtigte Furcht vor Kriminalität in Deutschland</title>
 <!--PLOTLY-->
 <style>{schrift_css()}</style>
 <style>{css}</style>
@@ -1140,7 +1205,7 @@ def baue_html(karte, daten, fig_json, fig_meta):
   <header class="kopf">
     <div class="kopf-inner">
       <div class="kopf-titel">
-        <h1>Kriminalität und Sicherheit in Deutschland</h1>
+        <h1>Die (un)berechtigte Furcht vor Kriminalität in Deutschland</h1>
         <p>Registrierte Kriminalität, Strafverfolgung und das Sicherheitsgefühl der
         Bevölkerung — für die Republik und für jedes Bundesland.</p>
       </div>
