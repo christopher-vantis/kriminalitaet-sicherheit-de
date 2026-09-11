@@ -510,9 +510,12 @@ def diagramm_alter_furcht():
             if not punkte:
                 continue
             punkte.sort()
+            # Kurze Legendenbeschriftung: Die ausgeschriebene Fassung ist
+            # breiter als ein Handybildschirm und wird dort abgeschnitten.
+            kurz = "mit MH" if mh == "1" else "ohne MH"
             f.add_trace(go.Scatter(
                 x=[p[0] for p in punkte], y=[p[1] for p in punkte],
-                mode="markers+text", name=f"{name_sex}, {name_mh}",
+                mode="markers+text", name=f"{name_sex}, {kurz}",
                 marker=dict(size=27, color=farbe, opacity=0.95,
                             line=dict(width=2, color="#ffffff")),
                 text=[symbol] * len(punkte), textposition="middle center",
@@ -540,7 +543,7 @@ def diagramm_alter_furcht():
                 glatt = glatt[::schritt]
                 f.add_trace(go.Scatter(
                     x=glatt[:, 0], y=glatt[:, 1] * 100,
-                    mode="lines", name=f"{name_sex}, {name_mh}",
+                    mode="lines", name=f"{name_sex}, {kurz}",
                     line=dict(color=farbe, width=2.4), opacity=0.5,
                     showlegend=False, hoverinfo="skip",
                 ))
@@ -1303,7 +1306,7 @@ main{max-width:var(--rail);margin-inline:auto;padding:22px var(--gutter) 64px}
 .card h3{margin:0 0 6px;font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--ink);
  letter-spacing:-.018em;font-weight:600}
 .card .unter{margin:0 0 16px;font-size:.9rem;color:var(--muted);max-width:78ch;line-height:1.55}
-.chart{min-height:200px}
+.chart{overflow:hidden;min-height:200px}
 .quelle{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
  font-size:.78rem;color:var(--muted);line-height:1.5}
 .hinweis{background:#faf7f2;border:1px solid #e8e0d5;border-left:4px solid #c9bdae;
@@ -1535,14 +1538,20 @@ function diagrammeAnpassen(){
   document.querySelectorAll('.js-plotly-plot').forEach(el => {
     if (!el || !el.layout) return;
     try {
+      // Auf schmalen Fenstern die Legende unter das Diagramm: Sie bricht
+      // waagerecht nicht um und lief sonst über den Rand hinaus.
       Plotly.relayout(el, {
         'font.size': schmal ? 15 : 12.5,
         'xaxis.tickfont.size': schmal ? 14 : 12,
         'yaxis.tickfont.size': schmal ? 14 : 12,
-        'legend.font.size': schmal ? 15 : 14,
+        'legend.font.size': schmal ? 14 : 14,
+        'legend.orientation': schmal ? 'v' : 'h',
+        'legend.x': 0,
+        'legend.y': schmal ? -0.32 : 1.05,
+        'legend.yanchor': schmal ? 'top' : 'bottom',
         'margin.l': schmal ? 8 : 10,
         'margin.r': schmal ? 8 : 20,
-        'margin.b': schmal ? 64 : 50,
+        'margin.b': schmal ? 130 : 50,
         'margin.t': schmal ? 66 : 54,
       });
     } catch (e) { /* Diagramm noch nicht fertig gezeichnet */ }
